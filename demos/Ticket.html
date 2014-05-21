@@ -1,0 +1,213 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+<table border="1" style="background-color:#FFFFFA" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td colspan="6">sample.OperationFixture</td>
+</tr>
+<tr>
+<td colspan="6">Buy</td>
+</tr>
+<tr>
+<td>seat:Seat, c:Customer</td>
+<td>seat in sold.c</td>
+<td>seat !in sold.c</td>
+</tr>
+<tr>
+<td>available</td>
+<td>available</td>
+<td>available-seat</td>
+</tr>
+<tr>
+<td>sold</td>
+<td>sold</td>
+<td>sold + seat -> c</td>
+</tr>
+<tr>
+<td>seats</td>
+<td>seats</td>
+<td>seats</td>
+</tr>
+<tr>
+<td>standard</td>
+<td>standard</td>
+<td>standard</td>
+</tr>
+<tr>
+<td>vip</td>
+<td>vip</td>
+<td>vip</td>
+</tr>
+</table>
+<br>
+
+<table border="1" style="background-color:#FFFFFA" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td colspan="6">sample.OperationFixture</td>
+</tr>
+<tr>
+<td colspan="6">Cancel</td>
+</tr>
+<tr>
+<td>seat:Seat, c:Customer</td>
+<td>seat in sold.c</td>
+<td>seat !in sold.c</td>
+</tr>
+<tr>
+<td>available</td>
+<td>available + seat</td>
+<td>available</td>
+</tr>
+<tr>
+<td>sold</td>
+<td>sold - seat -> c</td>
+<td>sold</td>
+</tr>
+<tr>
+<td>seats</td>
+<td>seats</td>
+<td>seats</td>
+</tr>
+<tr>
+<td>standard</td>
+<td>standard</td>
+<td>standard</td>
+</tr>
+<tr>
+<td>vip</td>
+<td>vip</td>
+<td>vip</td>
+</tr>
+</table>
+<br>
+
+<table border="1" style="background-color:#FFFFFA" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td colspan="6">sample.OperationFixture</td>
+</tr>
+<tr>
+<td colspan="6">Upgrade</td>
+</tr>
+<tr>
+<td>seat:Seat, c:Customer</td>
+<td>seat in sold.c</td>
+<td>seat !in sold.c</td>
+</tr>
+<tr>
+<td>available</td>
+<td>available</td>
+<td>available</td>
+</tr>
+<tr>
+<td>sold</td>
+<td>sold</td>
+<td>sold</td>
+</tr>
+<tr>
+<td>seats</td>
+<td>seats</td>
+<td>seats</td>
+</tr>
+<tr>
+<td>vip</td>
+<td>vip + c</td>
+<td>vip</td>
+</tr>
+<tr>
+<td>standard</td>
+<td>standard - c</td>
+<td>standard</td>
+</tr>
+</table>
+<br>
+
+<table border="1" style="background-color:#FFFFFA" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td colspan="6">sample.OperationFixture</td>
+</tr>
+<tr>
+<td colspan="6">Downgrade</td>
+</tr>
+<tr>
+<td>seat:Seat, c:Customer</td>
+<td>seat in sold.c</td>
+<td>seat !in sold.c</td>
+</tr>
+<tr>
+<td>available</td>
+<td>available</td>
+<td>available</td>
+</tr>
+<tr>
+<td>sold</td>
+<td>sold</td>
+<td>sold</td>
+</tr>
+<tr>
+<td>seats</td>
+<td>seats</td>
+<td>seats</td>
+</tr>
+<tr>
+<td>vip</td>
+<td>vip - c</td>
+<td>vip</td>
+</tr>
+<tr>
+<td>standard</td>
+<td>standard + c</td>
+<td>standard</td>
+</tr>
+</table>
+<br>
+
+<table border="1" style="background-color:#FFFFFB" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td colspan="6">Invariant</td>
+</tr>
+<tr>
+<td colspan="6">sold.Customer in seats</td>
+</tr>
+<tr>
+<td colspan="6">available in seats</td>
+</tr>
+<tr>
+<td colspan="6">no (sold.Customer & available)</td>
+</tr>
+</table>
+<br>
+
+<table border="1" style="background-color:#FFFFFC" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td colspan="6">Relation</td><td>Type</td>
+</tr>
+<tr>
+<td colspan="6">seats</td><td colspan="6">set Seat</td>
+</tr>
+<tr>
+<td colspan="6">available</td><td colspan="6">set Seat</td>
+</tr>
+<tr>
+<td colspan="6">vip</td><td colspan="6">set Customer</td>
+</tr>
+<tr>
+<td colspan="6">standard</td><td colspan="6">set Customer</td>
+</tr>
+<tr>
+<td colspan="6">sold</td><td colspan="6">Seat -> Customer</td>
+</tr>
+</table>
+<br>
+
+<table border="1" style="background-color:#FFFFFD" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td colspan="6">Atom</td><td>Scope</td>
+</tr>
+<tr>
+<td colspan="6">Seat</td><td colspan="6">3</td>
+</tr>
+<tr>
+<td colspan="6">Customer</td><td colspan="6">3</td>
+</tr>
+</table>
+</body>
+</html>
