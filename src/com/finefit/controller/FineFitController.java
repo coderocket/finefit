@@ -1,9 +1,5 @@
 package com.finefit.controller;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import kodkod.engine.Solution;
 import com.finefit.oracle.TestOracle;
 import com.finefit.reporter.Reporter;
 import com.finefit.sutinterface.SUT;
@@ -14,14 +10,24 @@ import com.finefit.testcasegenerator.SystemState;
 import com.finefit.testcasegenerator.TestCase;
 import com.finefit.testcasegenerator.TestCaseGenerator;
 import com.finefit.translator.Translator;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.text.ParseException;
+import kodkod.engine.Solution;
 
 public class FineFitController {
 	
-	public static void main(String[] args) throws ParseException, InvalidNumberOfArguments, NoSuchOperation, NoDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
-		checkNumberOfArgs(args);
+	public static void main(String[] args) throws ParseException, InvalidNumberOfArguments, NoSuchOperation, NoDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, MalformedURLException {
+         	if(args.length != 2) {
+                        System.out.println("Wrong number of arguments. Required: <driver> <specification>");
+			System.exit(1);
+		}
+
 		String tabularSystemSpec = args[0];
 		String systemDriverClassName = args[1];
-		String systemDataFileName = args[2];
 		
 		// --------- Translate Tabular Specification File ----------
 		Translator translator = new Translator();
@@ -32,7 +38,7 @@ public class FineFitController {
 		// --------- Generate TestCase -----------------------------
 		TestCaseGenerator testCaseGenerator = new TestCaseGenerator(systemSpec);
 
-		SUT sut = (SUT) getSutObject(systemDriverClassName, systemDataFileName);// run the selected sut (from arguments) 
+		SUT sut = (SUT) getSutObject(systemDriverClassName);// run the selected sut (from arguments) 
 		
 		// --------- Initializing system state and generate Test Case ---- 
 		SystemState currentState = sut.initialize(testCaseGenerator.getUniverse(), testCaseGenerator.getInitialArgs().getState());
@@ -71,19 +77,15 @@ public class FineFitController {
 		}
 	}
 	
-	private static void checkNumberOfArgs(String[] args){
-		if(args.length != 3){
-			throw new IllegalArgumentException("Wrong number of arguments were given");
-		}
-	}
-	
-	private static Object getSutObject(String javaClassName, String dataFileName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException{
-		String sutPackagename = javaClassName.replace("Driver", "").toLowerCase();
-		String str = "com.finefit.sut." + sutPackagename + "." + javaClassName;
-		Class<?> myClass = Class.forName(str);
-		Constructor<?> constructor = myClass.getConstructor(String.class);
-		Object sutObject = constructor.newInstance(dataFileName);
-		System.out.println("Testing " + sutObject.getClass().getSimpleName().replace("Driver", "") + "\n");
-		return sutObject;
+	private static Object getSutObject(String javaClassName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException, MalformedURLException{
+            
+            File file = new File(".");
+            URL url = file.toURI().toURL();          // file:/c:/myclasses/
+            URL[] urls = new URL[]{url};
+            ClassLoader loader = new URLClassLoader(urls);
+            
+            Class driver = loader.loadClass(javaClassName);
+            return driver.getConstructor().newInstance();
+            
 	}
 }
