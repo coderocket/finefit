@@ -1,0 +1,14 @@
+
+To build FineFit you will need the following Java applications:
+
+1. Apache Ant 1.9.4 (or higher)
+1. Alloy 4.2 from http://alloy.mit.edu/alloy/downloads/alloy4.2.jar
+2. Fit 1.1 for Java from http://fit.c2.com/wiki.cgi?DownloadNow
+
+Download Alloy and Fit and put their jar files in the lib directory.
+Then run 
+
+ant compile jar 
+
+And you should get FineFit.jar under build/jar. 
+
