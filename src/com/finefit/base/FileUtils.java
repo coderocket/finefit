@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
-import au.com.bytecode.opencsv.CSVReader;
+//import au.com.bytecode.opencsv.CSVReader;
 
 	public class FileUtils {
 
@@ -94,42 +94,4 @@ import au.com.bytecode.opencsv.CSVReader;
 				System.err.println("Error reading file '" + fileName + "'");
 			}
 		}
-		
-		public static Iterator<Object[]> getCsvIterator(String fileName) {
-			List<Object[]> list = new ArrayList<Object[]>();
-			CSVReader reader = null;
-			try {
-				FileReader fileReader = new FileReader(fileName);
-				reader = new CSVReader(fileReader);
-
-				List<String[]> readAll = reader.readAll();
-				for (int i = 1; i < readAll.size(); i++) {
-					TreeMap<String, String> map = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
-					String[] line = readAll.get(i);
-					for (int j = 0; j < line.length; j++) {
-						map.put(readAll.get(0)[j], line[j]);
-					}
-					CsvData data = new CsvData(map);
-					list.add(new Object[] { data });
-				}
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (reader != null) {
-						reader.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			return list.iterator();
-		}
-		
-		
 }
