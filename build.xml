@@ -19,6 +19,7 @@
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/FineFit.jar" basedir="build/classes">
             <manifest>
+                <attribute name="Class-Path" value="../../${lib.dir}/fit.jar ../../${lib.dir}/alloy4.2.jar"/>
                 <attribute name="Main-Class" value="com.finefit.controller.FineFitController"/>
             </manifest>
         </jar>
