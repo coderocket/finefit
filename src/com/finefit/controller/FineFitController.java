@@ -22,7 +22,7 @@ public class FineFitController {
 	
 	public static void main(String[] args) throws ParseException, InvalidNumberOfArguments, NoSuchOperation, NoDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, MalformedURLException {
          	if(args.length != 2) {
-                        System.out.println("Wrong number of arguments. Required: <driver> <specification>");
+                        System.out.println("Wrong number of arguments. Required: <specification> <driver>");
 			System.exit(1);
 		}
 
