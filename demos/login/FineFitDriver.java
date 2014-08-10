@@ -34,22 +34,22 @@ import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
         NoDataException {
 
       Operation operation = testCase.getOperation();
-      String operationName = operation.getOperation().label.replace("this/", "");
+      String operationName = operation.getName();
 
       if (operationName.equals("Login")) {
-      	String userName = extractUserName(operation, args);
+      	String userName = testCase.getArg(args,"u");
 				sut.login(userName);
 
       } else if (operationName.equals("Logout")) {
-      	String userName = extractUserName(operation, args);
+      	String userName = testCase.getArg(args,"u");
 				sut.logout(userName);
 
       } else if (operationName.equals("Register")) {
-      	String userName = extractUserName(operation, args);
+      	String userName = testCase.getArg(args,"u");
 				sut.register(userName);
 
       } else if (operationName.equals("UnRegister")) {
-      	String userName = extractUserName(operation, args);
+      	String userName = testCase.getArg(args,"u");
 				sut.unregister(userName);
       }
       else throw new NoSuchOperation();
@@ -57,28 +57,5 @@ import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
       return new SystemState(sut.retrieve(testCase.getUniverse(), args));
     }
 
-    private String extractUserName(Operation func, Instance args) {
-      String userName = "";
-      Map<String, TupleSet> vars = new HashMap<String, TupleSet>();
-      for (Map.Entry<Relation,TupleSet> e : args.relationTuples().entrySet()) {
-        vars.put(e.getKey().name(), e.getValue());
-      }
-
-      List<String> listOfParams = new ArrayList<String>();
-      int i = 0;
-      //we need to go over the declarations and on the  map {s.instance().relationTuples()} and find the same variable names so we can use them as input
-      for(Decl decl: func.getOperation().decls){
-        System.out.println(decl.get().label + " = " + vars.get("$" + decl.get().label));
-
-        TupleSet name = vars.get("$" + decl.get().label);
-        String nameStr = (String) name.iterator().next().atom(0);
-
-        listOfParams.add(i,nameStr);
-        i++;
-      }
-
-      userName = listOfParams.get(listOfParams.size()-1);
-      return userName;
-    }
   }
 

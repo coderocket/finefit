@@ -19,6 +19,6 @@ public class Operation {
 	}
 	
 	public String getName(){
-		return this.operation.label;
+		return this.operation.label.replace("this/", "");
 	}
 }
