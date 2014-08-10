@@ -45,7 +45,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 		switch (parsedTable.getTableName()){
 		case "sample.OperationFixture":
 			fixtureTable = new OperationTable(table);
-			additionalGroup = fixtureTable.getAdditionalGroup();
+			//additionalGroup = fixtureTable.getAdditionalGroup();
 			fixtureTable.printOperationAsAlloy(SYSTEM_SPECIFICATION);
 			break;
 		case "Invariant":
@@ -54,7 +54,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 			break;
 		case "Atom":
 			atomsTable = new AtomsTable(table);
-			atomsTable.printStateAsAlloy(additionalGroup, SYSTEM_SPECIFICATION);
+			atomsTable.printStateAsAlloyX(SYSTEM_SPECIFICATION);
 			break;
 		case "Relation":
 			stateTable = new StateTable(table);
