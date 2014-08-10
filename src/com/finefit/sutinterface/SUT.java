@@ -4,6 +4,7 @@ import kodkod.instance.Instance;
 import kodkod.instance.Universe;
 import com.finefit.testcasegenerator.SystemState;
 import com.finefit.testcasegenerator.TestCase;
+import com.finefit.testcasegenerator.StateVariables;
 
 public interface SUT {
 	 

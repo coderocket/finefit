@@ -57,6 +57,7 @@ public class FineFitController {
 				System.out.print("Current System State: ");
 				testCase.getSystemState().printSystemStateRelations();
 				System.out.println("\nApplying on Operation - " + testCase.getOperationName() + " -> ");
+				//StateVariables stateVars = new StateVariables(solution.instance());
 				SystemState nextState = sut.applyOperation(testCase, solution.instance());
 				System.out.print("Next System State: ");
 				nextState.printSystemStateRelations();

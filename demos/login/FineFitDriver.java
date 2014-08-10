@@ -12,6 +12,7 @@ import com.finefit.sutinterface.SUT;
 import com.finefit.testcasegenerator.Operation;
 import com.finefit.testcasegenerator.SystemState;
 import com.finefit.testcasegenerator.TestCase;
+import com.finefit.testcasegenerator.StateVariables;
 import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
 
   public class FineFitDriver implements SUT {
@@ -25,7 +26,7 @@ import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
     @Override
     public SystemState initialize(Universe universe,Instance args) {
       sut.init(); 
-      return new SystemState(sut.retrieve(universe, args));
+      return new SystemState(sut.retrieve(universe, new StateVariables(args)));
     }
 
     @Override
@@ -54,7 +55,7 @@ import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
       }
       else throw new NoSuchOperation();
 
-      return new SystemState(sut.retrieve(testCase.getUniverse(), args));
+      return new SystemState(sut.retrieve(testCase.getUniverse(), new StateVariables(args)));
     }
 
   }
