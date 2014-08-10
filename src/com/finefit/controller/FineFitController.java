@@ -40,39 +40,43 @@ public class FineFitController {
 
 		SUT sut = (SUT) getSutObject(systemDriverClassName);// run the selected sut (from arguments) 
 		
-		// --------- Initializing system state and generate Test Case ---- 
+		// --------- Initializing system state  ---- 
 		SystemState currentState = sut.initialize(testCaseGenerator.getUniverse(), testCaseGenerator.getInitialArgs().getState());
-		TestCase testCase = testCaseGenerator.generateTestCase(currentState);
-
+	
 		// --------- Testing loop ----------------------------------------
+		
+		System.out.println("	init ->");
+		currentState.printSystemStateRelations();
+		
+		TestCase testCase = testCaseGenerator.generateTestCase(currentState);
+		
 		boolean foundError = false;
 		while (!foundError) {
 
 			Solution solution = testCase.findSolution();
 			boolean isSolutionSatisfiable = testCase.isSolutionSatisfiable(solution);
 			Reporter reporter = new Reporter(new SystemState(solution.instance()), testCase);
- 
-			if (isSolutionSatisfiable) {
 
-				System.out.print("Current System State: ");
-				testCase.getSystemState().printSystemStateRelations();
-				System.out.println("\nApplying on Operation - " + testCase.getOperationName() + " -> ");
-				//StateVariables stateVars = new StateVariables(solution.instance());
+			if (isSolutionSatisfiable) {
+				
+				System.out.print("	" + testCase.getOperation().getName());
+				testCase.getOperation().printCall(solution.instance(), System.out);
+				System.out.println(" ->");
 				SystemState nextState = sut.applyOperation(testCase, solution.instance());
-				System.out.print("Next System State: ");
 				nextState.printSystemStateRelations();
+				
 				SystemState stateToEvaluate = new SystemState(testCase.relateSystemState(nextState.getState(), solution.instance()));
 
 				TestOracle testOracle = new TestOracle(new SystemState(solution.instance()), stateToEvaluate, testCase);
 				if (testOracle.isValid()) { 
 					currentState = nextState;
 					testCase = testCaseGenerator.generateTestCase(currentState);
-					reporter.printOnSuccessTestTrace();
 				} else {
-					reporter.printOnFailureTestTrace();
+					System.out.println("\nSTATE DISCREPANCY");
 					foundError = true;
 				}
 			} else {
+				System.out.println("\nDEADLOCK");
 				foundError = true;
 			}
 		}

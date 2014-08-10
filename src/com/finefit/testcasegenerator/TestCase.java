@@ -48,17 +48,6 @@ public class TestCase {
 		solver.options().setSolver(SATFactory.DefaultSAT4J); 
 	}
 	
-	public String getArg(Instance args, String argName) {
-	
-      for (Map.Entry<Relation,TupleSet> e : args.relationTuples().entrySet()) {
-		if (e.getKey().name().equals("$" + argName)) {
-			return (String)e.getValue().iterator().next().atom(0);
-		}
-      }
-	
-		throw new RuntimeException("Could not find User Name in arguments");
-    }
-
 	public Solver getSolver(){
 		return this.solver;
 	}

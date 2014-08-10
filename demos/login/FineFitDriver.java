@@ -38,19 +38,19 @@ import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
       String operationName = operation.getName();
 
       if (operationName.equals("Login")) {
-      	String userName = testCase.getArg(args,"u");
+      	String userName = operation.getArg(args,"u");
 				sut.login(userName);
 
       } else if (operationName.equals("Logout")) {
-      	String userName = testCase.getArg(args,"u");
+      	String userName = operation.getArg(args,"u");
 				sut.logout(userName);
 
       } else if (operationName.equals("Register")) {
-      	String userName = testCase.getArg(args,"u");
+      	String userName = operation.getArg(args,"u");
 				sut.register(userName);
 
       } else if (operationName.equals("UnRegister")) {
-      	String userName = testCase.getArg(args,"u");
+      	String userName = operation.getArg(args,"u");
 				sut.unregister(userName);
       }
       else throw new NoSuchOperation();
