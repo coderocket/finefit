@@ -32,12 +32,12 @@ public class Translator {
     while (parse != null) {
 
 			Parse name = parse.at(0,0,0);
-      switch (name.body) {
+      switch (name.text()) {
       case "sample.OperationFixture":
         operations.add(parseOperation(parse.at(0,1)));
 				break;
       case "Invariant":
-        invariant = parseInvariant(parse.at(0,1));;
+        invariant = parseInvariant(parse.at(0,1));
 				break;
       case "Atom":
 				sigs = parseSigs(parse.at(0,1));
@@ -58,8 +58,8 @@ public class Translator {
   }
 
 	private static Operation parseOperation(Parse p) {
-		String name = p.at(0,0).body;
-		String params = p.at(1,0).body;
+		String name = p.at(0,0).text();
+		String params = p.at(1,0).text();
 		String[] frame = parseFrame(p.at(2));	
 		GuardedExpr[] body = parseBody(p.at(1));
 		return new Operation(name, params, frame, body);
@@ -68,7 +68,7 @@ public class Translator {
 	private static String[] parseFrame(Parse p) {
 		List<String> varNames = new ArrayList<String>();
 		while (p != null) {
-			varNames.add(p.at(0,0).body);
+			varNames.add(p.at(0,0).text());
 			p = p.more;
 		}
 		return varNames.toArray(new String[varNames.size()]);
@@ -90,10 +90,10 @@ public class Translator {
 	private static GuardedExpr parseGuardedExpr(Parse p, int j) {
 			int numRows = p.size();
 			String[] exprs = new String[numRows-1];
-			String guard = p.at(0,j).body;
+			String guard = p.at(0,j).text();
 			p = p.more;
 			for (int i = 0; i < numRows-1; i++) {
-				exprs[i] = p.at(0,j).body;
+				exprs[i] = p.at(0,j).text();
 				p = p.more;	
 			}
 			return new GuardedExpr(guard, exprs);
@@ -102,8 +102,8 @@ public class Translator {
 	private static Sig[] parseSigs(Parse p) {
 		List<Sig> sigs = new ArrayList<Sig>();
 		while (p != null) {
-			String name = p.at(0,0).body;
-			int scope = Integer.parseInt(p.at(0,1).body);
+			String name = p.at(0,0).text();
+			int scope = Integer.parseInt(p.at(0,1).text());
 			sigs.add(new Sig(name, scope));
 			p = p.more;	
 		}		
@@ -113,8 +113,8 @@ public class Translator {
 	private static State parseState(Parse p) {
 		Map<String, String> stateVars = new HashMap<String,String>();
 		while (p != null) {
-			String name = p.at(0,0).body;
-			String type = p.at(0,1).body;
+			String name = p.at(0,0).text();
+			String type = p.at(0,1).text();
 			stateVars.put(name,type);
 			p = p.more;	
 		}		
@@ -124,7 +124,7 @@ public class Translator {
 	private static Invariant parseInvariant(Parse p) {
 		List<String> preds = new ArrayList<String>();
 		while (p != null) {
-			preds.add(p.at(0,0).body);
+			preds.add(p.at(0,0).text());
 			p = p.more;	
 		}		
 		return new Invariant(preds);
