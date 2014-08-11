@@ -7,11 +7,11 @@ import com.finefit.spec.State;
 
 public class Operation {
 	String name;
-	Param[] params;
+	String params;
 	String[] frame;
 	GuardedExpr[] body;
 
-	public Operation(String name, Param[] params, String[] frame, GuardedExpr[] body) {
+	public Operation(String name, String params, String[] frame, GuardedExpr[] body) {
 		this.name = name;
 		this.params = params;
 	 	this.frame = frame;
@@ -32,9 +32,8 @@ public class Operation {
 
 	private void printParams(PrintStream out) {
 
-		for (int i =0;i < params.length;i++) {
-			out.print(", ");
-			params[i].print(out);	
+		if (params != "") {
+			out.print(", " + params);
 		}
 	}
 

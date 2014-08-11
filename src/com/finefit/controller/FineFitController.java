@@ -19,6 +19,8 @@ import java.text.ParseException;
 import kodkod.engine.Solution;
 
 public class FineFitController {
+
+final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 	
 	public static void main(String[] args) throws ParseException, InvalidNumberOfArguments, NoSuchOperation, NoDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, MalformedURLException {
          	if(args.length != 2) {
@@ -30,13 +32,11 @@ public class FineFitController {
 		String systemDriverClassName = args[1];
 		
 		// --------- Translate Tabular Specification File ----------
-		Translator translator = new Translator();
 		
-		String systemSpec = translator.translateSpecificationFile(tabularSystemSpec);
-		// --------- END Translate Tabular Specification File ------
-
+		Translator.translate(tabularSystemSpec, SYSTEM_SPECIFICATION);
+	
 		// --------- Generate TestCase -----------------------------
-		TestCaseGenerator testCaseGenerator = new TestCaseGenerator(systemSpec);
+		TestCaseGenerator testCaseGenerator = new TestCaseGenerator(SYSTEM_SPECIFICATION);
 
 		SUT sut = (SUT) getSutObject(systemDriverClassName);// run the selected sut (from arguments) 
 		

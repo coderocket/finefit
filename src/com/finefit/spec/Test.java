@@ -47,9 +47,7 @@ public class Test {
 		
 			expr[1] = new GuardedExpr(guard2, exprs2);
 
-			Param[] params = new Param[2];
-			params[0] = new Param("u", "User");
-			params[1] = new Param("c", "User");
+			String params = "u: User, c:User";
 
 			Operation[] operation = new Operation[1];
 			operation[0] = new Operation("register", params, frame, expr);
