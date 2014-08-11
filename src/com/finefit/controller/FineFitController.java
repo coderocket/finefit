@@ -1,5 +1,13 @@
 package com.finefit.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.text.ParseException;
+import kodkod.engine.Solution;
 import com.finefit.oracle.TestOracle;
 import com.finefit.reporter.Reporter;
 import com.finefit.sutinterface.SUT;
@@ -10,19 +18,13 @@ import com.finefit.testcasegenerator.SystemState;
 import com.finefit.testcasegenerator.TestCase;
 import com.finefit.testcasegenerator.TestCaseGenerator;
 import com.finefit.translator.Translator;
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.text.ParseException;
-import kodkod.engine.Solution;
+
 
 public class FineFitController {
 
 final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 	
-	public static void main(String[] args) throws ParseException, InvalidNumberOfArguments, NoSuchOperation, NoDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, MalformedURLException {
+	public static void main(String[] args) throws ParseException, InvalidNumberOfArguments, NoSuchOperation, NoDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, MalformedURLException, FileNotFoundException {
          	if(args.length != 2) {
                         System.out.println("Wrong number of arguments. Required: <specification> <driver>");
 			System.exit(1);

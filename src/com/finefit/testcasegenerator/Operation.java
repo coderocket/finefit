@@ -44,7 +44,7 @@ public class Operation {
 	public void printCall(Instance args, PrintStream out) {
 		
 		for(Decl decl: operation.decls) {
-			if (!decl.get().label.equals("s"))
+			if (!decl.get().label.equals("s") && !decl.get().label.equals("s'"))
 				//out.print(decl.get().label + " = " + getArg(args, decl.get().label) + ";");
 				out.print("." + getArg(args, decl.get().label));
 		}
