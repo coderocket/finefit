@@ -27,6 +27,7 @@ public class Operation {
 		printPrecondition(state,out);
 		for (GuardedExpr e : body) 
 			e.print(frame, state, out);
+		state.printXi(frame, out);
 		out.println("}");
 	}
 

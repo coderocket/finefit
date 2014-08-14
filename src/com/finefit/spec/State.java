@@ -3,6 +3,9 @@ package com.finefit.spec;
 
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class State {
@@ -12,6 +15,18 @@ public class State {
 	public State(Map<String, String> stateVariables) {
 		this.stateVariables = stateVariables;
 		tokenizer = Pattern.compile("\\b");
+	}
+
+	public void printXi(String[] frame, PrintStream out) {
+		 
+		Set<String> unchanged = new HashSet<String>(stateVariables.keySet());
+		unchanged.removeAll(new HashSet<String>(Arrays.asList(frame)));
+		for (String n : unchanged) {
+			print(n, "s'", out);
+			out.print(" = ");
+			print(n, "s", out);
+			out.print("\n");
+		}
 	}
 
 	public void print(PrintStream out) {

@@ -52,12 +52,20 @@ public class PhotoAlbum {
 
 	if (!photoAtTuples.isEmpty())
 	    instance.add(stateVars.get("album"), factory.setOf(photoAtTuples)); 
+	else
+	    instance.add(stateVars.get("album"), factory.noneOf(3)); 
 	if (!toAddTuples.isEmpty())
 	    instance.add(stateVars.get("toAdd"), factory.setOf(toAddTuples));
+	else
+	    instance.add(stateVars.get("toAdd"), factory.noneOf(2)); 
 	if (!existingTuples.isEmpty())
 	    instance.add(stateVars.get("existing"), factory.setOf(existingTuples));
+	else
+	    instance.add(stateVars.get("existing"), factory.noneOf(2)); 
 	if (!deletedPhotosTuples.isEmpty())
 	    instance.add(stateVars.get("toDelete"), factory.setOf(deletedPhotosTuples));
+	else
+	    instance.add(stateVars.get("toDelete"), factory.noneOf(2)); 
 
 	return instance;
     }

@@ -14,7 +14,7 @@ public class Sig {
 		out.println("sig " + name + " {}");
 	}
 
-	public String scopeStatement() {
-		return Integer.toString(scope) + " " + name;
+	public void printScope(PrintStream out) {
+		out.print("exactly " + scope + " " + name);
 	}
 }

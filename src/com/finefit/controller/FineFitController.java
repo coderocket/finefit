@@ -71,7 +71,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 
 				TestOracle testOracle = new TestOracle(new SystemState(solution.instance()), stateToEvaluate, testCase);
 				if (testOracle.isValid()) { 
-					currentState = nextState;
+					currentState = nextState; 
 					testCase = testCaseGenerator.generateTestCase(currentState);
 				} else {
 					System.out.println("\nSTATE DISCREPANCY");

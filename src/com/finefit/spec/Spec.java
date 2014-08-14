@@ -23,6 +23,11 @@ public class Spec {
 		invariant.print(state, out);
 		for (Operation p : operations) 
 			p.print(state, out);
-		out.println("run {} for 3 but 2 State");
+		out.print("run {} for 3 but ");
+		for (Sig s : sigs) {
+			s.printScope(out);
+			out.print(", ");
+		}
+		out.println(" 2 State");
 	}
 }

@@ -16,6 +16,7 @@ public class Test {
 			Map<String, String> stateVariables = new HashMap<String, String>();
 			stateVariables.put("loggedin", "set User");
 			stateVariables.put("registered", "set User");
+			stateVariables.put("existing", "set User");
 
 			State state = new State(stateVariables);
 			state.print(" u in loggedin.User - User.registered & User\n", "s", System.out);
