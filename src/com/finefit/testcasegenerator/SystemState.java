@@ -74,6 +74,9 @@ public class SystemState {
 			if (!t.atom(i).equals("State$0"))
 				newTuple.add(t.atom(i));
 		}
-		return factory.tuple(newTuple);
+		if (newTuple.size() == 0)
+			return t;
+		else 
+			return factory.tuple(newTuple);
 	}
 }
