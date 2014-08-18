@@ -1,5 +1,6 @@
 package com.finefit.controller;
 
+import java.util.Iterator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
@@ -8,6 +9,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.text.ParseException;
 import kodkod.engine.Solution;
+import kodkod.instance.Instance;
+import kodkod.util.ints.IndexedEntry;
+import kodkod.instance.TupleSet;
 import com.finefit.oracle.TestOracle;
 import com.finefit.reporter.Reporter;
 import com.finefit.sutinterface.SUT;
@@ -44,11 +48,12 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 		
 		// --------- Initializing system state  ---- 
 		SystemState currentState = sut.initialize(testCaseGenerator.getUniverse(), testCaseGenerator.getInitialArgs().getState());
-	
+		addInts(currentState.getState(), testCaseGenerator.getInitialArgs().getState());
 		// --------- Testing loop ----------------------------------------
 		
 		System.out.println("	init ->");
 		currentState.printSystemStateRelations();
+		//System.out.println(currentState.getState());
 		
 		TestCase testCase = testCaseGenerator.generateTestCase(currentState);
 		
@@ -65,9 +70,12 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 				testCase.getOperation().printCall(solution.instance(), System.out);
 				System.out.println(" ->");
 				SystemState nextState = sut.applyOperation(testCase, solution.instance());
+
 				nextState.printSystemStateRelations();
+				//System.out.println(currentState.getState());
 				
 				SystemState stateToEvaluate = new SystemState(testCase.relateSystemState(nextState.getState(), solution.instance()));
+				addInts(stateToEvaluate.getState(), solution.instance());
 
 				TestOracle testOracle = new TestOracle(new SystemState(solution.instance()), stateToEvaluate, testCase);
 				if (testOracle.isValid()) { 
@@ -75,6 +83,8 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 					testCase = testCaseGenerator.generateTestCase(currentState);
 				} else {
 					System.out.println("\nSTATE DISCREPANCY");
+					System.out.println(solution.instance());
+					System.out.println(stateToEvaluate.getState());
 					foundError = true;
 				}
 			} else {
@@ -94,5 +104,13 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
             Class driver = loader.loadClass(javaClassName);
             return driver.getConstructor().newInstance();
             
+	}
+
+	private static void addInts(Instance inst, Instance instWithInts) {
+		Iterator<IndexedEntry<TupleSet> > p = instWithInts.intTuples().iterator();
+    while (p.hasNext()) {
+   		IndexedEntry<TupleSet> e = p.next();
+			inst.add(e.index(), e.value());     
+    }
 	}
 }
