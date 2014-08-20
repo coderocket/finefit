@@ -13,7 +13,7 @@ import com.finefit.testcasegenerator.Operation;
 import com.finefit.testcasegenerator.SystemState;
 import com.finefit.testcasegenerator.TestCase;
 import com.finefit.testcasegenerator.StateVariables;
-import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
+import com.finefit.testcasegenerator.State;
 
   public class FineFitDriver implements SUT {
 
@@ -27,6 +27,12 @@ import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
     public SystemState initialize(Universe universe,Instance args) {
 			sut.init();
       return new SystemState(sut.retrieve(universe, new StateVariables(args)));
+    }
+
+    @Override
+    public State initialize(State state) {
+			sut.init();
+      return sut.retrieve(state);
     }
 
     @Override
@@ -45,9 +51,36 @@ import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
 				catch(PhotoAlbum.PhotoExists err) {}
 				catch(PhotoAlbum.ContainerIsFull err) {}
 			}
+			else if (operationName.equals("removePhoto")) {
+				int i = Integer.parseInt(operation.getArg(args, "i"));
+				sut.RemovePhoto(i);
+			}
 			else throw new NoSuchOperation();
 
 			return new SystemState(sut.retrieve(testCase.getUniverse(), new StateVariables(args)));
+    }
+
+    @Override
+    public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation {
+
+			String operationName = testCase.getOperationName(); 
+			State state = testCase.getState();
+
+			if (operationName.equals("addPhoto")) {
+				String pid = state.getArg("pid");
+				try {
+					sut.AddPhoto(pid);
+				}
+				catch(PhotoAlbum.PhotoExists err) {}
+				catch(PhotoAlbum.ContainerIsFull err) {}
+			}
+			else if (operationName.equals("removePhoto")) {
+				int i = Integer.parseInt(state.getArg("i"));
+				sut.RemovePhoto(i);
+			}
+			else throw new NoSuchOperation();
+
+			return sut.retrieve(state);
     }
 
   }

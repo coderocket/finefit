@@ -16,6 +16,7 @@ import kodkod.instance.Tuple;
 import kodkod.ast.Relation;
 
 import com.finefit.testcasegenerator.StateVariables;
+import com.finefit.testcasegenerator.State;
 
 public class PhotoAlbum {
 
@@ -26,6 +27,39 @@ public class PhotoAlbum {
 
     List<Photo> photoAt;
     Set<String> deletedPhotos;
+
+    public State retrieve(State prevState) {
+
+			TupleFactory factory = prevState.factory();
+			State currentState = prevState.clone();
+
+			List<Tuple> photoAtTuples = new ArrayList();
+			List<Tuple> toAddTuples = new ArrayList();
+			List<Tuple> existingTuples = new ArrayList();
+
+			int i = 0;
+			for (Photo p : photoAt) {
+			    photoAtTuples.add(factory.tuple("State$0", "" + i, p.getImage()));
+			    if (p.getStatus() == Photo.Status.New)
+				toAddTuples.add(factory.tuple("State$0", p.getImage()));
+			    else if (p.getStatus() == Photo.Status.Old)
+				existingTuples.add(factory.tuple("State$0", p.getImage()));
+			    ++i;
+			}
+		
+			List<Tuple> deletedPhotosTuples = new ArrayList();
+			for (String key : deletedPhotos) {
+			    deletedPhotosTuples.add( factory.tuple("State$0",key));
+			    existingTuples.add( factory.tuple("State$0",key));
+			}
+		
+	    currentState.add("album", 3, photoAtTuples); 
+	    currentState.add("toAdd", 2, toAddTuples);
+	    currentState.add("existing", 2, existingTuples);
+	    currentState.add("toDelete", 2, deletedPhotosTuples);
+	
+			return currentState;
+		}
 
     public Instance retrieve(Universe universe, StateVariables stateVars) {
 	TupleFactory factory = universe.factory();

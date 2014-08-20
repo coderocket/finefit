@@ -3,6 +3,7 @@ package com.finefit.testcasegenerator;
 import static kodkod.engine.Solution.Outcome.SATISFIABLE;
 import static kodkod.engine.Solution.Outcome.TRIVIALLY_SATISFIABLE;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +31,8 @@ import edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod;
 public class TestCase {
 	
 	private String operationName;
+	private State state;
+
 	private Operation operation;
 	private SystemState instance;
 	private Universe universe;
@@ -37,6 +40,23 @@ public class TestCase {
 	private Solver solver;
 	private ConstraintSolver constraintSolver;
 	 
+	public TestCase(Operation operation, State state) {
+		this.operation = operation;
+		this.state = state;
+	}
+
+	public State getState() { return state; }
+
+	public String getOperationName() {
+		return operation.getName();
+	}
+
+	public void print(PrintStream out) {
+		out.print(operation.getName()); 
+		operation.printCall(state, out);
+		out.println(" -> ");
+	}
+
 	public TestCase(SystemState systemState){
 		this.constraintSolver = TestCaseGenerator.constraintSolver;
 		this.operation = this.constraintSolver.getRandomOperation();
@@ -76,9 +96,6 @@ public class TestCase {
 		this.instance = instance;
 	}
 
-	public String getOperationName() {
-		return operationName;
-	}
 	
 	public boolean isSolutionSatisfiable(Solution sol){
 		if (sol == null || (sol.outcome() != SATISFIABLE && sol.outcome() != TRIVIALLY_SATISFIABLE)) {

@@ -1,5 +1,7 @@
 package com.finefit.controller;
 
+import java.util.Random;
+import java.util.Set;
 import java.util.Iterator;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +12,22 @@ import java.net.URLClassLoader;
 import java.text.ParseException;
 import kodkod.engine.Solution;
 import kodkod.instance.Instance;
+import kodkod.instance.Bounds;
 import kodkod.util.ints.IndexedEntry;
 import kodkod.instance.TupleSet;
+
+import edu.mit.csail.sdg.alloy4.A4Reporter;
+import edu.mit.csail.sdg.alloy4.Err;
+import edu.mit.csail.sdg.alloy4compiler.parser.CompModule;
+import edu.mit.csail.sdg.alloy4compiler.parser.CompParser;
+import edu.mit.csail.sdg.alloy4compiler.parser.CompUtil;
+import edu.mit.csail.sdg.alloy4compiler.translator.A4Options;
+import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
+
+import edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod;
+import edu.mit.csail.sdg.alloy4compiler.translator.BoundsExtractor;
+
+
 import com.finefit.oracle.TestOracle;
 import com.finefit.reporter.Reporter;
 import com.finefit.sutinterface.SUT;
@@ -23,32 +39,89 @@ import com.finefit.testcasegenerator.TestCase;
 import com.finefit.testcasegenerator.TestCaseGenerator;
 import com.finefit.translator.Translator;
 
+import com.finefit.testcasegenerator.Model;
+import com.finefit.testcasegenerator.TestCaseGeneratorX;
+import com.finefit.testcasegenerator.State;
+
 
 public class FineFitController {
 
 final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 	
-	public static void main(String[] args) throws ParseException, InvalidNumberOfArguments, NoSuchOperation, NoDataException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, MalformedURLException, FileNotFoundException {
-         	if(args.length != 2) {
-                        System.out.println("Wrong number of arguments. Required: <specification> <driver>");
+	public static void main(String[] args) { 
+
+		if(args.length != 2) {
+      System.out.println("Wrong number of arguments. Required: <specification> <driver>");
 			System.exit(1);
 		}
 
 		String tabularSystemSpec = args[0];
 		String systemDriverClassName = args[1];
-		
-		// --------- Translate Tabular Specification File ----------
-		
-		Translator.translate(tabularSystemSpec, SYSTEM_SPECIFICATION);
-	
+
+		try {
+
+			Translator.translate(tabularSystemSpec, SYSTEM_SPECIFICATION);
+			Model model = new Model(SYSTEM_SPECIFICATION);
+			TestCaseGeneratorX testCaseGenerator = new TestCaseGeneratorX(model);
+			Random RNG = new Random();
+
+			SUT sut = (SUT) getSutObject(systemDriverClassName); // run the selected sut (from arguments)
+
+			Set<TestCase> candidates = testCaseGenerator.first();
+
+			if (candidates.isEmpty()) {
+				System.out.println("Error: Could not find an initial valid state. Youre model is probably inconsistent.");
+				System.exit(1);
+			}
+
+			TestCase initialTestCase = any(RNG, candidates);
+
+			initialTestCase.print(System.out);
+
+			State initialState = sut.initialize(initialTestCase.getState());
+
+			System.out.println(initialState);
+
+			candidates = testCaseGenerator.next(initialState);
+			
+			while(!candidates.isEmpty()) {
+					TestCase testcase = any(RNG, candidates);
+					testcase.print(System.out);
+					State nextState = sut.applyOperation(testcase);
+					System.out.println(nextState);
+					candidates = testCaseGenerator.next(nextState);
+			}
+			
+			System.out.println("Error: Deadlock.");
+
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+	}
+
+/*
+		try {
+			CompModule world = CompUtil.parseEverything_fromFile(new A4Reporter(), null, SYSTEM_SPECIFICATION);
+			A4Solution s = TranslateAlloyToKodkod.execute_command(new A4Reporter(), world.getAllReachableSigs(), world.getAllCommands().get(0), new A4Options());
+			Bounds b = new BoundsExtractor(s).getBounds();
+			System.out.println(b);
+		}
+		catch(Err e) {
+			e.printStackTrace();
+		}
+	}	
+
+
 		// --------- Generate TestCase -----------------------------
 		TestCaseGenerator testCaseGenerator = new TestCaseGenerator(SYSTEM_SPECIFICATION);
 
 		SUT sut = (SUT) getSutObject(systemDriverClassName);// run the selected sut (from arguments) 
 		
 		// --------- Initializing system state  ---- 
-		SystemState currentState = sut.initialize(testCaseGenerator.getUniverse(), testCaseGenerator.getInitialArgs().getState());
-		addInts(currentState.getState(), testCaseGenerator.getInitialArgs().getState());
+		SystemState initialState = testCaseGenerator.getInitialArgs();
+		SystemState currentState = sut.initialize(initialState.getState().universe(), initialState.getState()); 
+		addInts(currentState.getState(), initialState.getState());
+
 		// --------- Testing loop ----------------------------------------
 		
 		System.out.println("	init ->");
@@ -93,6 +166,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 			}
 		}
 	}
+*/
 	
 	private static Object getSutObject(String javaClassName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException, MalformedURLException{
             
@@ -112,5 +186,15 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
    		IndexedEntry<TupleSet> e = p.next();
 			inst.add(e.index(), e.value());     
     }
+	}
+
+	private static TestCase any(Random RNG, Set<TestCase> candidates) {
+		int index = RNG.nextInt(candidates.size());
+		Iterator<TestCase> p = candidates.iterator();
+		while (index != 0) {
+			p.next(); 
+			--index;
+		}
+		return p.next();
 	}
 }
