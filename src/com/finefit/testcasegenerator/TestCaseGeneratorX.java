@@ -14,7 +14,6 @@ import kodkod.engine.Solution.Outcome;
 import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
 import edu.mit.csail.sdg.alloy4.Err;
 
-
 public class TestCaseGeneratorX {
 
 	Model model;

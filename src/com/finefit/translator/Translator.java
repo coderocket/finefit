@@ -1,27 +1,29 @@
 package com.finefit.translator;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.PrintStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.Charset;
+import java.text.ParseException;
 import fit.Parse;
-import com.finefit.base.FileUtils;
 
 public class Translator {
 
 	public Translator(){ }
 	
-  public static void translate(String htmlFileName, String alloyFileName) throws ParseException, FileNotFoundException {
+  public static void translate(String htmlFileName, String alloyFileName) throws ParseException, IOException {
 
 		Sig[] sigs = null;
 		State state = null;
 		Invariant invariant = null;
 		List<Operation> operations = new ArrayList<Operation>();
 	
-    Parse parse = new Parse(FileUtils.readFile(htmlFileName));
+    Parse parse = new Parse(readFile(htmlFileName, Charset.defaultCharset()));
 
     while (parse != null) {
 
@@ -122,5 +124,12 @@ public class Translator {
 			p = p.more;	
 		}		
 		return new Invariant(preds);
+	}
+
+	static String readFile(String path, Charset encoding) 
+ 	 throws IOException {
+
+ 	 	byte[] encoded = Files.readAllBytes(Paths.get(path));
+ 	 	return new String(encoded, encoding);
 	}
 }
