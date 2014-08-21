@@ -1,3 +1,8 @@
+/*
+
+TODO: add configuration options to display all candidates
+*/
+
 package com.finefit.testcasegenerator;
 
 import java.util.Set;
@@ -40,7 +45,7 @@ public class TestCaseGeneratorX {
 		for(Operation p : model.operations()) {
 			System.out.print("OPERATION: " + p.getName() + ": ");
 			Iterator<Solution> it = solver.solve(model.context(), p.getFormula(model.context()), state);
-			while (it.hasNext() && limit > 0) {
+			while (it.hasNext() ) {// && limit > 0) {
 				Solution solution = it.next();
 				if (solution != null && (solution.outcome() == Outcome.SATISFIABLE || solution.outcome() == Outcome.TRIVIALLY_SATISFIABLE))
 					candidates.add(new TestCase(p, new State(solution.instance())));

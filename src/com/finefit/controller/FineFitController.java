@@ -78,18 +78,20 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 
 			initialTestCase.print(System.out);
 
-			State initialState = sut.initialize(initialTestCase.getState());
+			State prevState = null;
+			State currState = sut.initialize(initialTestCase.getState());
 
-			System.out.println(initialState);
+			System.out.println(currState);
 
-			candidates = testCaseGenerator.next(initialState);
+			candidates = testCaseGenerator.next(currState);
 			
 			while(!candidates.isEmpty()) {
 					TestCase testcase = any(RNG, candidates);
 					testcase.print(System.out);
-					State nextState = sut.applyOperation(testcase);
-					System.out.println(nextState);
-					candidates = testCaseGenerator.next(nextState);
+					prevState = currState;
+					currState = sut.applyOperation(testcase);
+					System.out.println(currState);
+					candidates = testCaseGenerator.next(currState);
 			}
 			
 			System.out.println("Error: Deadlock.");

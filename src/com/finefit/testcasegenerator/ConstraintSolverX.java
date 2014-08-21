@@ -31,7 +31,7 @@ public class ConstraintSolverX {
 
 	public Iterator<Solution> solve(A4Solution context, Formula formula, State state) {
 		
-    Bounds bounds = state.restrict(new BoundsExtractor(context).getBounds());
+    Bounds bounds = state.restrict(new BoundsExtractor(context).getBounds().clone());
 
     Relation boundNextState = getBoundsRelationByName(bounds, "StateOrder/Ord.Next");
 
