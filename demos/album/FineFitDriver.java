@@ -55,6 +55,9 @@ public class FineFitDriver implements SUT {
 				int i = Integer.parseInt(state.getArg("i"));
 				sut.RemovePhoto(i);
 			}
+			else if (operationName.equals("save")) {
+				sut.Save();
+			}
 			else throw new NoSuchOperation();
 
 			return sut.retrieve(state);
