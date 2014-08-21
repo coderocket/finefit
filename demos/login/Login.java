@@ -21,18 +21,11 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.HashSet;
-import kodkod.ast.Relation;
-import kodkod.instance.Instance;
 import kodkod.instance.Tuple;
 import kodkod.instance.TupleFactory;
-import kodkod.instance.TupleSet;
-import kodkod.instance.Universe;
-import com.finefit.testcasegenerator.StateVariables;
+import com.finefit.model.State;
 
 public class Login {
 
@@ -60,9 +53,10 @@ public class Login {
 		registered.remove(uname);
 	}
 
-	public Instance retrieve(Universe universe, StateVariables stateVars) {
-		TupleFactory factory = universe.factory();
-		Instance instance = new Instance(universe);
+	public State retrieve(State prevState) {
+
+		TupleFactory factory = prevState.factory();
+		State currentState = prevState.clone();
 	
 		List<Tuple> loggedinTuples = new ArrayList();
 		List<Tuple> registeredTuples = new ArrayList();
@@ -74,17 +68,9 @@ public class Login {
 			registeredTuples.add(factory.tuple("State$0", s));
 		}
 		
-		if(!loggedinTuples.isEmpty()){
-			instance.add(stateVars.get("loggedin"), factory.setOf(loggedinTuples));
-		}else {
-			instance.add(stateVars.get("loggedin"), factory.noneOf(2));
-		}
-		if(!registeredTuples.isEmpty()){
-			instance.add(stateVars.get("registered"), factory.setOf(registeredTuples)); 
-		}else{
-			instance.add(stateVars.get("registered"), factory.noneOf(2));
-		}
+		currentState.add("loggedin", 2, loggedinTuples);
+		currentState.add("registered", 2, registeredTuples); 
 		
-		return instance;
+		return currentState;
 	}
 }

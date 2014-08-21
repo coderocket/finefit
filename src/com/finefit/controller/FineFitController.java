@@ -71,11 +71,13 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 			TestCase initialTestCase = any(RNG, candidates);
 
 			initialTestCase.print(System.out);
+			System.out.println("");
 
 			State prevState = null;
 			State currState = sut.initialize(initialTestCase.getState());
 
 			currState.print(System.out);
+			System.out.println("");
 
 			boolean behavior_is_valid = testOracle.verify(model, initialTestCase.getOperation(), currState, currState);
 
