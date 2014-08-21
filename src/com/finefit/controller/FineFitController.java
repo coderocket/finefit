@@ -57,7 +57,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 			State prevState = null;
 			State currState = sut.initialize(initialTestCase.getState());
 
-			System.out.println(currState);
+			currState.print(System.out);
 
 			boolean behavior_is_valid = testOracle.verify(model.context(), initialTestCase.getOperation(), currState, currState);
 
@@ -66,9 +66,11 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 			while (behavior_is_valid && !candidates.isEmpty()) { 
 					TestCase testcase = any(RNG, candidates);
 					testcase.print(System.out);
+					System.out.println("");
 					prevState = currState;
 					currState = sut.applyOperation(testcase);
-					System.out.println(currState);
+					currState.print(System.out);
+					System.out.println("");
 					behavior_is_valid = testOracle.verify(model.context(), testcase.getOperation(), prevState, currState);
 					candidates = testCaseGenerator.next(currState);
 			}

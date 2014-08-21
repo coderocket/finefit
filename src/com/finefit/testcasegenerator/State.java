@@ -1,6 +1,7 @@
 
 package com.finefit.testcasegenerator;
 
+import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -78,14 +79,6 @@ public class State {
     return bounds;
 	}
 
-  /*
-
-    Create a new state from this and other. The new state
-    contains for each state variable the tuples it has in this joined with State$0
-  	and the tuples it has in other joined with State$1.
-
-  */
-
 	public String getArg(String argName) {
     for (Map.Entry<Relation,TupleSet> e : instance.relationTuples().entrySet()) {
     	if (e.getKey().name().equals("$" + argName)) {
@@ -94,6 +87,57 @@ public class State {
     }
     throw new RuntimeException("Could not find the argument " + argName);
   }
+
+	public void print(PrintStream out) {
+
+    for(Map.Entry<Relation, TupleSet> e : instance.relationTuples().entrySet())
+    {
+      if (e.getKey().name().startsWith("this/State."))
+      {
+				out.print(e.getKey().name().replace("this/State.","") + " = "); 
+				printTuples(e.getValue());
+				System.out.println("");
+			}
+		}
+	}
+
+	public void printTuples(TupleSet tuples) {
+	
+		TupleFactory factory = instance.universe().factory();
+		
+		Iterator<Tuple> p = tuples.iterator();
+		System.out.print("[");
+		if (p.hasNext()) {
+			printTuple(removeState0(p.next(), factory));
+		}
+
+		while(p.hasNext()) {
+			System.out.print(", ");
+			printTuple(removeState0(p.next(), factory));
+		}
+
+		System.out.print("]");
+
+	}
+	
+	public void printTuple(Tuple t) {
+		if (t.arity() == 1)
+			System.out.print(t.atom(0));
+		else
+			System.out.print(t);
+	}
+	
+	public Tuple removeState0(Tuple t, TupleFactory factory) {
+		List<Object> newTuple = new ArrayList<Object>();
+		for (int i =0;i<t.arity();i++) {
+			if (!t.atom(i).equals("State$0"))
+				newTuple.add(t.atom(i));
+		}
+		if (newTuple.size() == 0)
+			return t;
+		else 
+			return factory.tuple(newTuple);
+	}
 
 	public String toString() {
 		return instance.toString();
