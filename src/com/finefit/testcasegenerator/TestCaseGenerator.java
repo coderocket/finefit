@@ -18,14 +18,14 @@ import com.finefit.model.Operation;
 import com.finefit.model.TestCase;
 import com.finefit.model.State;
 
-public class TestCaseGeneratorX {
+public class TestCaseGenerator {
 
 	Model model;
-	ConstraintSolverX solver;
+	ConstraintSolver solver;
 
-	public TestCaseGeneratorX(Model model) {
+	public TestCaseGenerator(Model model) {
 		this.model =  model;
-		solver = new ConstraintSolverX();
+		solver = new ConstraintSolver();
 	}
 
 	public Set<TestCase> first() throws Err {

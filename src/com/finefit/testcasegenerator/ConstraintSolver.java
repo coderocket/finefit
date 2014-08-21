@@ -18,11 +18,11 @@ import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
 import edu.mit.csail.sdg.alloy4compiler.translator.BoundsExtractor;
 import com.finefit.model.State;
 
-public class ConstraintSolverX {
+public class ConstraintSolver {
 	
 	Solver solver;
 
-	public ConstraintSolverX() {
+	public ConstraintSolver() {
     solver = new Solver();
     solver.options().setSolver(SATFactory.DefaultSAT4J);
 	}

@@ -14,8 +14,8 @@ import com.finefit.model.TestCase;
 import com.finefit.model.Model;
 import com.finefit.model.State;
 import com.finefit.translator.Translator;
-import com.finefit.testcasegenerator.TestCaseGeneratorX;
-import com.finefit.oracle.TestOracleX;
+import com.finefit.testcasegenerator.TestCaseGenerator;
+import com.finefit.oracle.TestOracle;
 
 public class FineFitController {
 
@@ -35,8 +35,8 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 
 			Translator.translate(tabularSystemSpec, SYSTEM_SPECIFICATION);
 			Model model = new Model(SYSTEM_SPECIFICATION);
-			TestCaseGeneratorX testCaseGenerator = new TestCaseGeneratorX(model);
-			TestOracleX testOracle = new TestOracleX();
+			TestCaseGenerator testCaseGenerator = new TestCaseGenerator(model);
+			TestOracle testOracle = new TestOracle();
 
 			Random RNG = new Random();
 

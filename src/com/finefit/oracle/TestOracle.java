@@ -16,9 +16,9 @@ import com.finefit.model.Model;
 import com.finefit.model.State;
 import com.finefit.model.Operation;
 
-public class TestOracleX {
+public class TestOracle {
 
-	public TestOracleX() {}
+	public TestOracle() {}
 	
 	public boolean verify(Model model, Operation operation, State currentState, State nextState) {
 
