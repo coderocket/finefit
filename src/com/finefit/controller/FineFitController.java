@@ -11,10 +11,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import com.finefit.sutinterface.SUT;
 import com.finefit.translator.Translator;
-import com.finefit.testcasegenerator.TestCase;
-import com.finefit.testcasegenerator.Model;
+import com.finefit.model.TestCase;
+import com.finefit.model.Model;
+import com.finefit.model.State;
 import com.finefit.testcasegenerator.TestCaseGeneratorX;
-import com.finefit.testcasegenerator.State;
 import com.finefit.oracle.TestOracleX;
 
 public class FineFitController {

@@ -1,4 +1,4 @@
-package com.finefit.testcasegenerator;
+package com.finefit.model;
 
 
 import java.io.PrintStream;

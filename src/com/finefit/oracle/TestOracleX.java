@@ -12,9 +12,9 @@ import kodkod.instance.TupleSet;
 import kodkod.ast.Relation;
 import kodkod.ast.Formula;
 import kodkod.engine.Evaluator;
-import com.finefit.testcasegenerator.Model;
-import com.finefit.testcasegenerator.State;
-import com.finefit.testcasegenerator.Operation;
+import com.finefit.model.Model;
+import com.finefit.model.State;
+import com.finefit.model.Operation;
 
 public class TestOracleX {
 

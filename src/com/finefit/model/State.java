@@ -1,5 +1,5 @@
 
-package com.finefit.testcasegenerator;
+package com.finefit.model;
 
 import java.io.PrintStream;
 import java.util.Iterator;
@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
-import kodkod.instance.Bounds;
 import kodkod.instance.Instance;
 import kodkod.instance.Tuple;
 import kodkod.instance.TupleFactory;
@@ -45,38 +44,6 @@ public class State {
     	}
     }
     throw new RuntimeException("Could not find state variable " + varName);
-	}
-
-	public Bounds restrict(Bounds bounds) {
-
-    TupleFactory factory = instance.universe().factory();
-
-    for (Relation r : bounds.relations()) {
-      if (instance.contains(r)) {
-        TupleSet originalUpperBound = bounds.upperBound(r);
-        /*
-         * remove from the upper bound all tuples that involve the
-         * current state
-         */
-        TupleSet upperBound = factory.noneOf(originalUpperBound.arity());
-        Iterator<Tuple> p = originalUpperBound.iterator();
-        while (p.hasNext()) {
-          Tuple t = p.next();
-          String a = (String) t.atom(0);
-          if (!a.equals("State$0")) {
-            upperBound.add(t);
-          }
-        }
-        /*
-         * set the lower bound to the current state and add the lower
-         * bound to the upper bound
-         */
-        upperBound.addAll(instance.tuples(r));
-        bounds.bound(r, instance.tuples(r), upperBound);
-      }
-    }
-
-    return bounds;
 	}
 
 	public String getArg(String argName) {

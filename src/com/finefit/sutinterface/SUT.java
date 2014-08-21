@@ -1,7 +1,7 @@
 package com.finefit.sutinterface;
 
-import com.finefit.testcasegenerator.TestCase;
-import com.finefit.testcasegenerator.State;
+import com.finefit.model.TestCase;
+import com.finefit.model.State;
 
 public interface SUT {
 	 

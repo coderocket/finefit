@@ -1,21 +1,10 @@
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import kodkod.ast.Relation;
-import kodkod.instance.Instance;
-import kodkod.instance.TupleSet;
-import kodkod.instance.Universe;
 import com.finefit.sutinterface.SUT;
-import com.finefit.testcasegenerator.Operation;
-import com.finefit.testcasegenerator.SystemState;
-import com.finefit.testcasegenerator.TestCase;
-import com.finefit.testcasegenerator.StateVariables;
-import com.finefit.testcasegenerator.State;
+import com.finefit.model.Operation;
+import com.finefit.model.TestCase;
+import com.finefit.model.State;
 
-  public class FineFitDriver implements SUT {
+public class FineFitDriver implements SUT {
 
 		private PhotoAlbum sut;
 		
@@ -52,5 +41,5 @@ import com.finefit.testcasegenerator.State;
 			return sut.retrieve(state);
     }
 
-  }
+}
 

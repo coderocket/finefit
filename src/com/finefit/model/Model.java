@@ -1,5 +1,5 @@
 
-package com.finefit.testcasegenerator;
+package com.finefit.model;
 
 import java.util.ArrayList;
 import java.util.List;

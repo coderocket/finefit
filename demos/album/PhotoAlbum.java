@@ -1,22 +1,14 @@
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.lang.Exception;
 import java.util.Scanner;
-
-import kodkod.instance.Universe;
-import kodkod.instance.Instance;
 import kodkod.instance.TupleFactory;
 import kodkod.instance.Tuple;
-import kodkod.ast.Relation;
-
-import com.finefit.testcasegenerator.StateVariables;
-import com.finefit.testcasegenerator.State;
+import com.finefit.model.State;
 
 public class PhotoAlbum {
 

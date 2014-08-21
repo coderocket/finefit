@@ -9,10 +9,14 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
 import kodkod.engine.Solution;
-import kodkod.ast.Formula;
 import kodkod.engine.Solution.Outcome;
+import kodkod.ast.Formula;
 import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
 import edu.mit.csail.sdg.alloy4.Err;
+import com.finefit.model.Model;
+import com.finefit.model.Operation;
+import com.finefit.model.TestCase;
+import com.finefit.model.State;
 
 public class TestCaseGeneratorX {
 
@@ -36,12 +40,12 @@ public class TestCaseGeneratorX {
 		return candidates;
 	}
 
-	public Set<TestCase> next(State state) {
+	public Set<TestCase> next(State currentState) {
 	
 		Set<TestCase> candidates = new HashSet<TestCase>();
 
 		for(Operation p : model.operations()) {
-			Iterator<Solution> it = solver.solve(model.context(), p.getFormula(model.context()), state);
+			Iterator<Solution> it = solver.solve(model.context(), p.getFormula(model.context()), currentState);
 			while (it.hasNext() ) {
 				Solution solution = it.next();
 				if (solution != null && (solution.outcome() == Outcome.SATISFIABLE || solution.outcome() == Outcome.TRIVIALLY_SATISFIABLE))
