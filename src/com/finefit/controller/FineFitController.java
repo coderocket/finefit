@@ -9,11 +9,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
-import com.finefit.sutinterface.SUT;
-import com.finefit.translator.Translator;
+import com.finefit.model.SUT;
 import com.finefit.model.TestCase;
 import com.finefit.model.Model;
 import com.finefit.model.State;
+import com.finefit.translator.Translator;
 import com.finefit.testcasegenerator.TestCaseGeneratorX;
 import com.finefit.oracle.TestOracleX;
 

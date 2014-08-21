@@ -1,5 +1,5 @@
 
-import com.finefit.sutinterface.SUT;
+import com.finefit.model.SUT;
 import com.finefit.model.Operation;
 import com.finefit.model.TestCase;
 import com.finefit.model.State;

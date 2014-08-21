@@ -1,11 +1,8 @@
-package com.finefit.sutinterface;
-
-import com.finefit.model.TestCase;
-import com.finefit.model.State;
+package com.finefit.model;
 
 public interface SUT {
 	 
-	public class InvalidNumberOfArguments extends Exception {}
+		public class InvalidNumberOfArguments extends Exception {}
     public class NoSuchOperation extends Exception {}
 
     public State initialize(State state);
