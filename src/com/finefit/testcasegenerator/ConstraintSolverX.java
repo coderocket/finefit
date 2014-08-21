@@ -26,6 +26,13 @@ public class ConstraintSolverX {
 
  		Bounds bounds = new BoundsExtractor(context).getBounds();
 
+    Relation boundNextState = getBoundsRelationByName(bounds, "StateOrder/Ord.Next");
+
+    // update the bounds to have next State relation order as: State$0, State$1
+
+    TupleFactory factory = bounds.universe().factory();
+    bounds.bound(boundNextState, factory.setOf(factory.tuple("State$0", "State$1")), factory.setOf(factory.tuple("State$0", "State$1")));
+
 		return solver.solve(formula, bounds);
 	}
 

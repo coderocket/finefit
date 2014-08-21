@@ -3,6 +3,7 @@ package com.finefit.testcasegenerator;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import kodkod.instance.Bounds;
@@ -23,6 +24,8 @@ public class State {
 	public State clone() {
 		return new State(instance.clone());
 	}
+
+	public Instance instance() { return instance; }
 
 	public TupleFactory factory() { return instance.universe().factory(); }
 
@@ -74,6 +77,14 @@ public class State {
 
     return bounds;
 	}
+
+  /*
+
+    Create a new state from this and other. The new state
+    contains for each state variable the tuples it has in this joined with State$0
+  	and the tuples it has in other joined with State$1.
+
+  */
 
 	public String getArg(String argName) {
     for (Map.Entry<Relation,TupleSet> e : instance.relationTuples().entrySet()) {

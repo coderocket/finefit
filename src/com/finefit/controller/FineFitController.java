@@ -42,6 +42,7 @@ import com.finefit.translator.Translator;
 import com.finefit.testcasegenerator.Model;
 import com.finefit.testcasegenerator.TestCaseGeneratorX;
 import com.finefit.testcasegenerator.State;
+import com.finefit.oracle.TestOracleX;
 
 
 public class FineFitController {
@@ -63,6 +64,8 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 			Translator.translate(tabularSystemSpec, SYSTEM_SPECIFICATION);
 			Model model = new Model(SYSTEM_SPECIFICATION);
 			TestCaseGeneratorX testCaseGenerator = new TestCaseGeneratorX(model);
+			TestOracleX testOracle = new TestOracleX();
+
 			Random RNG = new Random();
 
 			SUT sut = (SUT) getSutObject(systemDriverClassName); // run the selected sut (from arguments)
@@ -83,18 +86,24 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 
 			System.out.println(currState);
 
+			boolean behavior_is_valid = testOracle.verify(model.context(), initialTestCase.getOperation(), currState, currState);
+
 			candidates = testCaseGenerator.next(currState);
-			
-			while(!candidates.isEmpty()) {
+
+			while (behavior_is_valid && !candidates.isEmpty()) { 
 					TestCase testcase = any(RNG, candidates);
 					testcase.print(System.out);
 					prevState = currState;
 					currState = sut.applyOperation(testcase);
 					System.out.println(currState);
+					behavior_is_valid = testOracle.verify(model.context(), testcase.getOperation(), prevState, currState);
 					candidates = testCaseGenerator.next(currState);
 			}
 			
-			System.out.println("Error: Deadlock.");
+			if (!behavior_is_valid)
+				System.out.println("\nError: Discrepancy.");
+			else 
+				System.out.println("\nError: Deadlock.");
 
 		} catch(Exception err) {
 			err.printStackTrace();

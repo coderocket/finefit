@@ -38,28 +38,17 @@ public class TestCaseGeneratorX {
 	}
 
 	public Set<TestCase> next(State state) {
-		int limit = 3; // TODO: hardcoded for now, make a configuration parameter later
 	
 		Set<TestCase> candidates = new HashSet<TestCase>();
 
 		for(Operation p : model.operations()) {
-			System.out.print("OPERATION: " + p.getName() + ": ");
 			Iterator<Solution> it = solver.solve(model.context(), p.getFormula(model.context()), state);
-			while (it.hasNext() ) {// && limit > 0) {
+			while (it.hasNext() ) {
 				Solution solution = it.next();
 				if (solution != null && (solution.outcome() == Outcome.SATISFIABLE || solution.outcome() == Outcome.TRIVIALLY_SATISFIABLE))
 					candidates.add(new TestCase(p, new State(solution.instance())));
-				--limit;
-				System.out.print("*");
 			}
-			System.out.println("");
-/*
-			Solution solution = solver.solve(model.context(), p.getFormula(model.context()), state);
-			if (solution != null && (solution.outcome() == Outcome.SATISFIABLE || solution.outcome() == Outcome.TRIVIALLY_SATISFIABLE))
-				candidates.add(new TestCase(p, new State(solution.instance())));
-*/
-		}	
-
+		}
 		return candidates;
 	}
 
