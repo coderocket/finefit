@@ -61,48 +61,6 @@ public class PhotoAlbum {
 			return currentState;
 		}
 
-    public Instance retrieve(Universe universe, StateVariables stateVars) {
-	TupleFactory factory = universe.factory();
-	Instance instance = new Instance(universe);
-
-	List<Tuple> photoAtTuples = new ArrayList();
-	List<Tuple> toAddTuples = new ArrayList();
-	List<Tuple> existingTuples = new ArrayList();
-	int i = 0;
-	for (Photo p : photoAt) {
-	    photoAtTuples.add(factory.tuple("State$0", "" + i, p.getImage()));
-	    if (p.getStatus() == Photo.Status.New)
-		toAddTuples.add(factory.tuple("State$0", p.getImage()));
-	    else if (p.getStatus() == Photo.Status.Old)
-		existingTuples.add(factory.tuple("State$0", p.getImage()));
-	    ++i;
-	}
-
-	List<Tuple> deletedPhotosTuples = new ArrayList();
-	for (String key : deletedPhotos) {
-	    deletedPhotosTuples.add( factory.tuple("State$0",key));
-	    existingTuples.add( factory.tuple("State$0",key));
-	}
-
-	if (!photoAtTuples.isEmpty())
-	    instance.add(stateVars.get("album"), factory.setOf(photoAtTuples)); 
-	else
-	    instance.add(stateVars.get("album"), factory.noneOf(3)); 
-	if (!toAddTuples.isEmpty())
-	    instance.add(stateVars.get("toAdd"), factory.setOf(toAddTuples));
-	else
-	    instance.add(stateVars.get("toAdd"), factory.noneOf(2)); 
-	if (!existingTuples.isEmpty())
-	    instance.add(stateVars.get("existing"), factory.setOf(existingTuples));
-	else
-	    instance.add(stateVars.get("existing"), factory.noneOf(2)); 
-	if (!deletedPhotosTuples.isEmpty())
-	    instance.add(stateVars.get("toDelete"), factory.setOf(deletedPhotosTuples));
-	else
-	    instance.add(stateVars.get("toDelete"), factory.noneOf(2)); 
-
-	return instance;
-    }
 
     public PhotoAlbum() {
 	photoAt = new ArrayList<Photo>();

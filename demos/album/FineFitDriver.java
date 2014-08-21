@@ -24,40 +24,9 @@ import com.finefit.testcasegenerator.State;
     }
 
     @Override
-    public SystemState initialize(Universe universe,Instance args) {
-			sut.init();
-      return new SystemState(sut.retrieve(universe, new StateVariables(args)));
-    }
-
-    @Override
     public State initialize(State state) {
 			sut.init();
       return sut.retrieve(state);
-    }
-
-    @Override
-    public SystemState applyOperation(TestCase testCase, Instance args)
-        throws InvalidNumberOfArguments, NoSuchOperation,
-        NoDataException {
-
-			Operation operation = testCase.getOperation();
-			String operationName = operation.getName();
-
-			if (operationName.equals("addPhoto")) {
-				String pid = operation.getArg(args, "pid");
-				try {
-				sut.AddPhoto(pid);
-				}
-				catch(PhotoAlbum.PhotoExists err) {}
-				catch(PhotoAlbum.ContainerIsFull err) {}
-			}
-			else if (operationName.equals("removePhoto")) {
-				int i = Integer.parseInt(operation.getArg(args, "i"));
-				sut.RemovePhoto(i);
-			}
-			else throw new NoSuchOperation();
-
-			return new SystemState(sut.retrieve(testCase.getUniverse(), new StateVariables(args)));
     }
 
     @Override

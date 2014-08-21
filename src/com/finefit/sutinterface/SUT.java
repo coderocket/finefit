@@ -11,9 +11,6 @@ public interface SUT {
 	 
 	public class InvalidNumberOfArguments extends Exception {}
     public class NoSuchOperation extends Exception {}
-    public class NoDataException extends Exception { public NoDataException(String msg){super(msg);}}
-    public SystemState initialize(Universe universe,Instance args);
-    public SystemState applyOperation(TestCase testCase, Instance solutionArgs) throws InvalidNumberOfArguments, NoSuchOperation, NoDataException;
 
     public State initialize(State state);
     public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation;
