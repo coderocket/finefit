@@ -1,5 +1,5 @@
 
-package com.finefit.spec;
+package com.finefit.translator;
 
 import java.util.Map;
 import java.util.HashMap;

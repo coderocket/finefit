@@ -9,12 +9,6 @@ import java.io.PrintStream;
 import java.io.FileNotFoundException;
 import fit.Parse;
 import com.finefit.base.FileUtils;
-import com.finefit.spec.Sig;
-import com.finefit.spec.State;
-import com.finefit.spec.Invariant;
-import com.finefit.spec.GuardedExpr;
-import com.finefit.spec.Operation;
-import com.finefit.spec.Spec;
 
 public class Translator {
 

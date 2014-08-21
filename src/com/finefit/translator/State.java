@@ -1,5 +1,5 @@
 
-package com.finefit.spec;
+package com.finefit.translator;
 
 import java.io.PrintStream;
 import java.util.Map;

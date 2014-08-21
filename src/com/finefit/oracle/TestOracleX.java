@@ -12,7 +12,7 @@ import kodkod.instance.TupleSet;
 import kodkod.ast.Relation;
 import kodkod.ast.Formula;
 import kodkod.engine.Evaluator;
-import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
+import com.finefit.testcasegenerator.Model;
 import com.finefit.testcasegenerator.State;
 import com.finefit.testcasegenerator.Operation;
 
@@ -20,11 +20,11 @@ public class TestOracleX {
 
 	public TestOracleX() {}
 	
-	public boolean verify(A4Solution context, Operation operation, State currentState, State nextState) {
+	public boolean verify(Model model, Operation operation, State currentState, State nextState) {
 
 		Instance instance = combine(currentState.instance(), nextState.instance());
 
-		return new Evaluator(instance).evaluate(operation.getFormula(context));
+		return new Evaluator(instance).evaluate(operation.getFormula(model.context()));
 	}
 
   private Instance combine(Instance instance, Instance other) {

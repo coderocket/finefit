@@ -1,9 +1,8 @@
 
-package com.finefit.spec;
+package com.finefit.translator;
 
 import java.io.PrintStream;
 import java.util.List;
-import com.finefit.spec.State;
 
 public class Operation {
 	String name;

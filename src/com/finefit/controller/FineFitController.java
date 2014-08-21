@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
-import com.finefit.reporter.Reporter;
 import com.finefit.sutinterface.SUT;
 import com.finefit.translator.Translator;
 import com.finefit.testcasegenerator.TestCase;
@@ -59,7 +58,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 
 			currState.print(System.out);
 
-			boolean behavior_is_valid = testOracle.verify(model.context(), initialTestCase.getOperation(), currState, currState);
+			boolean behavior_is_valid = testOracle.verify(model, initialTestCase.getOperation(), currState, currState);
 
 			candidates = testCaseGenerator.next(currState);
 
@@ -71,7 +70,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 					currState = sut.applyOperation(testcase);
 					currState.print(System.out);
 					System.out.println("");
-					behavior_is_valid = testOracle.verify(model.context(), testcase.getOperation(), prevState, currState);
+					behavior_is_valid = testOracle.verify(model, testcase.getOperation(), prevState, currState);
 					candidates = testCaseGenerator.next(currState);
 			}
 			
