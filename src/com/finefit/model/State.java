@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Map.Entry;
 import kodkod.instance.Instance;
 import kodkod.instance.Tuple;
@@ -40,13 +41,20 @@ public class State {
 	public static final String NEXT = Constants.STATE_SIG + "$1";
 
 	private Instance instance;
+	private Map<String, TupleSet> sut_outputs;
 
 	public State(Instance instance) {
 		this.instance = instance;
+		this.sut_outputs = new HashMap<String, TupleSet>();
+	}
+
+	public State(Instance instance, Map<String, TupleSet> sut_outputs) {
+		this.instance = instance;
+		this.sut_outputs = sut_outputs;
 	}
 
 	public State clone() {
-		return new State(instance.clone());
+		return new State(instance.clone(), sut_outputs);
 	}
 
 	public Instance instance() { return instance; }
@@ -64,20 +72,13 @@ public class State {
 	public void addOutput(String name, int arity, List<Tuple> tuples) {
 			TupleFactory factory = instance.universe().factory();
 			if (!tuples.isEmpty())
-				instance.add(getOutput(name), factory.setOf(tuples));
+				sut_outputs.put(name, factory.setOf(tuples));
 			else
-				instance.add(getOutput(name), factory.noneOf(arity));
+				sut_outputs.put(name, factory.noneOf(arity));
 	}
 
-	public Relation getOutput(String varName) {
-		for (Relation r : instance.relations()) {
-    	if (r.name().equals("$" + varName)) {
-      	return r;
-    	}
-    }
-		System.out.println(instance);
-    throw new RuntimeException("Could not find output variable " + varName);
-	}
+	public TupleSet getOutput(String name) { return sut_outputs.get(name); }
+
 
 	public Relation getVar(String varName) {
 		for (Relation r : instance.relations()) {
@@ -101,12 +102,17 @@ public class State {
 
     for(Map.Entry<Relation, TupleSet> e : instance.relationTuples().entrySet())
     {
-      if (e.getKey().name().startsWith("this/" + Constants.STATE_SIG + ".") || e.getKey().name().startsWith("$output_"))
+      if (e.getKey().name().startsWith("this/" + Constants.STATE_SIG + ".")) 
       {
 				out.print(e.getKey().name().replace("this/" + Constants.STATE_SIG + ".","") + " = "); 
 				printTuples(e.getValue());
 				System.out.println("");
 			}
+		}
+		for(Map.Entry<String, TupleSet> p : sut_outputs.entrySet()) {
+			out.print(p.getKey() + " = ");
+			printTuples(p.getValue());
+			System.out.println("");
 		}
 	}
 

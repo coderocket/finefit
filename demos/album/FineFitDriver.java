@@ -46,18 +46,20 @@ public class FineFitDriver implements SUT {
     public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation {
 
 			String operationName = testCase.getOperationName(); 
-			State state = testCase.getState();
-
+			State state = testCase.getState().clone();
 			if (operationName.equals("addPhoto")) {
 				String pid = state.getArg("pid");
+				String result = "0";  
 				try {
 					sut.AddPhoto(pid);
-					TupleFactory factory = state.factory();
-					List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple("-1"));
-					state.addOutput("output_r", 1, r);
+					result = "1";
 				}
 				catch(PhotoAlbum.PhotoExists err) {}
 				catch(PhotoAlbum.ContainerIsFull err) {}
+
+				TupleFactory factory = state.factory();
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(result));
+				state.addOutput("output_r", 1, r);
 			}
 			else if (operationName.equals("removePhoto")) {
 				int i = Integer.parseInt(state.getArg("i"));
@@ -67,6 +69,7 @@ public class FineFitDriver implements SUT {
 				sut.Save();
 			}
 			else throw new NoSuchOperation();
+
 
 			return sut.retrieve(state);
     }

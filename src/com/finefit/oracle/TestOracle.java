@@ -43,7 +43,7 @@ public class TestOracle {
 
 		Instance instance = combine(currentState.instance(), nextState.instance());
 
-		return new Evaluator(instance).evaluate(operation.getFormula(model.context()));
+		return new Evaluator(instance).evaluate(operation.getFormula(model.context())) && compareOutputs(nextState.instance(), nextState);
 	}
 
   private Instance combine(Instance instance, Instance other) {
@@ -98,4 +98,20 @@ public class TestOracle {
       }
     }
   }
+
+	// check that the outputs provided by the SUT match those that appear in the instance.
+
+	private boolean compareOutputs(Instance instance, State fromSUT) {
+
+    for(Map.Entry<Relation, TupleSet> e : instance.relationTuples().entrySet())
+    {
+      if (e.getKey().name().startsWith("$"+Constants.OUTPUT_PREFIX))
+      {
+				TupleSet ts = fromSUT.getOutput(e.getKey().name().replaceFirst("\\$",""));
+				if (ts == null) return false;
+				if (!ts.equals(e.getValue()))	return false;
+			}
+		}
+		return true;
+	}
 }
