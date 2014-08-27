@@ -17,6 +17,11 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+import java.util.List;
+import java.util.ArrayList;
+
+import kodkod.instance.TupleFactory;
+import kodkod.instance.Tuple;
 
 import com.finefit.model.SUT;
 import com.finefit.model.Operation;
@@ -47,6 +52,9 @@ public class FineFitDriver implements SUT {
 				String pid = state.getArg("pid");
 				try {
 					sut.AddPhoto(pid);
+					TupleFactory factory = state.factory();
+					List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple("-1"));
+					state.addOutput("output_r", 1, r);
 				}
 				catch(PhotoAlbum.PhotoExists err) {}
 				catch(PhotoAlbum.ContainerIsFull err) {}

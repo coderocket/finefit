@@ -56,6 +56,24 @@ public class State {
 				instance.add(getVar(name), factory.noneOf(arity));
 	}
 
+	public void addOutput(String name, int arity, List<Tuple> tuples) {
+			TupleFactory factory = instance.universe().factory();
+			if (!tuples.isEmpty())
+				instance.add(getOutput(name), factory.setOf(tuples));
+			else
+				instance.add(getOutput(name), factory.noneOf(arity));
+	}
+
+	public Relation getOutput(String varName) {
+		for (Relation r : instance.relations()) {
+    	if (r.name().equals("$" + varName)) {
+      	return r;
+    	}
+    }
+		System.out.println(instance);
+    throw new RuntimeException("Could not find output variable " + varName);
+	}
+
 	public Relation getVar(String varName) {
 		for (Relation r : instance.relations()) {
     	if (r.name().equals("this/State." + varName)) {
@@ -78,7 +96,7 @@ public class State {
 
     for(Map.Entry<Relation, TupleSet> e : instance.relationTuples().entrySet())
     {
-      if (e.getKey().name().startsWith("this/State."))
+      if (e.getKey().name().startsWith("this/State.") || e.getKey().name().startsWith("$output_"))
       {
 				out.print(e.getKey().name().replace("this/State.","") + " = "); 
 				printTuples(e.getValue());
