@@ -37,11 +37,11 @@ public class Operation {
 	}
 
 	public void print(State state, PrintStream out) {
-		out.print("pred " + name + "[s',s:State");
+		out.print("pred " + name + "[" + Constants.CURR_VAR + "," + Constants.NEXT_VAR + ":" + Constants.STATE_SIG);
 		printParams(out);
 		out.println("] {");
-		out.println("s' = s.next");
-		out.println("s != s'");
+		out.println(Constants.NEXT_VAR + " = " + Constants.CURR_VAR + ".next");
+		out.println(Constants.CURR_VAR + " != " + Constants.NEXT_VAR); 
 		printPrecondition(state,out);
 		for (GuardedExpr e : body) 
 			e.print(frame, state, out);

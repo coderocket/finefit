@@ -40,14 +40,14 @@ public class GuardedExpr {
 
 	public void printGuard(State state, PrintStream out) {
 		out.print("(");
-		state.print(guard, "s", out);
+		state.print(guard, State.CURR_VAR, out);
 		out.print(")");
 	}
 
 	private void printExpr(String[] frame, State state, PrintStream out) {
 		for (int i = 0 ; i < frame.length; i++) {
-			state.print(frame[i] + " = ", "s'", out);
-			state.print(exprs[i], "s", out);
+			state.print(frame[i] + " = ", State.NEXT_VAR, out);
+			state.print(exprs[i], State.CURR_VAR, out);
 			out.println("");
 		}
 	}

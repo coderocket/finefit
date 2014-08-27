@@ -81,9 +81,10 @@ public class Operation {
 	public void printCall(State state, PrintStream out) {
 		
 		for(Decl decl: operation.decls) {
-			if (!decl.get().label.equals("s") && !decl.get().label.equals("s'"))
-				//out.print(decl.get().label + " = " + getArg(args, decl.get().label) + ";");
-				out.print("." + state.getArg(decl.get().label));
+			String value = state.getArg(decl.get().label);
+
+			if (!value.equals(State.CURR) && !value.equals(State.NEXT))
+				out.print("." + value);
 		}
 	}
 }

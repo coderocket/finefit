@@ -32,7 +32,12 @@ import kodkod.instance.TupleFactory;
 import kodkod.instance.TupleSet;
 import kodkod.ast.Relation;
 
+import com.finefit.translator.Constants;
+
 public class State {
+
+	public static final String CURR = Constants.STATE_SIG + "$0";
+	public static final String NEXT = Constants.STATE_SIG + "$1";
 
 	private Instance instance;
 
@@ -76,7 +81,7 @@ public class State {
 
 	public Relation getVar(String varName) {
 		for (Relation r : instance.relations()) {
-    	if (r.name().equals("this/State." + varName)) {
+    	if (r.name().equals("this/" + Constants.STATE_SIG + "." + varName)) {
       	return r;
     	}
     }
@@ -96,9 +101,9 @@ public class State {
 
     for(Map.Entry<Relation, TupleSet> e : instance.relationTuples().entrySet())
     {
-      if (e.getKey().name().startsWith("this/State.") || e.getKey().name().startsWith("$output_"))
+      if (e.getKey().name().startsWith("this/" + Constants.STATE_SIG + ".") || e.getKey().name().startsWith("$output_"))
       {
-				out.print(e.getKey().name().replace("this/State.","") + " = "); 
+				out.print(e.getKey().name().replace("this/" + Constants.STATE_SIG + ".","") + " = "); 
 				printTuples(e.getValue());
 				System.out.println("");
 			}
@@ -134,7 +139,7 @@ public class State {
 	public Tuple removeState0(Tuple t, TupleFactory factory) {
 		List<Object> newTuple = new ArrayList<Object>();
 		for (int i =0;i<t.arity();i++) {
-			if (!t.atom(i).equals("State$0"))
+			if (!t.atom(i).equals(CURR))
 				newTuple.add(t.atom(i));
 		}
 		if (newTuple.size() == 0)

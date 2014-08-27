@@ -35,7 +35,7 @@ public class Spec {
 	}
 
 	public void print(PrintStream out) {
-		out.println("open util/ordering[State] as StateOrder");
+		out.println("open util/ordering[" + Constants.STATE_SIG + "] as " + Constants.STATE_SIG + "Order");
 		for (Sig s : sigs) 
 			s.print(out);
 		state.print(out);
@@ -47,6 +47,6 @@ public class Spec {
 			s.printScope(out);
 			out.print(", ");
 		}
-		out.println(" 2 State");
+		out.println(" 2 " + Constants.STATE_SIG);
 	}
 }

@@ -34,7 +34,7 @@ import kodkod.engine.Evaluator;
 import com.finefit.model.Model;
 import com.finefit.model.State;
 import com.finefit.model.Operation;
-
+import com.finefit.translator.Constants;
 public class TestOracle {
 
 	public TestOracle() {}
@@ -55,18 +55,18 @@ public class TestOracle {
 
     for(Map.Entry<Relation, TupleSet> e : result.relationTuples().entrySet())
     {
-      if (e.getKey().name().startsWith("this/State."))
+      if (e.getKey().name().startsWith("this/" + Constants.STATE_SIG + "."))
         result.add(e.getKey(), factory.noneOf(e.getValue().arity()));
 
     }
 
-    // iterate over this and collect for each relation all the tuples that are bound to State$0
+    // iterate over this and collect for each relation all the tuples that are bound to State.CURR
 
-    collect(result, instance, "State$0");
+    collect(result, instance, State.CURR);
 
-    // iterate over other and add to result all the tuples that are bound to State$0 but with State$1 instead.
+    // iterate over other and add to result all the tuples that are bound to State.CURR but with State.NEXT instead.
 
-    collect(result, other, "State$1");
+    collect(result, other, State.NEXT);
 
     return result;
 
@@ -81,11 +81,11 @@ public class TestOracle {
 
     for(Map.Entry<Relation, TupleSet> e : src.relationTuples().entrySet())
     {
-      if (e.getKey().name().startsWith("this/State."))
+      if (e.getKey().name().startsWith("this/" + Constants.STATE_SIG + "."))
       {
         TupleSet tuples = result.tuples(e.getKey()).clone();
         for(Tuple t : e.getValue()) {
-          if (t.atom(0).equals("State$0")) {
+          if (t.atom(0).equals(State.CURR)) {
             Object[] atoms = new Object[t.arity()];
             atoms[0] = newStateName;
             for(int i = 1;i < t.arity(); i++) {

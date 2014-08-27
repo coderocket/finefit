@@ -30,9 +30,9 @@ public class Invariant {
 	}
 
 	public void print(State state, PrintStream out) {
-		out.println("pred inv[s:State] {");
+		out.println("pred inv[" + Constants.CURR_VAR + ":" + Constants.STATE_SIG +"] {");
 		for(String p : preds) {
-			state.print(p,"s",out); out.println("");
+			state.print(p,Constants.CURR_VAR,out); out.println("");
 		}
 		out.println("}");
 	}

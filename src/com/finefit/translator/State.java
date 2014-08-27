@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class State {
+
 	Map<String, String> stateVariables;
 	Pattern tokenizer;
 
@@ -41,15 +42,15 @@ public class State {
 		Set<String> unchanged = new HashSet<String>(stateVariables.keySet());
 		unchanged.removeAll(new HashSet<String>(Arrays.asList(frame)));
 		for (String n : unchanged) {
-			print(n, "s'", out);
+			print(n, Constants.NEXT_VAR, out);
 			out.print(" = ");
-			print(n, "s", out);
+			print(n, Constants.CURR_VAR, out);
 			out.print("\n");
 		}
 	}
 
 	public void print(PrintStream out) {
-		out.println("sig State {");
+		out.println("sig " + Constants.STATE_SIG + " {");
 		for(Map.Entry<String, String> p : stateVariables.entrySet()) {
 			out.println(p.getKey() + " : " + p.getValue() + ", ");
 		}

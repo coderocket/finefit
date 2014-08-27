@@ -36,6 +36,7 @@ import edu.mit.csail.sdg.alloy4.Err;
 import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
 import edu.mit.csail.sdg.alloy4compiler.translator.BoundsExtractor;
 import com.finefit.model.State;
+import com.finefit.translator.Constants;
 
 public class ConstraintSolver {
 	
@@ -50,12 +51,12 @@ public class ConstraintSolver {
 
  		Bounds bounds = new BoundsExtractor(context).getBounds();
 
-    Relation boundNextState = getBoundsRelationByName(bounds, "StateOrder/Ord.Next");
+    Relation boundNextState = getBoundsRelationByName(bounds, Constants.STATE_SIG + "Order/Ord.Next");
 
-    // update the bounds to have next State relation order as: State$0, State$1
+    // update the bounds to have next State relation order as: State.CURR, State.NEXT
 
     TupleFactory factory = bounds.universe().factory();
-    bounds.bound(boundNextState, factory.setOf(factory.tuple("State$0", "State$1")), factory.setOf(factory.tuple("State$0", "State$1")));
+    bounds.bound(boundNextState, factory.setOf(factory.tuple(State.CURR, State.NEXT)), factory.setOf(factory.tuple(State.CURR, State.NEXT)));
 
 		return solver.solve(formula, bounds);
 	}
@@ -64,12 +65,12 @@ public class ConstraintSolver {
 		
     Bounds bounds = restrict(state.instance(), new BoundsExtractor(context).getBounds().clone());
 
-    Relation boundNextState = getBoundsRelationByName(bounds, "StateOrder/Ord.Next");
+    Relation boundNextState = getBoundsRelationByName(bounds, Constants.STATE_SIG + "Order/Ord.Next");
 
-    //update the bounds to have next State relation order as: State$0, State$1
+    //update the bounds to have next State relation order as: State.CURR, State.NEXT
 
     TupleFactory factory = bounds.universe().factory();
-    bounds.bound(boundNextState, factory.setOf(factory.tuple("State$0", "State$1")), factory.setOf(factory.tuple("State$0", "State$1")));
+    bounds.bound(boundNextState, factory.setOf(factory.tuple(State.CURR, State.NEXT)), factory.setOf(factory.tuple(State.CURR, State.NEXT)));
 
 		return solver.solveAll(formula, bounds);
 	}
@@ -90,7 +91,7 @@ public class ConstraintSolver {
         while (p.hasNext()) {
           Tuple t = p.next();
           String a = (String) t.atom(0);
-          if (!a.equals("State$0")) {
+          if (!a.equals(State.CURR)) {
             upperBound.add(t);
           }
         }
