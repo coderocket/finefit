@@ -35,6 +35,8 @@ import com.finefit.model.State;
 import com.finefit.translator.Translator;
 import com.finefit.testcasegenerator.TestCaseGenerator;
 import com.finefit.oracle.TestOracle;
+import com.finefit.reporter.Reporter;
+import com.finefit.reporter.PrintStreamReporter;
 
 public class FineFitController {
 
@@ -56,6 +58,7 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 			Model model = new Model(SYSTEM_SPECIFICATION);
 			TestCaseGenerator testCaseGenerator = new TestCaseGenerator(model);
 			TestOracle testOracle = new TestOracle();
+			Reporter reporter = new PrintStreamReporter(System.out);
 
 			Random RNG = new Random();
 
@@ -70,14 +73,10 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 
 			TestCase initialTestCase = any(RNG, candidates);
 
-			initialTestCase.print(System.out);
-			System.out.println("");
-
 			State prevState = null;
 			State currState = sut.initialize(initialTestCase.getState());
 
-			currState.print(System.out);
-			System.out.println("");
+			reporter.report(initialTestCase, currState);
 
 			boolean behavior_is_valid = testOracle.verify(model, initialTestCase.getOperation(), currState, currState);
 
@@ -85,20 +84,17 @@ final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
 
 			while (behavior_is_valid && !candidates.isEmpty()) { 
 					TestCase testcase = any(RNG, candidates);
-					testcase.print(System.out);
-					System.out.println("");
 					prevState = currState;
 					currState = sut.applyOperation(testcase);
-					currState.print(System.out);
-					System.out.println("");
+					reporter.report(testcase, currState);
 					behavior_is_valid = testOracle.verify(model, testcase.getOperation(), prevState, currState);
 					candidates = testCaseGenerator.next(currState);
 			}
 			
 			if (!behavior_is_valid)
-				System.out.println("\nError: Discrepancy.");
+				reporter.report_discrepancy();
 			else 
-				System.out.println("\nError: Deadlock.");
+				reporter.report_deadlock();
 
 		} catch(Exception err) {
 			err.printStackTrace();
