@@ -48,7 +48,7 @@ public class Translator {
 
 			Parse name = parse.at(0,0,0);
       switch (name.text()) {
-      case "sample.OperationFixture":
+      case "Operation":
         operations.add(parseOperation(parse.at(0,1)));
 				break;
       case "Invariant":
@@ -57,7 +57,7 @@ public class Translator {
       case "Atom":
 				sigs = parseSigs(parse.at(0,1));
         break;
-      case "Relation":
+      case "State variable":
 				state = parseState(parse.at(0,1));
         break;
       }
