@@ -21,6 +21,7 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 package com.finefit.translator;
 
 import java.io.PrintStream;
+import java.util.regex.Pattern;
 
 public class GuardedExpr {
 	String guard;
@@ -47,7 +48,16 @@ public class GuardedExpr {
 	private void printExpr(String[] frame, State state, PrintStream out) {
 		for (int i = 0 ; i < frame.length; i++) {
 			state.print(frame[i] + " = ", Constants.NEXT_VAR, out);
-			state.print(exprs[i], Constants.CURR_VAR, out);
+
+			// replace the expression by the frame variable if the expression is a 'no change' symbol
+			String e;
+			if (Pattern.matches("\\S*=\\S*", exprs[i])) { // this is a 'non change' symbol 
+				e = frame[i];
+			}
+			else {
+				e = exprs[i];
+			}
+			state.print(e, Constants.CURR_VAR, out);
 			out.println("");
 		}
 	}

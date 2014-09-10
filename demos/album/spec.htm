@@ -1,308 +1,743 @@
-<html>
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
 
 <head>
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 14 (filtered)">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 14">
+<meta name=Originator content="Microsoft Word 14">
+<link rel=File-List href="spec_files/filelist.xml">
+<link rel=Preview href="spec_files/preview.wmf">
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:LastAuthor>&#1491;&#1493;&#1491; &#1508;&#1497;&#1497;&#1496;&#1500;&#1505;&#1493;&#1503;</o:LastAuthor>
+  <o:Revision>4</o:Revision>
+  <o:TotalTime>2</o:TotalTime>
+  <o:Created>2014-09-09T12:08:00Z</o:Created>
+  <o:LastSaved>2014-09-09T12:10:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>412</o:Words>
+  <o:Characters>2352</o:Characters>
+  <o:Lines>19</o:Lines>
+  <o:Paragraphs>5</o:Paragraphs>
+  <o:CharactersWithSpaces>2759</o:CharactersWithSpaces>
+  <o:Version>14.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=themeData href="spec_files/themedata.thmx">
+<link rel=colorSchemeMapping href="spec_files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SplitPgBreakAndParaMark/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+  DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="267">
+  <w:LsdException Locked="false" Priority="0" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 9"/>
+  <w:LsdException Locked="false" Priority="35" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" Priority="10" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" Priority="11" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" Priority="22" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="59" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Table Grid"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
 <style>
 <!--
  /* Font Definitions */
  @font-face
 	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:1;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:0 0 0 0 0 0;}
 @font-face
 	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
+	panose-1:2 15 5 2 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-536870145 1073786111 1 0 415 0;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin-top:10.0pt;
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:0in;
 	line-height:115%;
+	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Calibri","sans-serif";}
+	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";}
 h1
-	{mso-style-link:"Heading 1 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 1 Char";
 	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
 	background:#4F81BD;
-	border:none;
-	padding:0in;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
 	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;}
 h2
-	{mso-style-link:"Heading 2 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 2 Char";
 	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
 	background:#DBE5F1;
-	border:none;
-	padding:0in;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
 h3
-	{mso-style-link:"Heading 3 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 3 Char";
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
-	border:none;
-	padding:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
 	color:#243F60;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
 h4
-	{mso-style-link:"Heading 4 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 4 Char";
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
-	border:none;
-	padding:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;
 	font-weight:normal;}
 h5
-	{mso-style-link:"Heading 5 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 5 Char";
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
-	border:none;
-	padding:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:5;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;
 	font-weight:normal;}
 h6
-	{mso-style-link:"Heading 6 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 6 Char";
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
-	border:none;
-	padding:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:6;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;
 	font-weight:normal;}
 p.MsoHeading7, li.MsoHeading7, div.MsoHeading7
-	{mso-style-link:"Heading 7 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 7 Char";
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
+	mso-pagination:widow-orphan;
+	mso-outline-level:7;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 p.MsoHeading8, li.MsoHeading8, div.MsoHeading8
-	{mso-style-link:"Heading 8 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 8 Char";
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
+	mso-pagination:widow-orphan;
+	mso-outline-level:8;
 	font-size:9.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 p.MsoHeading9, li.MsoHeading9, div.MsoHeading9
-	{mso-style-link:"Heading 9 Char";
+	{mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 9 Char";
 	margin-top:15.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
+	mso-pagination:widow-orphan;
+	mso-outline-level:9;
 	font-size:9.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	text-transform:uppercase;
 	letter-spacing:.5pt;
 	font-style:italic;}
 p.MsoCaption, li.MsoCaption, div.MsoCaption
-	{margin-top:10.0pt;
+	{mso-style-priority:35;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:0in;
 	line-height:115%;
+	mso-pagination:widow-orphan;
 	font-size:8.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	color:#365F91;
 	font-weight:bold;}
 p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
+	{mso-style-priority:10;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Title Char";
 	margin-top:.5in;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:0in;
 	line-height:115%;
+	mso-pagination:widow-orphan;
 	font-size:26.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	color:#4F81BD;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 p.MsoSubtitle, li.MsoSubtitle, div.MsoSubtitle
-	{mso-style-link:"Subtitle Char";
+	{mso-style-priority:11;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Subtitle Char";
 	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:50.0pt;
 	margin-left:0in;
+	mso-pagination:widow-orphan;
 	font-size:12.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	color:#595959;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 em
-	{color:#243F60;
+	{mso-style-priority:20;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	color:#243F60;
 	text-transform:uppercase;
 	letter-spacing:.25pt;
 	font-style:normal;}
 p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
-	{mso-style-link:"No Spacing Char";
+	{mso-style-priority:1;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"No Spacing Char";
 	margin:0in;
 	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Calibri","sans-serif";}
+	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";}
 p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{margin-top:10.0pt;
+	{mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:.5in;
 	line-height:115%;
+	mso-pagination:widow-orphan;
 	font-size:10.0pt;
-	font-family:"Calibri","sans-serif";}
-p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
-	{margin-top:10.0pt;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	line-height:115%;
-	font-size:10.0pt;
-	font-family:"Calibri","sans-serif";}
-p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	line-height:115%;
-	font-size:10.0pt;
-	font-family:"Calibri","sans-serif";}
-p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:.5in;
-	line-height:115%;
-	font-size:10.0pt;
-	font-family:"Calibri","sans-serif";}
+	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";}
 p.MsoQuote, li.MsoQuote, div.MsoQuote
-	{mso-style-link:"Quote Char";
+	{mso-style-priority:29;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Quote Char";
 	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:0in;
 	line-height:115%;
+	mso-pagination:widow-orphan;
 	font-size:10.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	font-style:italic;}
 p.MsoIntenseQuote, li.MsoIntenseQuote, div.MsoIntenseQuote
-	{mso-style-link:"Intense Quote Char";
+	{mso-style-priority:30;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Intense Quote Char";
 	margin-top:10.0pt;
 	margin-right:.8in;
 	margin-bottom:0in;
 	margin-left:.9in;
 	margin-bottom:.0001pt;
 	text-align:justify;
-	text-justify:inter-ideograph;
 	line-height:115%;
-	border:none;
-	padding:0in;
+	mso-pagination:widow-orphan;
 	font-size:10.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	color:#4F81BD;
 	font-style:italic;}
 span.MsoSubtleEmphasis
-	{color:#243F60;
+	{mso-style-priority:19;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	color:#243F60;
 	font-style:italic;}
 span.MsoIntenseEmphasis
-	{color:#243F60;
+	{mso-style-priority:21;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	color:#243F60;
 	text-transform:uppercase;
 	letter-spacing:.5pt;
 	font-weight:bold;}
 span.MsoSubtleReference
-	{color:#4F81BD;
+	{mso-style-priority:31;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	color:#4F81BD;
 	font-weight:bold;}
 span.MsoIntenseReference
-	{color:#4F81BD;
+	{mso-style-priority:32;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	color:#4F81BD;
 	text-transform:uppercase;
 	font-weight:bold;
 	font-style:italic;}
 span.MsoBookTitle
-	{letter-spacing:.45pt;
+	{mso-style-priority:33;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	letter-spacing:.45pt;
 	font-weight:bold;
 	font-style:italic;}
 p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
-	{margin-top:10.0pt;
+	{mso-style-priority:39;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	margin-bottom:.0001pt;
 	line-height:115%;
+	mso-pagination:widow-orphan;
 	background:#4F81BD;
-	border:none;
-	padding:0in;
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";
 	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:bold;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	color:#4F81BD;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 1";
 	color:white;
 	text-transform:uppercase;
@@ -311,112 +746,271 @@ span.Heading1Char
 	font-weight:bold;}
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 2";
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#DBE5F1;}
 span.Heading3Char
 	{mso-style-name:"Heading 3 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 3";
 	color:#243F60;
 	text-transform:uppercase;
 	letter-spacing:.75pt;}
 span.Heading4Char
 	{mso-style-name:"Heading 4 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 4";
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 span.Heading5Char
 	{mso-style-name:"Heading 5 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 5";
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 span.Heading6Char
 	{mso-style-name:"Heading 6 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 6";
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 span.Heading7Char
 	{mso-style-name:"Heading 7 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 7";
 	color:#365F91;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 span.Heading8Char
 	{mso-style-name:"Heading 8 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 8";
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 span.Heading9Char
 	{mso-style-name:"Heading 9 Char";
+	mso-style-noshow:yes;
+	mso-style-priority:9;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Heading 9";
 	text-transform:uppercase;
 	letter-spacing:.5pt;
 	font-style:italic;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-priority:10;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:Title;
+	color:#4F81BD;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
 span.SubtitleChar
 	{mso-style-name:"Subtitle Char";
+	mso-style-priority:11;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:Subtitle;
 	color:#595959;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
 span.NoSpacingChar
 	{mso-style-name:"No Spacing Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"No Spacing";}
+p.msolistparagraphcxspfirst, li.msolistparagraphcxspfirst, div.msolistparagraphcxspfirst
+	{mso-style-name:msolistparagraphcxspfirst;
+	mso-style-unhide:no;
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";}
+p.msolistparagraphcxspmiddle, li.msolistparagraphcxspmiddle, div.msolistparagraphcxspmiddle
+	{mso-style-name:msolistparagraphcxspmiddle;
+	mso-style-unhide:no;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";}
+p.msolistparagraphcxsplast, li.msolistparagraphcxsplast, div.msolistparagraphcxsplast
+	{mso-style-name:msolistparagraphcxsplast;
+	mso-style-unhide:no;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";}
 span.QuoteChar
 	{mso-style-name:"Quote Char";
+	mso-style-priority:29;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:Quote;
 	font-style:italic;}
 span.IntenseQuoteChar
 	{mso-style-name:"Intense Quote Char";
+	mso-style-priority:30;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
 	mso-style-link:"Intense Quote";
 	color:#4F81BD;
 	font-style:italic;}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-bidi-font-family:"Times New Roman";}
+p.msopapdefault, li.msopapdefault, div.msopapdefault
+	{mso-style-name:msopapdefault;
+	mso-style-unhide:no;
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
 .MsoChpDefault
-	{font-family:"Calibri","sans-serif";}
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-ascii-font-family:Calibri;
+	mso-hansi-font-family:Calibri;}
 .MsoPapDefault
-	{margin-top:10.0pt;
+	{mso-style-type:export-only;
+	margin-top:10.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:0in;
 	line-height:115%;}
 @page WordSection1
 	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
+	margin:1.0in 1.0in 1.0in 1.0in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
 div.WordSection1
 	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
 -->
 </style>
-
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin-top:10.0pt;
+	mso-para-margin-right:0in;
+	mso-para-margin-bottom:10.0pt;
+	mso-para-margin-left:0in;
+	line-height:115%;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Calibri","sans-serif";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1026"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
 </head>
 
-<body lang=EN-US>
+<body lang=EN-US style='tab-interval:.5in'>
 
 <div class=WordSection1>
 
 <p class=MsoTitle>Photo Album test specification</p>
 
-<p class=MsoNormal style='line-height:normal'>This is a FineFit specification
-of a photo album application. The application consists of a client that shows
-photos in a sequence and a server that stores the photos. We can change the
-content of the photos in the client but then must synchronize them with the
-server. Any new photos must be added to the server, and photos that exist in
-the server but we have asked to delete should be removed from the server. The
-following specification describes how each operation should behave.</p>
+<p class=MsoNormal style='line-height:normal'>This is a <span class=SpellE>FineFit</span>
+specification of a photo album application. The application consists of a
+client that shows photos in a sequence and a server that stores the photos. We
+can change the content of the photos in the client but then must synchronize
+them with the server. Any new photos must be added to the server, and photos
+that exist in the server but we have asked to delete should be removed from the
+server. The following specification describes how each operation should behave.</p>
 
 <p class=MsoNormal style='line-height:normal'>Each photo is identified by a
 unique photo id. We will use the set PID to represent these identifiers.</p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -428,7 +1022,7 @@ unique photo id. We will use the set PID to represent these identifiers.</p>
   normal'>Scope</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -446,9 +1040,9 @@ unique photo id. We will use the set PID to represent these identifiers.</p>
 <p class=MsoNormal>The state space of the application consists of four
 relations:</p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -460,7 +1054,7 @@ relations:</p>
   normal'>Type</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:1'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -470,14 +1064,14 @@ relations:</p>
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>seq PID</p>
+  normal'><span class=SpellE>seq</span> PID</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:2'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
   <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -486,7 +1080,7 @@ relations:</p>
   normal'>set PID</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:3'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -499,11 +1093,11 @@ relations:</p>
   normal'>set PID</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -517,63 +1111,64 @@ relations:</p>
 <p class=MsoNormal>The invariant determines when a system state is valid. For
 this application we demand that: </p>
 
-<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
-dir=LTR></span>the album is an injective sequence, that is a photo can appear
-in at most one location in the sequence,</p>
+<p class=MsoListParagraph style='text-indent:-.25in'>1.<span style='font-size:
+7.0pt;line-height:115%;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span class=GramE>the</span> album is an injective sequence, that is a
+photo can appear in at most one location in the sequence,</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
-dir=LTR></span>the photos we are about to send to the server do not already
-exist in the server,</p>
+<p class=MsoListParagraph style='text-indent:-.25in'>2.<span style='font-size:
+7.0pt;line-height:115%;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span class=GramE>the</span> photos we are about to send to the server
+do not already exist in the server,</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
-dir=LTR></span>the photos we are about to delete from the server are indeed in
-the server,</p>
+<p class=MsoListParagraph style='text-indent:-.25in'>3.<span style='font-size:
+7.0pt;line-height:115%;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span class=GramE>the</span> photos we are about to delete from the
+server are indeed in the server,</p>
 
-<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
-dir=LTR></span>we do not ask to add a photo and delete it at the same time</p>
+<p class=MsoListParagraph style='text-indent:-.25in'>4.<span style='font-size:
+7.0pt;line-height:115%;font-family:"Times New Roman","serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span class=GramE>we</span> do not ask to add a photo and delete it at
+the same time</p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Invariant</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:1'>
   <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>album in Int lone -&gt; lone PID</p>
+  normal'>album in <span class=SpellE>Int</span> lone -&gt; lone PID</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:2'>
   <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>no toAdd &amp; existing</p>
+  normal'>no <span class=SpellE>toAdd</span> &amp; existing</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:3'>
   <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete in existing</p>
+  normal'><span class=SpellE>toDelete</span> in existing</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:4'>
   <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>no toAdd &amp; toDelete</p>
+  normal'>no <span class=SpellE>toAdd</span> &amp; <span class=SpellE>toDelete</span></p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
   <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -585,9 +1180,9 @@ dir=LTR></span>we do not ask to add a photo and delete it at the same time</p>
 <p class=MsoNormal>When the application begins there are no photos in the album
 and no photos in the server.</p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -599,11 +1194,11 @@ and no photos in the server.</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:1'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>init</p>
+  normal'><span class=SpellE>init</span></p>
   </td>
   <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -612,7 +1207,7 @@ and no photos in the server.</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:2'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -625,7 +1220,7 @@ and no photos in the server.</p>
   normal'>true</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:3'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -638,11 +1233,11 @@ and no photos in the server.</p>
   normal'>none -&gt; none</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:4'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
   <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -651,11 +1246,11 @@ and no photos in the server.</p>
   normal'>none</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:5'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -664,7 +1259,7 @@ and no photos in the server.</p>
   normal'>none</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -679,13 +1274,13 @@ and no photos in the server.</p>
  </tr>
 </table>
 
-<p class=MsoNormal>The operation addPhoto appends a photo to the album,
-provided that the photo is not already in the album and that the album has
-enough space:</p>
+<p class=MsoNormal>The operation <span class=SpellE>addPhoto</span> appends a
+photo to the <span class=GramE>album,</span> provided that the photo is not
+already in the album and that the album has enough space:</p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -712,11 +1307,11 @@ enough space:</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:1'>
   <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>addPhoto</p>
+  normal'><span class=SpellE>addPhoto</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -743,11 +1338,11 @@ enough space:</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:2'>
   <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>pid:PID, output_r:Int</p>
+  normal'><span class=SpellE>pid:PID</span>, <span class=SpellE>output_r:Int</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -755,19 +1350,21 @@ enough space:</p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>#album &lt; 3 and</p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>pid !in toAdd + existing</p>
+  normal'><span class=SpellE>pid</span> !in <span class=SpellE>toAdd</span> +
+  existing</p>
   </td>
   <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>#album &lt; 3 and pid in toDelete</p>
+  normal'>#album &lt; 3 and <span class=SpellE>pid</span> in <span
+  class=SpellE>toDelete</span></p>
   </td>
   <td width=119 valign=top style='width:88.9pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>pid in album.elems</p>
+  normal'><span class=SpellE>pid</span> in <span class=SpellE>album.elems</span></p>
   </td>
   <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -776,7 +1373,7 @@ enough space:</p>
   normal'>#album = 3</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:3'>
   <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -786,94 +1383,94 @@ enough space:</p>
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>album.add[pid]</p>
+  normal'><span class=SpellE>album.add</span>[<span class=SpellE>pid</span>]</p>
   </td>
   <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>album.add[pid]</p>
+  normal'><span class=SpellE>album.add</span>[<span class=SpellE>pid</span>]</p>
   </td>
   <td width=119 valign=top style='width:88.9pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>album</p>
+  normal'>=</p>
   </td>
   <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>album</p>
+  normal'>= </p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:4'>
   <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd + pid</p>
+  normal'><span class=SpellE>toAdd</span> + <span class=SpellE>pid</span></p>
   </td>
   <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
   <td width=119 valign=top style='width:88.9pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
   <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:5'>
   <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete - pid</p>
+  normal'><span class=SpellE>toDelete</span> - <span class=SpellE>pid</span></p>
   </td>
   <td width=119 valign=top style='width:88.9pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
   <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>output_r</p>
+  normal'><span class=SpellE>output_r</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -902,15 +1499,15 @@ enough space:</p>
  </tr>
 </table>
 
-<p class=MsoNormal>The operation removePhoto takes an index into the album
-sequence and removes the photo from the album. All other photos shift to the
-right. If the photo is new (and therefore was about to be added to the server)
-we have to remove it from toAdd to ensure it won't be added to the server when
-we save the album:</p>
+<p class=MsoNormal>The operation <span class=SpellE>removePhoto</span> takes an
+index into the album sequence and removes the photo from the album. All other
+photos shift to the right. If the photo is new (and therefore was about to be
+added to the server) we have to remove it from <span class=SpellE>toAdd</span>
+to ensure it won't be added to the server when we save the album:</p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -927,11 +1524,11 @@ we save the album:</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:1'>
   <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>removePhoto</p>
+  normal'><span class=SpellE>removePhoto</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -946,7 +1543,7 @@ we save the album:</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:2'>
   <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -956,16 +1553,18 @@ we save the album:</p>
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>i in album.PID and album[i] in toAdd</p>
+  normal'><span class=SpellE>i</span> in <span class=SpellE>album.PID</span>
+  and album[<span class=SpellE>i</span>] in <span class=SpellE>toAdd</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>i in album.PID and album[i] in existing</p>
+  normal'><span class=SpellE>i</span> in <span class=SpellE>album.PID</span>
+  and album[<span class=SpellE>i</span>] in existing</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:3'>
   <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -975,51 +1574,51 @@ we save the album:</p>
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>album.delete[i]</p>
+  normal'><span class=SpellE>album.delete</span>[<span class=SpellE>i</span>]</p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>album.delete[i]</p>
+  normal'><span class=SpellE>album.delete</span>[<span class=SpellE>i</span>]</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:4'>
   <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd - album[i]</p>
+  normal'><span class=SpellE>toAdd</span> - album[<span class=SpellE>i</span>]</p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
   <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete + album[i]</p>
+  normal'><span class=SpellE>toDelete</span> + album[<span class=SpellE>i</span>]</p>
   </td>
  </tr>
 </table>
@@ -1028,9 +1627,9 @@ we save the album:</p>
 server and removes from the server all the old photos that we have asked to
 remove:</p>
 
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -1042,7 +1641,7 @@ remove:</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:1'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -1055,7 +1654,7 @@ remove:</p>
   normal'>&nbsp;</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:2'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -1068,11 +1667,11 @@ remove:</p>
   normal'>true</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:3'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toAdd</p>
+  normal'><span class=SpellE>toAdd</span></p>
   </td>
   <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -1081,11 +1680,11 @@ remove:</p>
   normal'>none</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:4'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>toDelete</p>
+  normal'><span class=SpellE>toDelete</span></p>
   </td>
   <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -1094,7 +1693,7 @@ remove:</p>
   normal'>none</p>
   </td>
  </tr>
- <tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -1104,7 +1703,7 @@ remove:</p>
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>existing + toAdd - toDelete</p>
+  normal'>existing + <span class=SpellE>toAdd</span> - <span class=SpellE>toDelete</span></p>
   </td>
  </tr>
 </table>
