@@ -19,6 +19,7 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 package com.finefit.model;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.io.PrintStream;
@@ -67,17 +68,23 @@ public class Operation {
     return formula;
 	}
 
-	public String getArg(Instance args, String argName) {
-	
-      for (Map.Entry<Relation,TupleSet> e : args.relationTuples().entrySet()) {
-		if (e.getKey().name().equals("$" + argName)) {
-			return (String)e.getValue().iterator().next().atom(0);
-		}
-      }
-	
-		throw new RuntimeException("Could not find variable name " + argName);
-    }
+	public String getAlloyCall(State state) {
+		
+		String call = getName() + "[";
 
+		call += State.CURR +", " + State.NEXT; 
+
+		for(Decl decl : operation.decls) {
+			String value = state.getArg(decl.get().label);
+
+     if (!value.equals(State.CURR) && !value.equals(State.NEXT))
+				call += "," + value;
+		}
+ 
+		call += "]";
+		return call;
+	}
+			
 	public void printCall(State state, PrintStream out) {
 		
 		for(Decl decl: operation.decls) {

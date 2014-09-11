@@ -23,6 +23,7 @@ package com.finefit.model;
 import java.util.ArrayList;
 import java.util.List;
 import edu.mit.csail.sdg.alloy4compiler.ast.Func;
+import edu.mit.csail.sdg.alloy4compiler.ast.ExprVar;
 import edu.mit.csail.sdg.alloy4compiler.parser.CompModule;
 import edu.mit.csail.sdg.alloy4compiler.parser.CompUtil;
 import edu.mit.csail.sdg.alloy4compiler.translator.A4Options;
@@ -40,11 +41,14 @@ public class Model {
 	public Model(String modelFileName) throws Err {
 		world =  CompUtil.parseEverything_fromFile(new A4Reporter(), null, modelFileName);
 		context = TranslateAlloyToKodkod.execute_command(new A4Reporter(), world.getAllReachableSigs(), world.getAllCommands().get(0), new A4Options());
+ 		for(ExprVar a:context.getAllAtoms()) { world.addGlobal(a.label, a); }
 	}
 
 	public A4Solution context() {
 		return context; 
 	}
+
+	public CompModule module() { return world; }
 
 	public Operation getInit() {
 

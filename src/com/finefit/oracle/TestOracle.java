@@ -31,19 +31,42 @@ import kodkod.instance.TupleSet;
 import kodkod.ast.Relation;
 import kodkod.ast.Formula;
 import kodkod.engine.Evaluator;
+import kodkod.ast.Expression;
+import edu.mit.csail.sdg.alloy4compiler.ast.Expr;
+import edu.mit.csail.sdg.alloy4compiler.ast.ExprVar;
+import edu.mit.csail.sdg.alloy4compiler.parser.CompUtil;
+import edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod;
+import edu.mit.csail.sdg.alloy4.Err;
 import com.finefit.model.Model;
 import com.finefit.model.State;
 import com.finefit.model.Operation;
 import com.finefit.translator.Constants;
+
 public class TestOracle {
 
 	public TestOracle() {}
 	
-	public boolean verify(Model model, Operation operation, State currentState, State nextState) {
+	public boolean verify(Model model, Operation operation, State currentState, State nextState) throws Err {
 
 		Instance instance = combine(currentState.instance(), nextState.instance());
 
-		return new Evaluator(instance).evaluate(operation.getFormula(model.context())) && compareOutputs(nextState.instance(), nextState);
+		// add all the atoms as global relations to the instance. this makes it possible to use them in expressions.
+
+		Instance root_instance = model.context().debugExtractKInstance();
+		
+		for(ExprVar a : model.context().getAllAtoms()) { 
+
+	    for(Map.Entry<Relation, TupleSet> e : root_instance.relationTuples().entrySet()) {
+				if (e.getKey().name().equals(a.label))
+					instance.add(e.getKey(), e.getValue());
+			}
+		}
+
+		Expr e = CompUtil.parseOneExpression_fromString(model.module(), operation.getAlloyCall(nextState));
+
+
+		return new Evaluator(instance).evaluate((Formula)TranslateAlloyToKodkod.alloy2kodkod(model.context(), e)) && compareOutputs(nextState.instance(), nextState);
+
 	}
 
   private Instance combine(Instance instance, Instance other) {

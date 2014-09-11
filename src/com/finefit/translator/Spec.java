@@ -38,6 +38,9 @@ public class Spec {
 		out.println("open util/ordering[" + Constants.STATE_SIG + "] as " + Constants.STATE_SIG + "Order");
 		out.println("pred true {	all x : none | no x }");
 		out.println("pred false {	some x : none | no x }");
+		out.println("fun ran[r : univ -> univ] : univ { univ.r }");
+		out.println("fun dom[r : univ -> univ] : univ {	r.univ }");
+
 		for (Sig s : sigs) 
 			s.print(out);
 		state.print(out);
