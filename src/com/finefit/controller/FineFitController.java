@@ -41,11 +41,12 @@ import com.finefit.reporter.PrintStreamReporter;
 public class FineFitController {
 
 final static String SYSTEM_SPECIFICATION = "SystemSpecification.als";
+final static String VERSION = "1.0";
 	
 	public static void main(String[] args) { 
 
 		if(args.length != 2) {
-      System.out.println("Wrong number of arguments. Required: <specification> <driver>");
+      System.out.println("This is FineFit version " + VERSION + "\n\nWrong number of arguments. Required: <specification> <driver>");
 			System.exit(1);
 		}
 
