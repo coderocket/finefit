@@ -52,7 +52,7 @@ public class Operation {
 	private void printParams(PrintStream out) {
 
 		if (params != "") {
-			out.print(", " + params);
+			out.print(", " + params.replaceAll("!", Constants.OUTPUT_SUFFIX));
 		}
 	}
 

@@ -66,7 +66,7 @@ public class FineFitDriver implements SUT {
 
 
 				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(result));
-				state.addOutput("output_report", 1, r);
+				state.addOutput("report!", 1, r);
 			}
 			else if (operationName.equals("viewPhotos")) {
 
@@ -75,7 +75,7 @@ public class FineFitDriver implements SUT {
 				for(Photo p : photos){
 					r.add(factory.tuple(IdMap.instance().obj2atom(p)));
 				}
-				state.addOutput("output_result", 1, r);
+				state.addOutput("result!", 1, r);
 			}
 			else 
 				throw new NoSuchOperation();

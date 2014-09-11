@@ -69,7 +69,8 @@ public class State {
 				instance.add(getVar(name), factory.noneOf(arity));
 	}
 
-	public void addOutput(String name, int arity, List<Tuple> tuples) {
+	public void addOutput(String sugar_name, int arity, List<Tuple> tuples) {
+			String name = sugar_name.replaceAll("!$", Constants.OUTPUT_SUFFIX);
 			TupleFactory factory = instance.universe().factory();
 			if (!tuples.isEmpty())
 				sut_outputs.put(name, factory.setOf(tuples));
@@ -140,7 +141,7 @@ public class State {
 			}
 		}
 		for(Map.Entry<String, TupleSet> p : sut_outputs.entrySet()) {
-			out.print(p.getKey() + " = ");
+			out.print(p.getKey().replaceAll(Constants.OUTPUT_SUFFIX +"$", "") + "! = ");
 			printTuples(p.getValue());
 			System.out.println("");
 		}

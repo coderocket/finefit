@@ -128,7 +128,7 @@ public class TestOracle {
 
     for(Map.Entry<Relation, TupleSet> e : instance.relationTuples().entrySet())
     {
-      if (e.getKey().name().startsWith("$"+Constants.OUTPUT_PREFIX))
+      if (e.getKey().name().endsWith(Constants.OUTPUT_SUFFIX))
       {
 				TupleSet ts = fromSUT.getOutput(e.getKey().name().replaceFirst("\\$",""));
 				if (ts == null) return false;

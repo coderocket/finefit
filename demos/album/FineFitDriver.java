@@ -59,7 +59,7 @@ public class FineFitDriver implements SUT {
 
 				TupleFactory factory = state.factory();
 				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(result));
-				state.addOutput("output_r", 1, r);
+				state.addOutput("result!", 1, r);
 			}
 			else if (operationName.equals("removePhoto")) {
 				int i = Integer.parseInt(state.getArg("i"));

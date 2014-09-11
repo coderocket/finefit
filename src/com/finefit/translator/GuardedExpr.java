@@ -47,7 +47,7 @@ public class GuardedExpr {
 
 	private void printExpr(String[] frame, State state, PrintStream out) {
 		for (int i = 0 ; i < frame.length; i++) {
-			state.print(frame[i] + " = ", Constants.NEXT_VAR, out);
+			state.print(frame[i].replaceAll("!", Constants.OUTPUT_SUFFIX) + " = ", Constants.NEXT_VAR, out);
 
 			// replace the expression by the frame variable if the expression is a 'no change' symbol
 			String e;
