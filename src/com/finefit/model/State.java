@@ -92,11 +92,41 @@ public class State {
 	public String getArg(String argName) {
     for (Map.Entry<Relation,TupleSet> e : instance.relationTuples().entrySet()) {
     	if (e.getKey().name().equals("$" + argName)) {
-      	return (String)e.getValue().iterator().next().atom(0);
+				return tupleSet2Alloy(e.getValue());
     	}
     }
     throw new RuntimeException("Could not find the argument " + argName);
   }
+
+	private String noneOfArity(int n) {
+			String s = "none";
+			for(int i =1;i < n;i++) {
+				s += " -> none";
+			}
+			return s;
+	}
+
+	private String tupleSet2Alloy(TupleSet ts) {
+
+			if (ts.size() == 0) 
+				return noneOfArity(ts.arity());
+			else {	
+				Iterator<Tuple> it = ts.iterator();
+				String s = tuple2Alloy(it.next());
+				while(it.hasNext()) {
+					s += " + " + tuple2Alloy(it.next());
+				}
+				return s;
+			}
+	}
+
+	private String tuple2Alloy(Tuple t) {
+		String s = t.atom(0).toString();
+		for (int i = 1; i < t.arity(); i++) {
+			s+= " -> " + t.atom(i);
+		}
+		return s;
+	}
 
 	public void print(PrintStream out) {
 

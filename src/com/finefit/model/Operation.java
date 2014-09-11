@@ -32,6 +32,7 @@ import edu.mit.csail.sdg.alloy4.Err;
 import edu.mit.csail.sdg.alloy4compiler.ast.Func;
 import edu.mit.csail.sdg.alloy4compiler.ast.ExprQt;
 import edu.mit.csail.sdg.alloy4compiler.ast.Decl;
+import edu.mit.csail.sdg.alloy4compiler.ast.ExprHasName;
 import edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod;
 import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
 
@@ -70,23 +71,30 @@ public class Operation {
 
 	public String getAlloyCall(State state) {
 		
-		String call = getName() + "[";
+		String[] args = new String[operation.count()];
 
-		call += State.CURR +", " + State.NEXT; 
-
+		int i = 0;
 		for(Decl decl : operation.decls) {
-			String value = state.getArg(decl.get().label);
-
-     if (!value.equals(State.CURR) && !value.equals(State.NEXT))
-				call += "," + value;
+			for(ExprHasName n : decl.names) {
+				args[i] = state.getArg(n.label); 
+				i++;
+			}
 		}
  
+		String call = getName() + "["; 
+
+		if (args.length > 0) 
+			call += args[0];
+
+		for(i = 1; i < args.length; i++) 
+			call += ", " + args[i];
+
 		call += "]";
 		return call;
 	}
 			
 	public void printCall(State state, PrintStream out) {
-		
+
 		for(Decl decl: operation.decls) {
 			String value = state.getArg(decl.get().label);
 
