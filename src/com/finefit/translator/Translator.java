@@ -19,6 +19,8 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 package com.finefit.translator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -33,8 +35,6 @@ import fit.Parse;
 
 public class Translator {
 
-	public Translator(){ }
-	
   public static void translate(String htmlFileName, String alloyFileName) throws ParseException, IOException {
 
 		Sig[] sigs = null;
@@ -71,11 +71,14 @@ public class Translator {
 		
 		spec.print(new PrintStream(alloyFileName));
   }
-
 	private static Operation parseOperation(Parse p) {
+
 		String name = p.at(0,0).text();
 		String params = p.at(1,0).text();
-		String[] frame = parseFrame(p.at(2));	
+
+		int tree_height = getHeight(p.at(1,0)); 
+		
+		String[] frame = parseFrame(p.at(1+tree_height));	
 		GuardedExpr[] body = parseBody(p.at(1));
 		return new Operation(name, params, frame, body);
 	}
@@ -91,27 +94,76 @@ public class Translator {
 
 	private static GuardedExpr[] parseBody(Parse p) {
 
-		int numCols = p.at(0,0).size() - 1;
-		assert(numCols > 0);
-		GuardedExpr[] exprs = new GuardedExpr[numCols];
+		int tree_height = getHeight(p.at(0,0)); 
+		
+		Flattener.Table table = makeTable(p.at(0), tree_height);
 
-		for (int j = 0 ; j < numCols; j++) {
-			exprs[j] = parseGuardedExpr(p, j+1);
+		String[] guards = Flattener.flatten(table);
+
+		GuardedExpr[] exprs = new GuardedExpr[guards.length];
+
+		// move p to the row that holds the first state variable 
+		p = p.at(tree_height);
+
+		for (int j = 0 ; j < guards.length; j++) {
+			exprs[j] = parseGuardedExpr(p, guards[j], j+1);
 		} 
 
 		return exprs;
 	}
 		
-	private static GuardedExpr parseGuardedExpr(Parse p, int j) {
+	private static GuardedExpr parseGuardedExpr(Parse p, String guard, int j) {
 			int numRows = p.size();
-			String[] exprs = new String[numRows-1];
-			String guard = p.at(0,j).text();
-			p = p.more;
-			for (int i = 0; i < numRows-1; i++) {
+			String[] exprs = new String[numRows];
+			for (int i = 0; i < numRows; i++) {
 				exprs[i] = p.at(0,j).text();
 				p = p.more;	
 			}
 			return new GuardedExpr(guard, exprs);
+	}
+
+	private static int getWidth(Parse p) {
+		return getDim(p, "colspan");
+	}
+
+	private static int getHeight(Parse p) {
+		return getDim(p, "rowspan");
+	}
+
+	private static int getDim(Parse p, String dimname) {
+		String value = getAttr(p.tag, dimname);
+		if (value != null)
+			return Integer.parseInt(value);
+		else		
+			return 1;
+	}
+
+	private static Flattener.Cell[] makeRow(Parse col) {
+
+		Flattener.Cell[] cells = new Flattener.Cell[col.size()];
+
+		for(int j = 0; j < cells.length;j++) {
+			cells[j] = new Flattener.Cell(getWidth(col), col.text());
+			col = col.more;
+		}
+
+		return cells;
+	}
+
+	private static Flattener.Table makeTable(Parse row, int height) {
+
+			Flattener.Table table = new Flattener.Table(height);
+
+			if (height > 0) { // the first row starts with the parameter list
+
+				table.setRow(0, makeRow(row.at(0, 1)));
+			}
+
+			for(int i = 1; i < height; i++) {
+				table.setRow(i, makeRow(row.at(i, 0)));
+			}
+
+			return table;
 	}
 
 	private static Sig[] parseSigs(Parse p) {
@@ -150,5 +202,17 @@ public class Translator {
 
  	 	byte[] encoded = Files.readAllBytes(Paths.get(path));
  	 	return new String(encoded, encoding);
+	}
+
+	// Returns the value of the HTML attribute 'name' if it appears in 'tag' or null otherwise.
+	// For example, if tag is <Table foo=2> and name is foo then getAttr returns 2
+
+	static String getAttr(String tag, String name) {
+		Matcher matcher = Pattern.compile(name + "[\\s]*=[\\s]*(\\w)+").matcher(tag);
+		if (matcher.find()) {
+			return matcher.group(1);
+		}
+		else
+			return null;
 	}
 }
