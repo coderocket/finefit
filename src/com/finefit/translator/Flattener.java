@@ -36,10 +36,18 @@ public class Flattener {
 		}
 
 		public Cell cell(int i, int j) {
+			assert (0 <= i);
+			assert (i < cells.length);
+			assert (0 <= j);
+			assert (j < cells[i].length);
+
 			return cells[i][j];
 		}
 
 		public Cell[] row(int i) {
+			assert (0 <= i);
+			assert (i < cells.length);
+
 			return cells[i];
 		}
 
@@ -50,7 +58,7 @@ public class Flattener {
 		public void print(PrintStream out) {
 			for(int i =0; i < cells.length; i++) {
 				for(int j =0; j < cells[i].length; j++) {
-						out.print(cells[i][j].predicate);	out.print('\t');	
+						out.print("(" + cells[i][j].span + ") " + cells[i][j].predicate);	out.print('\t');	
 				}
 				out.print('\n');
 			}
@@ -105,9 +113,10 @@ public class Flattener {
 			TreeNode[] new_forrest = new TreeNode[table.row(h-1).length];
 
 			for (int i = 0, j = 0; i < new_forrest.length; ++i) {
-				TreeNode[] children = new TreeNode[table.cell(h-1,i).span];
+				TreeNode[] children = new TreeNode[num_children(table,h-1,i,j)];
 				int k = 0; 
 				while(k < children.length) {
+					assert(j < forrest.length);
 					children[k++] = forrest[j++];
 				}
 				new_forrest[i] = new TreeNode(children, table.cell(h-1,i).predicate);
@@ -129,5 +138,25 @@ public class Flattener {
     }
 
 		return ps;
+	}
+
+	/* Returns the number of children of t.cell(i,j) given that the first
+	child is located at t.cell(i+1,k). It is defined as follows:
+
+	if i == t.length => num_children = 0
+	otherwise        => d : int | sum(k <= x < k+d | t.cell(i+1,x).span) = t.cell(i,j).span
+	
+	*/
+
+	private static int num_children(Table t, int i, int j, int k) {
+		if (i == t.height())
+			return 0;	
+		int tot = 0;
+		int d = 0;
+		while (tot < t.cell(i,j).span) {
+			tot += t.cell(i+1,k+d).span;	
+			d++;
+		}
+		return d;
 	}
 }
