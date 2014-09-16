@@ -26,12 +26,14 @@ public class Spec {
 	Invariant invariant;
 	Sig[] sigs;
 	Operation[] operations; 
+	Enumeration[] enumerations;
 
-	public Spec(State state, Invariant invariant, Sig[] sigs, Operation[] operations) {
+	public Spec(State state, Invariant invariant, Sig[] sigs, Operation[] operations, Enumeration[] enumerations) {
 		this.state = state;
 		this.invariant = invariant;
 		this.sigs = sigs;
 		this.operations = operations;
+		this.enumerations = enumerations;
 	}
 
 	public void print(PrintStream out) {
@@ -43,6 +45,8 @@ public class Spec {
 
 		for (Sig s : sigs) 
 			s.print(out);
+		for (Enumeration e : enumerations)
+			e.print(out);
 		state.print(out);
 		invariant.print(state, out);
 		for (Operation p : operations) 
@@ -50,6 +54,10 @@ public class Spec {
 		out.print("run {} for 3 but ");
 		for (Sig s : sigs) {
 			s.printScope(out);
+			out.print(", ");
+		}
+		for (Enumeration e : enumerations) {
+			e.printScope(out);
 			out.print(", ");
 		}
 		out.println(" 2 " + Constants.STATE_SIG);

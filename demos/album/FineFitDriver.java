@@ -52,10 +52,14 @@ public class FineFitDriver implements SUT {
 				String result = "0";  
 				try {
 					sut.AddPhoto(pid);
-					result = "1";
+					result = "OK$0";
 				}
-				catch(PhotoAlbum.PhotoExists err) {}
-				catch(PhotoAlbum.ContainerIsFull err) {}
+				catch(PhotoAlbum.PhotoExists err) {
+					result = "ALREADY_IN$0";
+				}
+				catch(PhotoAlbum.ContainerIsFull err) {
+					result = "ALBUM_FULL$0";
+				}
 
 				TupleFactory factory = state.factory();
 				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(result));

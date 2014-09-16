@@ -44,9 +44,9 @@ public class PhotoAlbum {
 			TupleFactory factory = prevState.factory();
 			State currentState = prevState.clone();
 
-			List<Tuple> photoAtTuples = new ArrayList();
-			List<Tuple> toAddTuples = new ArrayList();
-			List<Tuple> existingTuples = new ArrayList();
+			List<Tuple> photoAtTuples = new ArrayList<Tuple>();
+			List<Tuple> toAddTuples = new ArrayList<Tuple>();
+			List<Tuple> existingTuples = new ArrayList<Tuple>();
 
 			int i = 0;
 			for (Photo p : photoAt) {
@@ -58,7 +58,7 @@ public class PhotoAlbum {
 			    ++i;
 			}
 		
-			List<Tuple> deletedPhotosTuples = new ArrayList();
+			List<Tuple> deletedPhotosTuples = new ArrayList<Tuple>();
 			for (String key : deletedPhotos) {
 			    deletedPhotosTuples.add( factory.tuple("State$0",key));
 			    existingTuples.add( factory.tuple("State$0",key));

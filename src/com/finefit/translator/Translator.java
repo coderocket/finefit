@@ -41,6 +41,7 @@ public class Translator {
 		State state = null;
 		Invariant invariant = null;
 		List<Operation> operations = new ArrayList<Operation>();
+		List<Enumeration> enumerations = new ArrayList<Enumeration>();
 	
     Parse parse = new Parse(readFile(htmlFileName, Charset.defaultCharset()));
 
@@ -60,6 +61,8 @@ public class Translator {
       case "State variable":
 				state = parseState(parse.at(0,1));
         break;
+			case "Enumeration":
+				enumerations.add(parseEnumeration(parse.at(0,1)));
       }
       parse = parse.more;
     }
@@ -67,10 +70,11 @@ public class Translator {
 		if (state == null)
 			throw new RuntimeException("Invalid specification: No State table");
 
-		Spec spec = new Spec(state, invariant, sigs, operations.toArray(new Operation[operations.size()]));
+		Spec spec = new Spec(state, invariant, sigs, operations.toArray(new Operation[0]), enumerations.toArray(new Enumeration[0]));
 		
 		spec.print(new PrintStream(alloyFileName));
   }
+
 	private static Operation parseOperation(Parse p) {
 
 		String name = p.at(0,0).text();
@@ -195,6 +199,17 @@ public class Translator {
 			p = p.more;	
 		}		
 		return new Invariant(preds);
+	}
+
+	private static Enumeration parseEnumeration(Parse p) {
+		List<String> instances = new ArrayList<String>();
+		String sigName = p.at(0,0).text();
+		p = p.more;
+		while (p != null) {
+			instances.add(p.at(0,0).text());
+			p = p.more;
+		}
+		return new Enumeration(sigName, instances.toArray(new String[0]));
 	}
 
 	static String readFile(String path, Charset encoding) 
