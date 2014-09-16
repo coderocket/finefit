@@ -89,8 +89,9 @@ public class Translator {
 
 	private static String[] parseFrame(Parse p) {
 		List<String> varNames = new ArrayList<String>();
-		while (p != null) {
-			varNames.add(p.at(0,0).text());
+		while (p != null) { 
+			if (p.at(0,0).text().matches("\\S"))  // ignore empty rows
+				varNames.add(p.at(0,0).text());
 			p = p.more;
 		}
 		return varNames.toArray(new String[varNames.size()]);
