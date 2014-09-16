@@ -73,7 +73,7 @@ public class Test {
 			operation[0] = new Operation("register", params, frame, expr);
 			operation[0].print(state, System.out);
 
-			Spec spec = new Spec(state, invariant, user, operation);
+			Spec spec = new Spec(state, invariant, user, operation, new Enumeration[0]);
 			spec.print(System.out);
 	}
 
