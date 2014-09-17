@@ -47,10 +47,18 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		Photo new_photo = new Photo(image);
 		photoAt[size] = new_photo;
 		size = size + 1;
+
+		// from DGroups:
+		photoAt[size-1].setGroup(groups.get(ownerGroupName));
+
 		return new_photo;
 	}
 
-	public Set<Photo> viewPhotos() {
+	public Set<Photo> viewPhotos() throws NotAuthorized {
+
+		if (loggedUser == null) 
+			throw new NotAuthorized();
+
 		// MISTAKE: new HashSet(<Photo>);
 		Set<Photo> result = new HashSet<Photo>();
 		for (int i = 0; i < size; i++) { 
@@ -93,17 +101,16 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		return addPhoto$DOwner(image);
 	}
 
-	public ArrayPhotoAlbum(int maxSize, String ownerName, String ownerPwd) {
+	public ArrayPhotoAlbum(int maxSize, User owner, Group ownerGroup) {
 		if (maxSize < 1)
 			throw new IllegalArgumentException("IllegalSize");
 		photoAt = new Photo[maxSize];
-		owner = new User(ownerName, ownerPwd);
+		this.owner = owner;
 		users = new HashMap<String,User>();
 		groups = new HashMap<String,Group>();
-		users.put(ownerName, owner);
-		Set<User> ownerGroupUsers = new HashSet<User>();
-		ownerGroupUsers.add(owner);
-		groups.put("Owner", new Group("Owner", ownerGroupUsers));
+		users.put(owner.getName(), owner);
+		ownerGroupName = ownerGroup.getName();
+		groups.put(ownerGroupName, ownerGroup);
 	}
 
 	public boolean isOwnerLoggedIn() { return loggedUser == owner; }
@@ -123,19 +130,27 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 	Map<String, User> users;
 	Map<String, Group> groups;
 	User loggedUser;
+	String ownerGroupName;
 
-	public void updateUser(String name, String password) throws NotAuthorized {
+	public User updateUser(String name, String password) throws NotAuthorized {
 		if ((name==null) || (password==null)) 
 			throw new IllegalArgumentException();
+
 		if (!isOwnerLoggedIn()) 
 			throw new NotAuthorized();
-		if (users.containsKey(name)) 
+
+		if (users.containsKey(name)) {
 			users.get(name).setPassword(password);
-		else
-			users.put(name, new User(name, password));
+			return null;
+		}
+		else { 
+			User user = new User(name, password);
+			users.put(name, user);
+			return user;
+		}
 	}
 
-	public void updateGroup(String name, Set<String> memberNames) throws NotAuthorized, MissingUsers {
+	public Group updateGroup(String name, Set<String> memberNames) throws NotAuthorized, MissingUsers {
 
 		if ((name==null) || (memberNames==null)) 
 			throw new IllegalArgumentException();
@@ -148,23 +163,30 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 
 		Set<User> members = new HashSet<User>();
 		for (String n : memberNames) { members.add(users.get(n)); }
-		if (users.containsKey(name)) 
+		if (users.containsKey(name)) {
 			groups.get(name).setMembers(members);
-		else
-			groups.put(name, new Group(name, members));
+			return null;
+		}
+		else {
+			Group new_group = new Group(name, members); 
+			groups.put(name, new_group);
+			return new_group;
+		}
 	}
 
 	public void removeUser(String name) {
 
 	}
 
-	public void removeGroup(String name) throws NotAuthorized, MissingGroup {
+	public void removeGroup(String name) throws NotAuthorized, MissingGroup, RemoveOwnerGroup {
 
-		if (name.equals("Owner")) 
-			throw new IllegalArgumentException("CannotRemoveOwnerGroup");
+/* An error detect by FineFit (the same as for updatePhotoGroup) */
 
 		if (!isOwnerLoggedIn()) 
 			throw new NotAuthorized();
+
+		if (name.equals(ownerGroupName))
+			throw new RemoveOwnerGroup();
 
 		if ((name ==null) || (!groups.containsKey(name)))
 			throw new MissingGroup();
@@ -184,11 +206,16 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 
 	public void updatePhotoGroup(int location, String groupName) throws OwnerNotLoggedIn, MissingGroup {
 
-		if ((location < 0) || (size <= location)) 
-			throw new IllegalArgumentException("IllegalLocation");
+/* An error detected by FineFit: originally we first tested the location and only then if the
+owner is logged in. However the spec insists that when the owner is not logged in the error
+should be NOT_AUTH regardless of the value of the index. 
 
+*/
 		if (!isOwnerLoggedIn()) 
 			throw new OwnerNotLoggedIn();
+
+		if ((location < 0) || (size <= location)) 
+			throw new IllegalArgumentException("IllegalLocation");
 
 		if (!groups.containsKey(groupName)) 
 			throw new MissingGroup();
@@ -213,12 +240,17 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 
 		// from DOwner:
 
-		List<Tuple> ownerTuple = new ArrayList<Tuple>();
-		ownerTuple.add(factory.tuple("State$0", IdMap.instance().obj2atom(owner)));
+		List<Tuple> ownerNameTuple = new ArrayList<Tuple>();
+		ownerNameTuple.add(factory.tuple("State$0", owner.getName()));
 
-		currentState.add("owner", 2, ownerTuple);
+		currentState.add("ownerName", 2, ownerNameTuple);
 
 		// from DGroups:
+
+		List<Tuple> ownerGroupNameTuple = new ArrayList<Tuple>();
+		ownerGroupNameTuple.add(factory.tuple("State$0", ownerGroupName));
+
+		currentState.add("ownerGroupName", 2, ownerGroupNameTuple);
 
 		List<Tuple> usersTuples = new ArrayList<Tuple>();
 
@@ -235,6 +267,40 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		}
 
 		currentState.add("groups", 3, groupsTuples);
+
+		List<Tuple> loggedInTuples = new ArrayList<Tuple>();
+		if (loggedUser != null)
+			loggedInTuples.add(factory.tuple("State$0", loggedUser.getName()));
+
+		currentState.add("loggedIn", 2, loggedInTuples);
+
+		List<Tuple> passwordTuples = new ArrayList<Tuple>();
+
+		for(User u : users.values()) {
+			passwordTuples.add(factory.tuple("State$0", IdMap.instance().obj2atom(u), u.getPassword()));
+		}
+
+		currentState.add("passwords", 3, passwordTuples);
+	
+		List<Tuple> groupPhotoTuples = new ArrayList<Tuple>();
+
+		int i = 0;
+		while(i < size) {
+			groupPhotoTuples.add(factory.tuple("State$0", IdMap.instance().obj2atom(photoAt[i]), IdMap.instance().obj2atom(photoAt[i].getGroup())));
+			++i;
+		}
+
+		currentState.add("groupPhotos", 3, groupPhotoTuples);
+
+		List<Tuple> memberTuples = new ArrayList<Tuple>();
+
+		for(Group g : groups.values()) {
+			for(User u : g.getMembers()) {
+				memberTuples.add(factory.tuple("State$0", IdMap.instance().obj2atom(g), IdMap.instance().obj2atom(u)));
+			}
+		}
+
+		currentState.add("members", 3, memberTuples);
 
 		return currentState;
 	}

@@ -18,6 +18,7 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 */
 
 import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -41,7 +42,15 @@ public class FineFitDriver implements SUT {
     public State initialize(State state) {
 			String owner_name = state.getArg("OWNER_NAME");
 			String owner_passwd = state.getArg("OWNER_PASSWD");
-			sut = new ArrayPhotoAlbum(5, owner_name, owner_passwd);
+			String owner_id = state.getArg("OWNER");
+			String owner_group_id = state.getArg("OWNER_GROUP");
+			String owner_group_name = state.getArg("OWNER_GROUP_NAME");
+			User owner = new User(owner_name, owner_passwd);
+			Group owner_group = new Group(owner_group_name, owner);
+			IdMap.instance().associate(owner, owner_id);
+			IdMap.instance().associate(owner_group, owner_group_id);
+			sut = new ArrayPhotoAlbum(5, owner, owner_group);
+
       return sut.retrieve(state);
     }
 
@@ -54,34 +63,150 @@ public class FineFitDriver implements SUT {
 
 			TupleFactory factory = state.factory();
 
-			if (operationName.equals("addPhoto")) {
+			if (operationName.equals("login")) {
+
+				String name = state.getArg("n");
+				String pass = state.getArg("p");
+
+				String report = "OK$0";
+
+				try {
+					sut.login(name,pass);
+				}
+        catch(PhotoAlbum.AlreadyLogged err) { report = "ALREADY_IN$0"; }
+        catch(PhotoAlbum.AuthFailed err) { report = "AUTH_FAILED$0"; }
+
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
+				state.addOutput("report!", 1, r);
+			} 
+			else if (operationName.equals("addPhoto")) {
 				String id = state.getArg("p");
 
-				String result = "1";
+				String report = "OK$0";
 
 				try {
 					Photo p = sut.addPhoto(id);
 					IdMap.instance().associate(p, id);
 				}
-        catch(PhotoAlbum.PhotoExists err) { result = "-1"; }
-        catch(PhotoAlbum.AlbumIsFull err) { result = "-2"; }
-        catch(PhotoAlbum.OwnerNotLoggedIn err) { result = "-3"; }
+        catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS$0"; }
+        catch(PhotoAlbum.AlbumIsFull err) { report = "ALBUM_FULL$0"; }
+        catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
 
 
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(result));
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
+				state.addOutput("report!", 1, r);
+			} 
+			else if (operationName.equals("updateGroup")) {
+
+				String n = state.getArg("n");
+
+				String nuser = state.getArg("nu");
+
+				String new_group_id = state.getArg("g");
+					
+				String report = "OK$0";
+
+				try {
+					Set<String> nusers = new HashSet<String>();
+					nusers.add(nuser);
+					Group group = sut.updateGroup(n, nusers);
+
+					if (group != null) // a new group was created
+						IdMap.instance().associate(group, new_group_id);
+				}
+        catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
+        catch(PhotoAlbum.MissingUsers err) { report = "MISSING_USERS$0"; }
+
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
+				state.addOutput("report!", 1, r);
+			}
+			else if (operationName.equals("updateUser")) {
+				String n = state.getArg("n");
+				String p = state.getArg("p");
+				String new_user_id = state.getArg("u");
+					
+				String report = "OK$0";
+
+				try {
+					User user = sut.updateUser(n,p);
+
+					if (user != null) // a new user was created
+						IdMap.instance().associate(user, new_user_id);
+				}
+        catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
+
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
+				state.addOutput("report!", 1, r);
+			}
+			else if (operationName.equals("removePhoto")) {
+				int i = Integer.parseInt(state.getArg("i"));
+					
+				String report = "OK$0";
+
+				try {
+					sut.removePhoto(i);
+				}
+				catch(IllegalArgumentException err) { report = "NO_PHOTO$0"; }
+        catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
+
+
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
+				state.addOutput("report!", 1, r);
+			}
+			else if (operationName.equals("removeGroup")) {
+				String name = state.getArg("n");
+					
+				String report = "OK$0";
+
+				try {
+					sut.removeGroup(name);
+				}
+        catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
+        catch(PhotoAlbum.MissingGroup err) { report = "NO_GROUP$0"; }
+        catch(PhotoAlbum.RemoveOwnerGroup err) { report = "REM_OWNER_GROUP$0"; }
+
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
+				state.addOutput("report!", 1, r);
+			}
+			else if (operationName.equals("updatePhotoGroup")) {
+				int i = Integer.parseInt(state.getArg("i"));
+				String name = state.getArg("n");
+					
+				String report = "OK$0";
+
+				try {
+					sut.updatePhotoGroup(i, name);
+				}
+        catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
+        catch(PhotoAlbum.MissingGroup err) { report = "NO_GROUP$0"; }
+				catch(IllegalArgumentException err) { report = "NO_PHOTO$0"; }
+
+
+				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
 				state.addOutput("report!", 1, r);
 			}
 			else if (operationName.equals("viewPhotos")) {
 
-				Set<Photo> photos = sut.viewPhotos(); 
-				List<Tuple> r = new ArrayList<Tuple>(); 
-				for(Photo p : photos){
-					r.add(factory.tuple(IdMap.instance().obj2atom(p)));
+				String report = "OK$0";
+
+				try {
+					Set<Photo> photos = sut.viewPhotos(); 
+					List<Tuple> result = new ArrayList<Tuple>(); 
+					for(Photo p : photos){
+						result.add(factory.tuple(IdMap.instance().obj2atom(p)));
+					}
+					state.addOutput("result!", 1, result);
 				}
-				state.addOutput("result!", 1, r);
+				catch(PhotoAlbum.NotAuthorized err) { 
+					report = "NOT_AUTH$0"; 
+					state.addOutput("result!", 1, new ArrayList<Tuple>());
+				}
+
+				List<Tuple> reportT = new ArrayList<Tuple>(); reportT.add(factory.tuple(report));
+				state.addOutput("report!", 1, reportT);
 			}
 			else 
-				throw new NoSuchOperation();
+				throw new NoSuchOperation(operationName);
 
 
 			return sut.retrieve(state);
