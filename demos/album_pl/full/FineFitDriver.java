@@ -29,6 +29,7 @@ import com.finefit.model.SUT;
 import com.finefit.model.Operation;
 import com.finefit.model.TestCase;
 import com.finefit.model.State;
+import com.finefit.model.SutState;
 
 public class FineFitDriver implements SUT {
 
@@ -51,12 +52,15 @@ public class FineFitDriver implements SUT {
 			IdMap.instance().associate(owner_group, owner_group_id);
 			sut = new ArrayPhotoAlbum(5, owner, owner_group);
 
-      return sut.retrieve(state);
+			SutState sutstate = sut.retrieve();
+			State newstate = state.clone();
+			newstate.read(sutstate);
+
+      return newstate;
     }
 
     @Override
     public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation {
-
 
 			String operationName = testCase.getOperationName(); 
 			State state = testCase.getState().clone();
@@ -76,8 +80,7 @@ public class FineFitDriver implements SUT {
         catch(PhotoAlbum.AlreadyLogged err) { report = "ALREADY_IN$0"; }
         catch(PhotoAlbum.AuthFailed err) { report = "AUTH_FAILED$0"; }
 
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
-				state.addOutput("report!", 1, r);
+				state.addOutput("report!", report);
 			} 
 			else if (operationName.equals("addPhoto")) {
 				String id = state.getArg("p");
@@ -93,8 +96,7 @@ public class FineFitDriver implements SUT {
         catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
 
 
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
-				state.addOutput("report!", 1, r);
+				state.addOutput("report!", report);
 			} 
 			else if (operationName.equals("updateGroup")) {
 
@@ -117,8 +119,7 @@ public class FineFitDriver implements SUT {
         catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
         catch(PhotoAlbum.MissingUsers err) { report = "MISSING_USERS$0"; }
 
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
-				state.addOutput("report!", 1, r);
+				state.addOutput("report!", report);
 			}
 			else if (operationName.equals("updateUser")) {
 				String n = state.getArg("n");
@@ -135,8 +136,7 @@ public class FineFitDriver implements SUT {
 				}
         catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
 
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
-				state.addOutput("report!", 1, r);
+				state.addOutput("report!", report);
 			}
 			else if (operationName.equals("removePhoto")) {
 				int i = Integer.parseInt(state.getArg("i"));
@@ -150,8 +150,7 @@ public class FineFitDriver implements SUT {
         catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
 
 
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
-				state.addOutput("report!", 1, r);
+				state.addOutput("report!", report);
 			}
 			else if (operationName.equals("removeGroup")) {
 				String name = state.getArg("n");
@@ -165,8 +164,7 @@ public class FineFitDriver implements SUT {
         catch(PhotoAlbum.MissingGroup err) { report = "NO_GROUP$0"; }
         catch(PhotoAlbum.RemoveOwnerGroup err) { report = "REM_OWNER_GROUP$0"; }
 
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
-				state.addOutput("report!", 1, r);
+				state.addOutput("report!", report);
 			}
 			else if (operationName.equals("updatePhotoGroup")) {
 				int i = Integer.parseInt(state.getArg("i"));
@@ -181,35 +179,31 @@ public class FineFitDriver implements SUT {
         catch(PhotoAlbum.MissingGroup err) { report = "NO_GROUP$0"; }
 				catch(IllegalArgumentException err) { report = "NO_PHOTO$0"; }
 
-
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(report));
-				state.addOutput("report!", 1, r);
+				state.addOutput("report!", report);
 			}
 			else if (operationName.equals("viewPhotos")) {
 
 				String report = "OK$0";
+				List<Tuple> result = new ArrayList<Tuple>(); 
 
 				try {
 					Set<Photo> photos = sut.viewPhotos(); 
-					List<Tuple> result = new ArrayList<Tuple>(); 
 					for(Photo p : photos){
 						result.add(factory.tuple(IdMap.instance().obj2atom(p)));
 					}
-					state.addOutput("result!", 1, result);
 				}
-				catch(PhotoAlbum.NotAuthorized err) { 
-					report = "NOT_AUTH$0"; 
-					state.addOutput("result!", 1, new ArrayList<Tuple>());
-				}
+				catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
 
-				List<Tuple> reportT = new ArrayList<Tuple>(); reportT.add(factory.tuple(report));
-				state.addOutput("report!", 1, reportT);
+				state.addOutput("result!", 1, result);
+				state.addOutput("report!", report);
 			}
 			else 
 				throw new NoSuchOperation(operationName);
 
-
-			return sut.retrieve(state);
+			SutState sutstate = sut.retrieve();
+			State newstate = state.clone();
+			newstate.read(sutstate);
+			return newstate;
     }
 
 }

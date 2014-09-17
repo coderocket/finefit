@@ -61,12 +61,38 @@ public class State {
 
 	public TupleFactory factory() { return instance.universe().factory(); }
 
+	public void read(SutState sutstate) {
+		for(Map.Entry<String, SutState.Table> e : sutstate.tables()) {
+			add(e.getKey(), e.getValue().numCols()+1, table2tuples(e.getValue())); 
+		}
+	}
+
+	private List<Tuple> table2tuples(SutState.Table t) {
+		List<Tuple> tuples = new ArrayList<Tuple>();
+		for(List<String> row : t.rows()) {
+			tuples.add(row2tuple(row));
+		}
+		return tuples;
+	}
+
+	private Tuple row2tuple(List<String> row) {
+		row.add(0, "State$0");
+		return instance.universe().factory().tuple(row);
+	}
+
 	public void add(String name, int arity, List<Tuple> tuples) {
 			TupleFactory factory = instance.universe().factory();
 			if (!tuples.isEmpty())
 				instance.add(getVar(name), factory.setOf(tuples));
 			else
 				instance.add(getVar(name), factory.noneOf(arity));
+	}
+
+	public void addOutput(String sugar_name, String value) {
+		TupleFactory factory = instance.universe().factory();
+		List<Tuple> r = new ArrayList<Tuple>(); 
+		r.add(factory.tuple(value));
+    addOutput(sugar_name, 1, r);
 	}
 
 	public void addOutput(String sugar_name, int arity, List<Tuple> tuples) {

@@ -61,9 +61,9 @@ public class ConstraintSolver {
 		return solver.solve(formula, bounds);
 	}
 
-	public Iterator<Solution> solve(A4Solution context, Formula formula, State state) {
+	public Iterator<Solution> solve(A4Solution context, Formula formula, Instance instance) {
 		
-    Bounds bounds = restrict(state.instance(), new BoundsExtractor(context).getBounds().clone());
+    Bounds bounds = restrict(instance, new BoundsExtractor(context).getBounds().clone());
 
     Relation boundNextState = getBoundsRelationByName(bounds, Constants.STATE_SIG + "Order/Ord.Next");
 

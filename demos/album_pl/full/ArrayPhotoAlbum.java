@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
-import kodkod.instance.TupleFactory;
-import kodkod.instance.Tuple;
-import com.finefit.model.State;
+import com.finefit.model.SutState;
 
 class ArrayPhotoAlbum implements PhotoAlbum {
 
@@ -226,83 +224,56 @@ should be NOT_AUTH regardless of the value of the index.
 
 /* FineFit testing code */
 
-	public State retrieve(State prevState) {
+	public SutState retrieve() {
 
-		TupleFactory factory = prevState.factory();
-		State currentState = prevState.clone();
+		SutState state = new SutState();
 
-		List<Tuple> photoAtTuples = new ArrayList<Tuple>();
+		state.add("photoAt", 2);
+
 		for (int i = 0; i < size; i++) {
-			photoAtTuples.add(factory.tuple("State$0" , "" + i, IdMap.instance().obj2atom(photoAt[i]))); 
+			state.get("photoAt").add("" + i, IdMap.instance().obj2atom(photoAt[i]));
 		}
 
-		currentState.add("photoAt", 3, photoAtTuples);
+		state.add("ownerName", 1).add(owner.getName());
 
-		// from DOwner:
+		state.add("ownerGroupName", 1).add(ownerGroupName);
 
-		List<Tuple> ownerNameTuple = new ArrayList<Tuple>();
-		ownerNameTuple.add(factory.tuple("State$0", owner.getName()));
-
-		currentState.add("ownerName", 2, ownerNameTuple);
-
-		// from DGroups:
-
-		List<Tuple> ownerGroupNameTuple = new ArrayList<Tuple>();
-		ownerGroupNameTuple.add(factory.tuple("State$0", ownerGroupName));
-
-		currentState.add("ownerGroupName", 2, ownerGroupNameTuple);
-
-		List<Tuple> usersTuples = new ArrayList<Tuple>();
-
+		state.add("users", 2);
 		for(Map.Entry<String, User> e : users.entrySet()) {
-			usersTuples.add(factory.tuple("State$0", e.getKey(), IdMap.instance().obj2atom(e.getValue())));
+			state.get("users").add(e.getKey(), IdMap.instance().obj2atom(e.getValue()));
 		}
 
-		currentState.add("users", 3, usersTuples);
-
-		List<Tuple> groupsTuples = new ArrayList<Tuple>();
-
+		state.add("groups", 2);
 		for(Map.Entry<String, Group> e : groups.entrySet()) {
-			groupsTuples.add(factory.tuple("State$0", e.getKey(), IdMap.instance().obj2atom(e.getValue())));
+			state.get("groups").add(e.getKey(), IdMap.instance().obj2atom(e.getValue()));
 		}
 
-		currentState.add("groups", 3, groupsTuples);
+		state.add("loggedIn", 1);
 
-		List<Tuple> loggedInTuples = new ArrayList<Tuple>();
 		if (loggedUser != null)
-			loggedInTuples.add(factory.tuple("State$0", loggedUser.getName()));
+			state.get("loggedIn").add(loggedUser.getName());
 
-		currentState.add("loggedIn", 2, loggedInTuples);
-
-		List<Tuple> passwordTuples = new ArrayList<Tuple>();
+		state.add("passwords", 2);
 
 		for(User u : users.values()) {
-			passwordTuples.add(factory.tuple("State$0", IdMap.instance().obj2atom(u), u.getPassword()));
+			state.get("passwords").add(IdMap.instance().obj2atom(u), u.getPassword());
 		}
 
-		currentState.add("passwords", 3, passwordTuples);
-	
-		List<Tuple> groupPhotoTuples = new ArrayList<Tuple>();
-
+		state.add("groupPhotos", 2);
 		int i = 0;
 		while(i < size) {
-			groupPhotoTuples.add(factory.tuple("State$0", IdMap.instance().obj2atom(photoAt[i]), IdMap.instance().obj2atom(photoAt[i].getGroup())));
+			state.get("groupPhotos").add(IdMap.instance().obj2atom(photoAt[i]), IdMap.instance().obj2atom(photoAt[i].getGroup()));
 			++i;
 		}
 
-		currentState.add("groupPhotos", 3, groupPhotoTuples);
-
-		List<Tuple> memberTuples = new ArrayList<Tuple>();
-
+		state.add("members", 2);
 		for(Group g : groups.values()) {
 			for(User u : g.getMembers()) {
-				memberTuples.add(factory.tuple("State$0", IdMap.instance().obj2atom(g), IdMap.instance().obj2atom(u)));
+				state.get("members").add(IdMap.instance().obj2atom(g), IdMap.instance().obj2atom(u));
 			}
 		}
 
-		currentState.add("members", 3, memberTuples);
-
-		return currentState;
+		return state;
 	}
 
 }

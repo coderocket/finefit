@@ -64,7 +64,7 @@ public class TestCaseGenerator {
 		Set<TestCase> candidates = new HashSet<TestCase>();
 
 		for(Operation p : model.operations()) {
-			Iterator<Solution> it = solver.solve(model.context(), p.getFormula(model.context()), currentState);
+			Iterator<Solution> it = solver.solve(model.context(), p.getFormula(model.context()), currentState.instance());
 			while (it.hasNext() ) {
 				Solution solution = it.next();
 				if (solution != null && (solution.outcome() == Outcome.SATISFIABLE || solution.outcome() == Outcome.TRIVIALLY_SATISFIABLE))
