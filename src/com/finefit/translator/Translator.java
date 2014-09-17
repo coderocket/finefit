@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.io.PrintStream;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.charset.Charset;
@@ -35,7 +36,7 @@ import fit.Parse;
 
 public class Translator {
 
-  public static void translate(String htmlFileName, String alloyFileName) throws ParseException, IOException {
+  public static void translate(String htmlFileName, String alloyFileName, String finefit_home) throws ParseException, IOException {
 
 		Sig[] sigs = null;
 		State state = null;
@@ -72,8 +73,38 @@ public class Translator {
 
 		Spec spec = new Spec(state, invariant, sigs, operations.toArray(new Operation[0]), enumerations.toArray(new Enumeration[0]));
 		
-		spec.print(new PrintStream(alloyFileName));
+		PrintStream out = new PrintStream(alloyFileName);
+		print_header(out);
+		print_libraries(finefit_home, out);
+		spec.print(out);
   }
+
+	private static void print_header(PrintStream out) {
+  	out.println("open util/ordering[" + Constants.STATE_SIG + "] as " + Constants.STATE_SIG + "Order");
+	}
+
+	private static void print_libraries(String finefit_home, PrintStream out) throws FileNotFoundException, IOException {
+
+		// copy the finefit.als module to the current directoy.
+
+    if (finefit_home == null) {
+      finefit_home = System.getenv("FINEFIT_HOME");
+      if (finefit_home == null) {
+        System.err.println(
+                    "Error: Can't find finefit.als.\n\n"
+                  + "You must either provide the FineFit home directory on the command line\n"
+                  + "or set the FINEFIT_HOME environment variable.");
+        System.exit(1);
+      }
+    }
+
+		String lib = readFile(finefit_home+"/finefit.als", Charset.defaultCharset());
+		PrintStream libfile = new PrintStream("finefit.als");
+		libfile.println(lib);
+		libfile.close();
+	
+    out.println("open finefit");
+	}
 
 	private static Operation parseOperation(Parse p) {
 
@@ -90,8 +121,9 @@ public class Translator {
 	private static String[] parseFrame(Parse p) {
 		List<String> varNames = new ArrayList<String>();
 		while (p != null) { 
-			if (p.at(0,0).text().matches("\\S"))  // ignore empty rows
+			if (p.at(0,0).text().matches("\\S\\S*"))  { // ignore empty rows
 				varNames.add(p.at(0,0).text());
+			}
 			p = p.more;
 		}
 		return varNames.toArray(new String[varNames.size()]);

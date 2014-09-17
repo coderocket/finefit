@@ -55,7 +55,8 @@ final static String VERSION = "1.0";
 
 		try {
 
-			Translator.translate(tabularSystemSpec, SYSTEM_SPECIFICATION);
+			Translator.translate(tabularSystemSpec, SYSTEM_SPECIFICATION, null); // TODO: add the commons CLI options library to support command line options (the last parameter is a placeholder for the finefit home directory, currently we use the FINEFIT_HOME environment variable.
+
 			Model model = new Model(SYSTEM_SPECIFICATION);
 			TestCaseGenerator testCaseGenerator = new TestCaseGenerator(model);
 			TestOracle testOracle = new TestOracle();
