@@ -25,9 +25,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.lang.Exception;
 import java.util.Scanner;
-import kodkod.instance.TupleFactory;
-import kodkod.instance.Tuple;
-import com.finefit.model.State;
+import com.finefit.model.SutState;
 
 public class PhotoAlbum {
 
@@ -39,36 +37,30 @@ public class PhotoAlbum {
     List<Photo> photoAt;
     Set<String> deletedPhotos;
 
-    public State retrieve(State prevState) {
+    public SutState retrieve() {
 
-			TupleFactory factory = prevState.factory();
-			State currentState = prevState.clone();
+			SutState currentState = new SutState();
 
-			List<Tuple> photoAtTuples = new ArrayList<Tuple>();
-			List<Tuple> toAddTuples = new ArrayList<Tuple>();
-			List<Tuple> existingTuples = new ArrayList<Tuple>();
+			currentState.add_state("album", 2);
+			currentState.add_state("toAdd", 1);
+			currentState.add_state("existing", 1);
 
 			int i = 0;
 			for (Photo p : photoAt) {
-			    photoAtTuples.add(factory.tuple("State$0", "" + i, p.getImage()));
-			    if (p.getStatus() == Photo.Status.New)
-				toAddTuples.add(factory.tuple("State$0", p.getImage()));
-			    else if (p.getStatus() == Photo.Status.Old)
-				existingTuples.add(factory.tuple("State$0", p.getImage()));
-			    ++i;
+		    currentState.get_state("album").add("" + i, p.getImage());
+		    if (p.getStatus() == Photo.Status.New)
+					currentState.get_state("toAdd").add(p.getImage());
+		    else if (p.getStatus() == Photo.Status.Old)
+					currentState.get_state("existing").add(p.getImage());
+		    ++i;
 			}
 		
-			List<Tuple> deletedPhotosTuples = new ArrayList<Tuple>();
+			currentState.add_state("toDelete", 1);
 			for (String key : deletedPhotos) {
-			    deletedPhotosTuples.add( factory.tuple("State$0",key));
-			    existingTuples.add( factory.tuple("State$0",key));
+			    currentState.get_state("toDelete").add(key);
+			    currentState.get_state("existing").add(key);
 			}
 		
-	    currentState.add("album", 3, photoAtTuples); 
-	    currentState.add("toAdd", 2, toAddTuples);
-	    currentState.add("existing", 2, existingTuples);
-	    currentState.add("toDelete", 2, deletedPhotosTuples);
-	
 			return currentState;
 		}
 

@@ -20,13 +20,11 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 import java.util.List;
 import java.util.ArrayList;
 
-import kodkod.instance.TupleFactory;
-import kodkod.instance.Tuple;
-
 import com.finefit.model.SUT;
 import com.finefit.model.Operation;
 import com.finefit.model.TestCase;
 import com.finefit.model.State;
+import com.finefit.model.SutState;
 
 public class FineFitDriver implements SUT {
 
@@ -37,18 +35,20 @@ public class FineFitDriver implements SUT {
     }
 
     @Override
-    public State initialize(State state) {
+    public SutState initialize(State args) {
 			sut.init();
-      return sut.retrieve(state);
+      return sut.retrieve();
     }
 
     @Override
-    public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation {
+    public SutState applyOperation(TestCase testCase) throws Exception {
 
 			String operationName = testCase.getOperationName(); 
-			State state = testCase.getState().clone();
+			State args = testCase.getState();
+			SutState outputs = new SutState();
+
 			if (operationName.equals("addPhoto")) {
-				String pid = state.getArg("pid");
+				String pid = args.getArg("pid");
 				String result = "0";  
 				try {
 					sut.AddPhoto(pid);
@@ -61,21 +61,20 @@ public class FineFitDriver implements SUT {
 					result = "ALBUM_FULL$0";
 				}
 
-				TupleFactory factory = state.factory();
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(result));
-				state.addOutput("result!", 1, r);
+				outputs.add_output("result!", 1).add(result);
 			}
 			else if (operationName.equals("removePhoto")) {
-				int i = Integer.parseInt(state.getArg("i"));
+				int i = Integer.parseInt(args.getArg("i"));
 				sut.RemovePhoto(i);
 			}
 			else if (operationName.equals("save")) {
 				sut.Save();
 			}
-			else throw new NoSuchOperation();
+			else throw new NoSuchOperation(operationName);
 
-
-			return sut.retrieve(state);
+			SutState state = sut.retrieve();
+			state.add(outputs);
+			return state;
     }
 
 }

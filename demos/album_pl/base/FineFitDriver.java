@@ -21,13 +21,11 @@ import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 
-import kodkod.instance.TupleFactory;
-import kodkod.instance.Tuple;
-
 import com.finefit.model.SUT;
 import com.finefit.model.Operation;
 import com.finefit.model.TestCase;
 import com.finefit.model.State;
+import com.finefit.model.SutState;
 
 public class FineFitDriver implements SUT {
 
@@ -38,51 +36,52 @@ public class FineFitDriver implements SUT {
     }
 
     @Override
-    public State initialize(State state) {
+    public SutState initialize(State args) {
 			sut = new ArrayPhotoAlbum(5);
-      return sut.retrieve(state);
+      return sut.retrieve();
     }
 
     @Override
-    public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation {
-
+    public SutState applyOperation(TestCase testCase) throws Exception {
 
 			String operationName = testCase.getOperationName(); 
-			State state = testCase.getState().clone();
+			State args = testCase.getState();
 
-			TupleFactory factory = state.factory();
+			SutState outputs = new SutState();
 
 			if (operationName.equals("addPhoto")) {
-				String id = state.getArg("p");
+				String id = args.getArg("p");
 
-				String result = "1";
+				outputs.add_output("report!", 1);
+
+				String report = "1";
 
 				try {
 					Photo p = sut.addPhoto(id);
 					IdMap.instance().associate(p, id);
 				}
-        catch(PhotoAlbum.PhotoExists err) { result = "-1"; }
-        catch(PhotoAlbum.AlbumIsFull err) { result = "-2"; }
+        catch(PhotoAlbum.PhotoExists err) { report = "-1"; }
+        catch(PhotoAlbum.AlbumIsFull err) { report = "-2"; }
 
-
-				List<Tuple> r = new ArrayList<Tuple>(); r.add(factory.tuple(result));
-				state.addOutput("report!", 1, r);
+				outputs.get_output("report!").add(report);
 			}
 			else if (operationName.equals("viewPhotos")) {
 
 				Set<Photo> photos = sut.viewPhotos(); 
-				List<Tuple> r = new ArrayList<Tuple>(); 
+
+				outputs.add_output("result!", 1);
+
 				for(Photo p : photos){
-					r.add(factory.tuple(IdMap.instance().obj2atom(p)));
+					outputs.get_output("result!").add(IdMap.instance().obj2atom(p));
 				}
-				state.addOutput("result!", 1, r);
 			}
 			else 
-				throw new NoSuchOperation();
+				throw new NoSuchOperation(operationName);
 
 
-			return sut.retrieve(state);
+			SutState state = sut.retrieve();
+			state.add(outputs);
+			return state;
     }
-
 }
 

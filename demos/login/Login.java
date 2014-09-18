@@ -23,9 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import kodkod.instance.Tuple;
-import kodkod.instance.TupleFactory;
-import com.finefit.model.State;
+import com.finefit.model.SutState;
 
 public class Login {
 
@@ -53,23 +51,20 @@ public class Login {
 		registered.remove(uname);
 	}
 
-	public State retrieve(State prevState) {
+	public SutState retrieve() {
 
-		TupleFactory factory = prevState.factory();
-		State currentState = prevState.clone();
+		SutState currentState = new SutState();
 	
-		List<Tuple> loggedinTuples = new ArrayList();
-		List<Tuple> registeredTuples = new ArrayList();
+		currentState.add_state("loggedin", 1);
+		currentState.add_state("registered", 1);
 
 		for (String s : loggedIn) {
-			loggedinTuples.add(factory.tuple("State$0", s));
+			currentState.get_state("loggedin").add(s);
 		}
+
 		for (String s : registered) {
-			registeredTuples.add(factory.tuple("State$0", s));
+			currentState.get_state("registered").add(s);
 		}
-		
-		currentState.add("loggedin", 2, loggedinTuples);
-		currentState.add("registered", 2, registeredTuples); 
 		
 		return currentState;
 	}

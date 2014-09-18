@@ -28,48 +28,48 @@ import com.finefit.model.SUT;
 import com.finefit.model.Operation;
 import com.finefit.model.TestCase;
 import com.finefit.model.State;
+import com.finefit.model.SutState;
 
-  public class FineFitDriver implements SUT {
+public class FineFitDriver implements SUT {
 
-		private Login sut;
+	private Login sut;
 		
-    public FineFitDriver() {
+  public FineFitDriver() {
 			sut = new Login();
-    }
+  }
 
-    @Override
-    public State initialize(State state) {
-      sut.init(); 
-      return sut.retrieve(state);
-    }
+  @Override
+  public SutState initialize(State args) {
+    sut.init(); 
+    return sut.retrieve();
+  }
 
-    @Override
-    public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation {
+  @Override
+  public SutState applyOperation(TestCase testCase) throws Exception {
 
 			
-      String operationName = testCase.getOperationName();
-			State state = testCase.getState();
+    String operationName = testCase.getOperationName();
+			State args = testCase.getState();
 
-      if (operationName.equals("Login")) {
-      	String userName = state.getArg("u");
+    if (operationName.equals("Login")) {
+    	String userName = args.getArg("u");
 				sut.login(userName);
 
-      } else if (operationName.equals("Logout")) {
-      	String userName = state.getArg("u");
+    } else if (operationName.equals("Logout")) {
+    	String userName = args.getArg("u");
 				sut.logout(userName);
 
-      } else if (operationName.equals("Register")) {
-      	String userName = state.getArg("u");
+    } else if (operationName.equals("Register")) {
+    	String userName = args.getArg("u");
 				sut.register(userName);
 
-      } else if (operationName.equals("UnRegister")) {
-      	String userName = state.getArg("u");
+    } else if (operationName.equals("UnRegister")) {
+    	String userName = args.getArg("u");
 				sut.unregister(userName);
-      }
-      else throw new NoSuchOperation();
-
-      return sut.retrieve(state);
     }
+    else throw new NoSuchOperation(operationName);
 
+    return sut.retrieve();
   }
+}
 

@@ -3,9 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
-import kodkod.instance.TupleFactory;
-import kodkod.instance.Tuple;
-import com.finefit.model.State;
+import com.finefit.model.SutState;
 
 class ArrayPhotoAlbum implements PhotoAlbum {
 
@@ -48,24 +46,26 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 	public Set<Photo> viewPhotos() {
 		// MISTAKE: new HashSet(<Photo>);
 		Set<Photo> result = new HashSet<Photo>();
-		for (int i = 0; i < size; i++) { 
+		int i = 0;
+		while (i < size) { 
 			// MISTAKE: result = result.add(photoAt[i]);
 			result.add(photoAt[i]); 
+			i++;
 		}
 		return result;
 	}
 
-	public State retrieve(State prevState) {
+	public SutState retrieve() {
 
-		TupleFactory factory = prevState.factory();
-		State currentState = prevState.clone();
+		SutState state = new SutState();
 
-		List<Tuple> photoAtTuples = new ArrayList();
-		for (int i = 0; i < size; i++) {
-			photoAtTuples.add(factory.tuple("State$0" , "" + i, IdMap.instance().obj2atom(photoAt[i]))); 
+		state.add_state("photoAt", 2);
+		int i = 0;
+		while (i < size) {
+			state.get_state("photoAt").add("" + i, IdMap.instance().obj2atom(photoAt[i])); 
+			i++;
 		}
 
-		currentState.add("photoAt", 3, photoAtTuples);
-		return currentState;
+		return state;
 	}
 }
