@@ -233,48 +233,48 @@ should be NOT_AUTH regardless of the value of the index.
 
 		SutState state = new SutState();
 
-		state.add("photoAt", 2);
+		state.add_state("photoAt", 2);
 
 		for (int i = 0; i < size; i++) {
-			state.get("photoAt").add("" + i, IdMap.instance().obj2atom(photoAt[i]));
+			state.get_state("photoAt").add("" + i, IdMap.instance().obj2atom(photoAt[i]));
 		}
 
-		state.add("ownerName", 1).add(owner.getName());
+		state.add_state("ownerName", 1).add(owner.getName());
 
-		state.add("ownerGroupName", 1).add(ownerGroupName);
+		state.add_state("ownerGroupName", 1).add(ownerGroupName);
 
-		state.add("users", 2);
+		state.add_state("users", 2);
 		for(Map.Entry<String, User> e : users.entrySet()) {
-			state.get("users").add(e.getKey(), IdMap.instance().obj2atom(e.getValue()));
+			state.get_state("users").add(e.getKey(), IdMap.instance().obj2atom(e.getValue()));
 		}
 
-		state.add("groups", 2);
+		state.add_state("groups", 2);
 		for(Map.Entry<String, Group> e : groups.entrySet()) {
-			state.get("groups").add(e.getKey(), IdMap.instance().obj2atom(e.getValue()));
+			state.get_state("groups").add(e.getKey(), IdMap.instance().obj2atom(e.getValue()));
 		}
 
-		state.add("loggedIn", 1);
+		state.add_state("loggedIn", 1);
 
 		if (loggedUser != null)
-			state.get("loggedIn").add(loggedUser.getName());
+			state.get_state("loggedIn").add(loggedUser.getName());
 
-		state.add("passwords", 2);
+		state.add_state("passwords", 2);
 
 		for(User u : users.values()) {
-			state.get("passwords").add(IdMap.instance().obj2atom(u), u.getPassword());
+			state.get_state("passwords").add(IdMap.instance().obj2atom(u), u.getPassword());
 		}
 
-		state.add("groupPhotos", 2);
+		state.add_state("groupPhotos", 2);
 		int i = 0;
 		while(i < size) {
-			state.get("groupPhotos").add(IdMap.instance().obj2atom(photoAt[i]), IdMap.instance().obj2atom(photoAt[i].getGroup()));
+			state.get_state("groupPhotos").add(IdMap.instance().obj2atom(photoAt[i]), IdMap.instance().obj2atom(photoAt[i].getGroup()));
 			++i;
 		}
 
-		state.add("members", 2);
+		state.add_state("members", 2);
 		for(Group g : groups.values()) {
 			for(User u : g.getMembers()) {
-				state.get("members").add(IdMap.instance().obj2atom(g), IdMap.instance().obj2atom(u));
+				state.get_state("members").add(IdMap.instance().obj2atom(g), IdMap.instance().obj2atom(u));
 			}
 		}
 

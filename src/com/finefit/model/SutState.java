@@ -53,21 +53,40 @@ public class SutState {
 		public Set<List<String> > rows() { return rows; }
 	}
 
-	Map<String, Table> vars;
+	Map<String, Table> state_vars;
+	Map<String, Table> output_vars;
 
 	public SutState() {
-		vars = new HashMap<String, Table>();
+		state_vars = new HashMap<String, Table>();
+		output_vars = new HashMap<String, Table>();
 	}
 
-	public Table add(String varName, int arity) {
+	public void add(SutState s) {
+		state_vars.putAll(s.state_vars);
+		output_vars.putAll(s.output_vars);
+	}
+
+	public Table add_state(String varName, int arity) {
 		Table t = new Table(arity);
-		vars.put(varName, t);
+		state_vars.put(varName, t);
 		return t;
 	}
 
-	public Table get(String varName) {
-		return vars.get(varName);
+	public Table add_output(String varName, int arity) {
+		Table t = new Table(arity);
+		output_vars.put(varName, t);
+		return t;
 	}
 
-	public Set<Map.Entry<String, Table> > tables() { return vars.entrySet(); }
+	public Table get_output(String varName) {
+		return output_vars.get(varName);
+	}
+
+	public Table get_state(String varName) {
+		return state_vars.get(varName);
+	}
+
+	public Set<Map.Entry<String, Table> > state_tables() { return state_vars.entrySet(); }
+
+	public Set<Map.Entry<String, Table> > output_tables() { return output_vars.entrySet(); }
 }

@@ -28,6 +28,10 @@ public interface SUT {
 			}
 		}
 
-    public State initialize(State state);
-    public State applyOperation(TestCase testCase) throws Exception;
+		public interface Operation<T> {
+      public void apply(T sut, State args, SutState outputs) throws Exception;
+		}
+
+    public SutState initialize(State args);
+    public SutState applyOperation(TestCase testCase) throws Exception;
 }

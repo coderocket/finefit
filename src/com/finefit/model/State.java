@@ -62,8 +62,19 @@ public class State {
 	public TupleFactory factory() { return instance.universe().factory(); }
 
 	public void read(SutState sutstate) {
-		for(Map.Entry<String, SutState.Table> e : sutstate.tables()) {
-			add(e.getKey(), e.getValue().numCols()+1, table2tuples(e.getValue())); 
+		for(Map.Entry<String, SutState.Table> e : sutstate.state_tables()) {
+			SutState.Table t = e.getValue();
+			prepend(t, CURR);
+			add(e.getKey(), e.getValue().numCols()+1, table2tuples(t));
+		}
+		for(Map.Entry<String, SutState.Table> e : sutstate.output_tables()) {
+			addOutput(e.getKey(), e.getValue().numCols(), table2tuples(e.getValue())); 
+		}
+	}
+
+	private void prepend(SutState.Table t, String atom) {
+		for(List<String> row : t.rows()) {
+			row.add(0, atom);
 		}
 	}
 
@@ -76,7 +87,6 @@ public class State {
 	}
 
 	private Tuple row2tuple(List<String> row) {
-		row.add(0, "State$0");
 		return instance.universe().factory().tuple(row);
 	}
 

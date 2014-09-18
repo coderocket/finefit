@@ -76,7 +76,8 @@ final static String VERSION = "1.0";
 			TestCase initialTestCase = any(RNG, candidates);
 
 			State prevState = null;
-			State currState = sut.initialize(initialTestCase.getState());
+			State currState = initialTestCase.getState().clone();
+			currState.read(sut.initialize(initialTestCase.getState()));
 
 			reporter.report(initialTestCase, currState);
 
@@ -87,7 +88,8 @@ final static String VERSION = "1.0";
 			while (behavior_is_valid && !candidates.isEmpty()) { 
 					TestCase testcase = any(RNG, candidates);
 					prevState = currState;
-					currState = sut.applyOperation(testcase);
+					currState = testcase.getState().clone();
+					currState.read(sut.applyOperation(testcase));
 					reporter.report(testcase, currState);
 					behavior_is_valid = testOracle.verify(model, testcase.getOperation(), prevState, currState);
 					candidates = testCaseGenerator.next(currState);
