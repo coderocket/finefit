@@ -17,6 +17,8 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +34,87 @@ import com.finefit.model.State;
 import com.finefit.model.SutState;
 
 public class FineFitDriver implements SUT {
+
+		interface Operation {
+
+			public void apply(ArrayPhotoAlbum sut, State args) throws Exception;
+
+		}
+
+		private static Map<String, Operation> ops = new HashMap<String, Operation>();
+
+		static {
+
+			ops.put("login", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+					sut.login(args.getArg("n"), args.getArg("p")); } });
+				
+			ops.put("addPhoto", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+					String id = args.getArg("p");
+					Photo p = sut.addPhoto(id); 
+					IdMap.instance().associate(p, id);
+				} });
+
+			ops.put("updateGroup", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+					String n = args.getArg("n");
+					String nuser = args.getArg("nu");
+					String new_group_id = args.getArg("g");
+					
+					Set<String> nusers = new HashSet<String>();
+					nusers.add(nuser);
+					Group group = sut.updateGroup(n, nusers);
+
+					if (group != null) // a new group was created
+						IdMap.instance().associate(group, new_group_id);
+				} });
+
+			ops.put("updateUser", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+					String n = args.getArg("n");
+					String p = args.getArg("p");
+					String new_user_id = args.getArg("u");
+					
+					User user = sut.updateUser(n,p);
+
+					if (user != null) // a new user was created
+						IdMap.instance().associate(user, new_user_id);
+				 } });
+
+			ops.put("removePhoto", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+					int i = Integer.parseInt(args.getArg("i"));
+					sut.removePhoto(i);
+				} });
+
+			ops.put("removeGroup", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+					sut.removeGroup(args.getArg("n")); 
+				} });
+
+			ops.put("updatePhotoGroup", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+					int i = Integer.parseInt(args.getArg("i"));
+					String name = args.getArg("n");
+					
+					sut.updatePhotoGroup(i, name);
+				} });
+
+			ops.put("viewPhotos", new Operation() { 
+				public void apply(ArrayPhotoAlbum sut, State args) throws Exception {
+
+					List<Tuple> result = new ArrayList<Tuple>(); 
+
+					args.addOutput("result!", 1, result);
+
+					Set<Photo> photos = sut.viewPhotos(); 
+					for(Photo p : photos){
+						result.add(args.instance().universe().factory().tuple(IdMap.instance().obj2atom(p)));
+					}
+					args.addOutput("result!", 1, result);
+				 } });
+		}
 
 		private ArrayPhotoAlbum sut;
 		
@@ -60,151 +143,37 @@ public class FineFitDriver implements SUT {
     }
 
     @Override
-    public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation {
+    public State applyOperation(TestCase testCase) throws Exception {
 
 			String operationName = testCase.getOperationName(); 
 			State state = testCase.getState().clone();
 
-			TupleFactory factory = state.factory();
-
-			if (operationName.equals("login")) {
-
-				String name = state.getArg("n");
-				String pass = state.getArg("p");
-
-				String report = "OK$0";
-
-				try {
-					sut.login(name,pass);
-				}
-        catch(PhotoAlbum.AlreadyLogged err) { report = "ALREADY_IN$0"; }
-        catch(PhotoAlbum.AuthFailed err) { report = "AUTH_FAILED$0"; }
-
-				state.addOutput("report!", report);
-			} 
-			else if (operationName.equals("addPhoto")) {
-				String id = state.getArg("p");
-
-				String report = "OK$0";
-
-				try {
-					Photo p = sut.addPhoto(id);
-					IdMap.instance().associate(p, id);
-				}
-        catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS$0"; }
-        catch(PhotoAlbum.AlbumIsFull err) { report = "ALBUM_FULL$0"; }
-        catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
-
-
-				state.addOutput("report!", report);
-			} 
-			else if (operationName.equals("updateGroup")) {
-
-				String n = state.getArg("n");
-
-				String nuser = state.getArg("nu");
-
-				String new_group_id = state.getArg("g");
-					
-				String report = "OK$0";
-
-				try {
-					Set<String> nusers = new HashSet<String>();
-					nusers.add(nuser);
-					Group group = sut.updateGroup(n, nusers);
-
-					if (group != null) // a new group was created
-						IdMap.instance().associate(group, new_group_id);
-				}
-        catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
-        catch(PhotoAlbum.MissingUsers err) { report = "MISSING_USERS$0"; }
-
-				state.addOutput("report!", report);
-			}
-			else if (operationName.equals("updateUser")) {
-				String n = state.getArg("n");
-				String p = state.getArg("p");
-				String new_user_id = state.getArg("u");
-					
-				String report = "OK$0";
-
-				try {
-					User user = sut.updateUser(n,p);
-
-					if (user != null) // a new user was created
-						IdMap.instance().associate(user, new_user_id);
-				}
-        catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
-
-				state.addOutput("report!", report);
-			}
-			else if (operationName.equals("removePhoto")) {
-				int i = Integer.parseInt(state.getArg("i"));
-					
-				String report = "OK$0";
-
-				try {
-					sut.removePhoto(i);
-				}
-				catch(IllegalArgumentException err) { report = "NO_PHOTO$0"; }
-        catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
-
-
-				state.addOutput("report!", report);
-			}
-			else if (operationName.equals("removeGroup")) {
-				String name = state.getArg("n");
-					
-				String report = "OK$0";
-
-				try {
-					sut.removeGroup(name);
-				}
-        catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
-        catch(PhotoAlbum.MissingGroup err) { report = "NO_GROUP$0"; }
-        catch(PhotoAlbum.RemoveOwnerGroup err) { report = "REM_OWNER_GROUP$0"; }
-
-				state.addOutput("report!", report);
-			}
-			else if (operationName.equals("updatePhotoGroup")) {
-				int i = Integer.parseInt(state.getArg("i"));
-				String name = state.getArg("n");
-					
-				String report = "OK$0";
-
-				try {
-					sut.updatePhotoGroup(i, name);
-				}
-        catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
-        catch(PhotoAlbum.MissingGroup err) { report = "NO_GROUP$0"; }
-				catch(IllegalArgumentException err) { report = "NO_PHOTO$0"; }
-
-				state.addOutput("report!", report);
-			}
-			else if (operationName.equals("viewPhotos")) {
-
-				String report = "OK$0";
-				List<Tuple> result = new ArrayList<Tuple>(); 
-
-				try {
-					Set<Photo> photos = sut.viewPhotos(); 
-					for(Photo p : photos){
-						result.add(factory.tuple(IdMap.instance().obj2atom(p)));
-					}
-				}
-				catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
-
-				state.addOutput("result!", 1, result);
-				state.addOutput("report!", report);
-			}
-			else 
+			Operation op = ops.get(operationName);
+			if (op == null)
 				throw new NoSuchOperation(operationName);
+
+			String report = "OK$0";
+
+			try {
+				op.apply(sut, state);
+			}
+      catch(PhotoAlbum.AlreadyLogged err) { report = "ALREADY_IN$0"; }
+      catch(PhotoAlbum.AuthFailed err) { report = "AUTH_FAILED$0"; }
+      catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS$0"; }
+      catch(PhotoAlbum.AlbumIsFull err) { report = "ALBUM_FULL$0"; }
+      catch(PhotoAlbum.OwnerNotLoggedIn err) { report = "NOT_AUTH$0"; }
+			catch(IllegalArgumentException err) { report = "NO_PHOTO$0"; }
+      catch(PhotoAlbum.MissingGroup err) { report = "NO_GROUP$0"; }
+      catch(PhotoAlbum.RemoveOwnerGroup err) { report = "REM_OWNER_GROUP$0"; }
+      catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
+      catch(PhotoAlbum.MissingUsers err) { report = "MISSING_USERS$0"; }
+
+			state.addOutput("report!", report);
 
 			SutState sutstate = sut.retrieve();
 			State newstate = state.clone();
 			newstate.read(sutstate);
 			return newstate;
-    }
-
+		}
 }
 

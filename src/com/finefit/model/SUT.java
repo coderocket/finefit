@@ -29,5 +29,5 @@ public interface SUT {
 		}
 
     public State initialize(State state);
-    public State applyOperation(TestCase testCase) throws InvalidNumberOfArguments, NoSuchOperation;
+    public State applyOperation(TestCase testCase) throws Exception;
 }

@@ -161,7 +161,12 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 
 		Set<User> members = new HashSet<User>();
 		for (String n : memberNames) { members.add(users.get(n)); }
+		/* An error detected by FineFit 
+
 		if (users.containsKey(name)) {
+
+		*/
+		if (groups.containsKey(name)) {
 			groups.get(name).setMembers(members);
 			return null;
 		}
