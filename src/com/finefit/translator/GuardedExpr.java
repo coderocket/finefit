@@ -41,7 +41,7 @@ public class GuardedExpr {
 
 	public void printGuard(State state, PrintStream out) {
 		out.print("(");
-		state.print(guard, Constants.CURR_VAR, out);
+		state.print(guard.replaceAll("\\?",Constants.INPUT_SUFFIX), Constants.CURR_VAR, out);
 		out.print(")");
 	}
 
@@ -57,7 +57,7 @@ public class GuardedExpr {
 			else {
 				e = exprs[i];
 			}
-			state.print(e, Constants.CURR_VAR, out);
+			state.print(e.replaceAll("\\?",Constants.INPUT_SUFFIX), Constants.CURR_VAR, out);
 			out.println("");
 		}
 	}
