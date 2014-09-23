@@ -102,12 +102,9 @@ public class FineFitDriver implements SUT {
 					outputs.add_output("result!", 1);
 
 					Set<Photo> photos = sut.viewPhotos(); 
-					String[] result = new String[photos.size()];
-					int i = 0;
 					for(Photo p : photos){
-						result[i++] = IdMap.instance().obj2atom(p);
+						outputs.get_output("result!").add(IdMap.instance().obj2atom(p));
 					}
-					outputs.get_output("result!").add(result);
 				 } });
 		}
 

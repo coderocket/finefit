@@ -17,17 +17,45 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 
 import com.finefit.sut.SUT;
-import com.finefit.sut.State;
 import com.finefit.sut.NoSuchOperation;
 import com.finefit.sut.InvalidNumberOfArguments;
+import com.finefit.sut.Operation;
+import com.finefit.sut.State;
+import com.finefit.sut.IdMap;
 import com.finefit.model.TestCase;
 
 public class FineFitDriver implements SUT {
+
+    private static Map<String, Operation<PhotoAlbum> > ops = new HashMap<String, Operation<PhotoAlbum> >();
+
+    static {
+
+      ops.put("addPhoto", new Operation<PhotoAlbum>() {
+        public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
+          String id = args.getArg("p");
+          Photo p = sut.addPhoto(id);
+          IdMap.instance().associate(p, id);
+        } });
+
+      ops.put("viewPhotos", new Operation<PhotoAlbum>() {
+        public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
+
+          outputs.add_output("result!", 1);
+
+          Set<Photo> photos = sut.viewPhotos();
+          
+          for(Photo p : photos) {
+						outputs.get_output("result!").add(IdMap.instance().obj2atom(p));
+          }
+				} });
+		}
 
 		private ArrayPhotoAlbum sut;
 		
@@ -44,40 +72,23 @@ public class FineFitDriver implements SUT {
     @Override
     public State applyOperation(TestCase testCase) throws Exception {
 
-			String operationName = testCase.getOperationName(); 
-			com.finefit.model.State args = testCase.getState();
+      String operationName = testCase.getOperationName();
+      com.finefit.model.State args = testCase.getState();
 
-			State outputs = new State();
+      Operation<PhotoAlbum> op = ops.get(operationName);
+      if (op == null)
+        throw new NoSuchOperation(operationName);
 
-			if (operationName.equals("addPhoto")) {
-				String id = args.getArg("p");
+      String report = "OK$0";
+      State outputs = new State();
 
-				outputs.add_output("report!", 1);
+      try {
+        op.apply(sut, args, outputs);
+      }
+      catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS$0"; }
+      catch(PhotoAlbum.AlbumIsFull err) { report = "ALBUM_FULL$0"; }
 
-				String report = "1";
-
-				try {
-					Photo p = sut.addPhoto(id);
-					IdMap.instance().associate(p, id);
-				}
-        catch(PhotoAlbum.PhotoExists err) { report = "-1"; }
-        catch(PhotoAlbum.AlbumIsFull err) { report = "-2"; }
-
-				outputs.get_output("report!").add(report);
-			}
-			else if (operationName.equals("viewPhotos")) {
-
-				Set<Photo> photos = sut.viewPhotos(); 
-
-				outputs.add_output("result!", 1);
-
-				for(Photo p : photos){
-					outputs.get_output("result!").add(IdMap.instance().obj2atom(p));
-				}
-			}
-			else 
-				throw new NoSuchOperation(operationName);
-
+      outputs.add_output("report!", 1).add(report);
 
 			State state = sut.retrieve();
 			state.add(outputs);

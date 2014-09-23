@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import com.finefit.sut.State;
+import com.finefit.sut.IdMap;
 
 class ArrayPhotoAlbum implements PhotoAlbum {
 
