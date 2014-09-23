@@ -37,6 +37,10 @@ public class FineFitDriver implements SUT {
 		private static Map<String, Operation<PhotoAlbum> > ops = new HashMap<String, Operation<PhotoAlbum> >();
 
 		static {
+    	setup_operation_table(); 
+		}
+
+    static void setup_operation_table() {
 
 			ops.put("login", new Operation<PhotoAlbum>() { 
 				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {

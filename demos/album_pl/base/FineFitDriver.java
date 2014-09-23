@@ -35,7 +35,7 @@ public class FineFitDriver implements SUT {
 
     private static Map<String, Operation<PhotoAlbum> > ops = new HashMap<String, Operation<PhotoAlbum> >();
 
-    static {
+		static void setup_operation_table() {
 
       ops.put("addPhoto", new Operation<PhotoAlbum>() {
         public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
@@ -55,6 +55,10 @@ public class FineFitDriver implements SUT {
 						outputs.get_output("result!").add(IdMap.instance().obj2atom(p));
           }
 				} });
+		}
+
+    static {
+			setup_operation_table();
 		}
 
 		private ArrayPhotoAlbum sut;
