@@ -49,22 +49,18 @@ public class Translator {
     while (parse != null) {
 
 			Parse name = parse.at(0,0,0);
-      switch (name.text()) {
-      case "Operation":
+
+      if (name.text().equals("Operation"))
         operations.add(parseOperation(parse.at(0,1)));
-				break;
-      case "Invariant":
+			else if (name.text().equals("Invariant"))
         invariant = parseInvariant(parse.at(0,1));
-				break;
-      case "Atom":
+			else if (name.text().equals("Atom"))
 				sigs = parseSigs(parse.at(0,1));
-        break;
-      case "State variable":
+			else if (name.text().equals("State variable"))
 				state = parseState(parse.at(0,1));
-        break;
-			case "Enumeration":
+			else if (name.text().equals("Enumeration"))
 				enumerations.add(parseEnumeration(parse.at(0,1)));
-      }
+      
       parse = parse.more;
     }
 

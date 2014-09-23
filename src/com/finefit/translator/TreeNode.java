@@ -40,7 +40,7 @@ public class TreeNode {
 
 	public List<String> expand() {
 
-		List<String> fullPreds = new ArrayList<>();
+		List<String> fullPreds = new ArrayList<String>();
 
 		if (children.length == 0)
 			fullPreds.add("(" + predicate + ")");

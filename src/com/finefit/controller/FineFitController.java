@@ -28,7 +28,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
-import com.finefit.model.SUT;
+import com.finefit.sut.SUT;
 import com.finefit.model.TestCase;
 import com.finefit.model.Model;
 import com.finefit.model.State;
@@ -112,7 +112,7 @@ final static String VERSION = "1.0";
             URL[] urls = new URL[]{url};
             ClassLoader loader = new URLClassLoader(urls);
 
-            Class driver = loader.loadClass(javaClassName);
+            Class<?> driver = loader.loadClass(javaClassName);
             return driver.getConstructor().newInstance();
        }
 

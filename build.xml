@@ -14,6 +14,8 @@
         <mkdir dir="build/classes"/>
         <javac srcdir="src" destdir="build/classes" classpathref="classpath" debug="on">
 					<compilerarg value="-Xlint"/>
+					<compilerarg line="-source 1.5"/>
+					<compilerarg line="-target 1.5"/>
 				</javac>
     </target>
 
