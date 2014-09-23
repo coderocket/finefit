@@ -28,7 +28,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		return foundIt;
 	}
 
-	public Photo addPhoto(String image) throws IllegalArgumentException, AlbumIsFull, PhotoExists {
+	public Photo addPhoto(String image) throws IllegalArgumentException {
 		if (image == null)
 			throw new IllegalArgumentException("NullImage");
 

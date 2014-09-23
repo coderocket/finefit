@@ -1,41 +1,42 @@
 
 import java.util.Set;
+import java.lang.RuntimeException;
 
 interface PhotoAlbum {
 
-    class PhotoExists extends Exception {}
-    class AlbumIsFull extends Exception {}
+    class PhotoExists extends RuntimeException {}
+    class AlbumIsFull extends RuntimeException {}
 
-	Photo addPhoto(String image) throws IllegalArgumentException, AlbumIsFull, PhotoExists, OwnerNotLoggedIn;
+	Photo addPhoto(String image) throws IllegalArgumentException;
 
 	// MISTAKE: String view Photos();
-	Set<Photo> viewPhotos() throws NotAuthorized;
+	Set<Photo> viewPhotos(); 
 
 	// from DRemove
 
-	public void removePhoto(int location) throws OwnerNotLoggedIn;
+	public void removePhoto(int location); 
 
 	// from DOwner
 
-		class OwnerNotLoggedIn extends Exception {}
-		class AlreadyLogged extends Exception {}
-		class AuthFailed extends Exception {}
-		class NotAuthorized extends Exception {}
-		class RemoveOwner extends Exception {}
+		class OwnerNotLoggedIn extends RuntimeException {}
+		class AlreadyLogged extends RuntimeException {}
+		class AuthFailed extends RuntimeException {}
+		class NotAuthorized extends RuntimeException {}
+		class RemoveOwner extends RuntimeException {}
 
-	public void login(String name, String password) throws AlreadyLogged, AuthFailed; 
+	public void login(String name, String password); 
 	public void logout();
 
 	// from DGroups
 
-		class MissingUsers extends Exception {}
-		class MissingGroup extends Exception {}
-		class RemoveOwnerGroup extends Exception {}
+		class MissingUsers extends RuntimeException {}
+		class MissingGroup extends RuntimeException {}
+		class RemoveOwnerGroup extends RuntimeException {}
 
-	public User updateUser(String name, String password) throws NotAuthorized;
-	public Group updateGroup(String name, Set<String> memberNames) throws NotAuthorized, MissingUsers;
-	public void removeUser(String name) throws NotAuthorized ;
-	public void removeGroup(String name)  throws NotAuthorized, MissingGroup, RemoveOwnerGroup;
-	public void updatePhotoGroup(int location, String groupName) throws OwnerNotLoggedIn, MissingGroup;
+	public User updateUser(String name, String password); 
+	public Group updateGroup(String name, Set<String> memberNames); 
+	public void removeUser(String name); 
+	public void removeGroup(String name); 
+	public void updatePhotoGroup(int location, String groupName); 
 }
 

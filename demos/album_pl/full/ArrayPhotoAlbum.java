@@ -33,7 +33,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		return foundIt;
 	}
 
-	public Photo addPhoto$DOwner(String image) throws IllegalArgumentException, AlbumIsFull, PhotoExists {
+	public Photo addPhoto$DOwner(String image) throws IllegalArgumentException {
 		if (image == null)
 			throw new IllegalArgumentException("NullImage");
 
@@ -53,7 +53,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		return new_photo;
 	}
 
-	public Set<Photo> viewPhotos() throws NotAuthorized {
+	public Set<Photo> viewPhotos() {
 
 		if (loggedUser == null) 
 			throw new NotAuthorized();
@@ -79,7 +79,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		size = size -1;
 	}
 
-	public void removePhoto(int location) throws OwnerNotLoggedIn {
+	public void removePhoto(int location) {
 		if (!isOwnerLoggedIn()) 
 			throw new OwnerNotLoggedIn(); 
 		removePhoto$Downer(location);
@@ -93,7 +93,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 	boolean ownerLoggedIn = false;
 	*/
 
-	public Photo addPhoto(String image) throws IllegalArgumentException, AlbumIsFull, PhotoExists, OwnerNotLoggedIn {
+	public Photo addPhoto(String image) throws IllegalArgumentException {
 		if (!isOwnerLoggedIn()) 
 			throw new OwnerNotLoggedIn();	
 
@@ -114,7 +114,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 
 	public boolean isOwnerLoggedIn() { return loggedUser == owner; }
 
-	public void login(String name, String password) throws AlreadyLogged, AuthFailed {
+	public void login(String name, String password) {
 		if (loggedUser != null)
 			throw new AlreadyLogged();
 		if ((!users.containsKey(name)) || (!users.get(name).getPassword().equals(password)))
@@ -131,7 +131,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 	User loggedUser;
 	String ownerGroupName;
 
-	public User updateUser(String name, String password) throws NotAuthorized {
+	public User updateUser(String name, String password) {
 		if ((name==null) || (password==null)) 
 			throw new IllegalArgumentException();
 
@@ -149,7 +149,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		}
 	}
 
-	public Group updateGroup(String name, Set<String> memberNames) throws NotAuthorized, MissingUsers {
+	public Group updateGroup(String name, Set<String> memberNames) {
 
 		if ((name==null) || (memberNames==null)) 
 			throw new IllegalArgumentException();
@@ -182,7 +182,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 
 	}
 
-	public void removeGroup(String name) throws NotAuthorized, MissingGroup, RemoveOwnerGroup {
+	public void removeGroup(String name) {
 
 /* An error detect by FineFit (the same as for updatePhotoGroup) */
 
@@ -208,7 +208,7 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		groups.remove(name);
 	}
 
-	public void updatePhotoGroup(int location, String groupName) throws OwnerNotLoggedIn, MissingGroup {
+	public void updatePhotoGroup(int location, String groupName) {
 
 /* An error detected by FineFit: originally we first tested the location and only then if the
 owner is logged in. However the spec insists that when the owner is not logged in the error
