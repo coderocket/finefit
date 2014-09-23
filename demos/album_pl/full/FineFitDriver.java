@@ -24,11 +24,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.finefit.model.SUT;
-import com.finefit.model.SUT.Operation;
+import com.finefit.sut.SUT;
+import com.finefit.sut.NoSuchOperation;
+import com.finefit.sut.InvalidNumberOfArguments;
+import com.finefit.sut.Operation;
+import com.finefit.sut.State;
+import com.finefit.sut.IdMap;
 import com.finefit.model.TestCase;
-import com.finefit.model.State;
-import com.finefit.model.SutState;
 
 public class FineFitDriver implements SUT {
 
@@ -37,18 +39,18 @@ public class FineFitDriver implements SUT {
 		static {
 
 			ops.put("login", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 					sut.login(args.getArg("n"), args.getArg("p")); } });
 
 			ops.put("addPhoto", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 					String id = args.getArg("p");
 					Photo p = sut.addPhoto(id); 
 					IdMap.instance().associate(p, id);
 				} });
 
 			ops.put("updateGroup", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 					String n = args.getArg("n");
 					String nuser = args.getArg("nu");
 					String new_group_id = args.getArg("g");
@@ -63,7 +65,7 @@ public class FineFitDriver implements SUT {
 				} });
 
 			ops.put("updateUser", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 					String n = args.getArg("n");
 					String p = args.getArg("p");
 					String new_user_id = args.getArg("u");
@@ -76,18 +78,18 @@ public class FineFitDriver implements SUT {
 				 } });
 
 			ops.put("removePhoto", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 					int i = Integer.parseInt(args.getArg("i"));
 					sut.removePhoto(i);
 				} });
 
 			ops.put("removeGroup", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 					sut.removeGroup(args.getArg("n")); 
 				} });
 
 			ops.put("updatePhotoGroup", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 					int i = Integer.parseInt(args.getArg("i"));
 					String name = args.getArg("n");
 					
@@ -95,7 +97,7 @@ public class FineFitDriver implements SUT {
 				} });
 
 			ops.put("viewPhotos", new Operation<PhotoAlbum>() { 
-				public void apply(PhotoAlbum sut, State args, SutState outputs) throws Exception {
+				public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
 
 					outputs.add_output("result!", 1);
 
@@ -116,7 +118,7 @@ public class FineFitDriver implements SUT {
     }
 
     @Override
-    public SutState initialize(State args) {
+    public State initialize(com.finefit.model.State args) {
 
 			String owner_name = args.getArg("OWNER_NAME");
 			String owner_passwd = args.getArg("OWNER_PASSWD");
@@ -135,20 +137,20 @@ public class FineFitDriver implements SUT {
     }
 
     @Override
-    public SutState applyOperation(TestCase testCase) throws Exception {
+    public State applyOperation(TestCase testCase) throws Exception {
 
 			String operationName = testCase.getOperationName(); 
-			State state = testCase.getState(); 
+			com.finefit.model.State args = testCase.getState(); 
 
 			Operation<PhotoAlbum> op = ops.get(operationName);
 			if (op == null)
 				throw new NoSuchOperation(operationName);
 
 			String report = "OK$0";
-			SutState outputs = new SutState();
+			State outputs = new State();
 
 			try {
-				op.apply(sut, state, outputs);
+				op.apply(sut, args, outputs);
 			}
       catch(PhotoAlbum.AlreadyLogged err) { report = "ALREADY_IN$0"; }
       catch(PhotoAlbum.AuthFailed err) { report = "AUTH_FAILED$0"; }
@@ -162,10 +164,10 @@ public class FineFitDriver implements SUT {
       catch(PhotoAlbum.MissingUsers err) { report = "MISSING_USERS$0"; }
 
 			outputs.add_output("report!", 1).add(report);
-			SutState sutstate = sut.retrieve();
-			sutstate.add(outputs);
+			State state = sut.retrieve();
+			state.add(outputs);
 
-			return sutstate;
+			return state;
 		}
 }
 

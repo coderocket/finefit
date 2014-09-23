@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.lang.Exception;
 import java.util.Scanner;
-import com.finefit.model.SutState;
+import com.finefit.sut.State;
 
 public class PhotoAlbum {
 
@@ -37,9 +37,9 @@ public class PhotoAlbum {
     List<Photo> photoAt;
     Set<String> deletedPhotos;
 
-    public SutState retrieve() {
+    public State retrieve() {
 
-			SutState currentState = new SutState();
+			State currentState = new State();
 
 			currentState.add_state("album", 2);
 			currentState.add_state("toAdd", 1);

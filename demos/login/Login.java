@@ -23,7 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import com.finefit.model.SutState;
+
+import com.finefit.sut.State;
 
 public class Login {
 
@@ -51,9 +52,9 @@ public class Login {
 		registered.remove(uname);
 	}
 
-	public SutState retrieve() {
+	public State retrieve() {
 
-		SutState currentState = new SutState();
+		State currentState = new State();
 	
 		currentState.add_state("loggedin", 1);
 		currentState.add_state("registered", 1);

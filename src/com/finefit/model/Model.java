@@ -42,6 +42,8 @@ public class Model {
 		world =  CompUtil.parseEverything_fromFile(new A4Reporter(), null, modelFileName);
 		context = TranslateAlloyToKodkod.execute_command(new A4Reporter(), world.getAllReachableSigs(), world.getAllCommands().get(0), new A4Options());
  		for(ExprVar a:context.getAllAtoms()) { world.addGlobal(a.label, a); }
+		for(ExprVar a:context.getAllSkolems()) { world.addGlobal(a.label, a); } 
+
 	}
 
 	public A4Solution context() {
@@ -61,7 +63,7 @@ public class Model {
 	}
 
 	public List<Operation> operations() {
-    List<Operation> ops = new ArrayList<>();
+    List<Operation> ops = new ArrayList<Operation>();
 
     for (Func func: world.getAllFunc()) {
 			//TODO: the exclusion of 'init' is an ugly hack until we parse init as a separate entity.

@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
-import com.finefit.model.SutState;
+import com.finefit.sut.State;
+import com.finefit.sut.IdMap;
 
 class ArrayPhotoAlbum implements PhotoAlbum {
 
@@ -229,9 +230,9 @@ should be NOT_AUTH regardless of the value of the index.
 
 /* FineFit testing code */
 
-	public SutState retrieve() {
+	public State retrieve() {
 
-		SutState state = new SutState();
+		State state = new State();
 
 		state.add_state("photoAt", 2);
 

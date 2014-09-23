@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
-import com.finefit.model.SutState;
+import com.finefit.sut.State;
 
 class ArrayPhotoAlbum implements PhotoAlbum {
 
@@ -55,9 +55,9 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		return result;
 	}
 
-	public SutState retrieve() {
+	public State retrieve() {
 
-		SutState state = new SutState();
+		State state = new State();
 
 		state.add_state("photoAt", 2);
 		int i = 0;

@@ -21,11 +21,11 @@ import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.finefit.model.SUT;
-import com.finefit.model.Operation;
+import com.finefit.sut.SUT;
+import com.finefit.sut.State;
+import com.finefit.sut.NoSuchOperation;
+import com.finefit.sut.InvalidNumberOfArguments;
 import com.finefit.model.TestCase;
-import com.finefit.model.State;
-import com.finefit.model.SutState;
 
 public class FineFitDriver implements SUT {
 
@@ -36,18 +36,18 @@ public class FineFitDriver implements SUT {
     }
 
     @Override
-    public SutState initialize(State args) {
+    public State initialize(com.finefit.model.State args) {
 			sut = new ArrayPhotoAlbum(5);
       return sut.retrieve();
     }
 
     @Override
-    public SutState applyOperation(TestCase testCase) throws Exception {
+    public State applyOperation(TestCase testCase) throws Exception {
 
 			String operationName = testCase.getOperationName(); 
-			State args = testCase.getState();
+			com.finefit.model.State args = testCase.getState();
 
-			SutState outputs = new SutState();
+			State outputs = new State();
 
 			if (operationName.equals("addPhoto")) {
 				String id = args.getArg("p");
@@ -79,7 +79,7 @@ public class FineFitDriver implements SUT {
 				throw new NoSuchOperation(operationName);
 
 
-			SutState state = sut.retrieve();
+			State state = sut.retrieve();
 			state.add(outputs);
 			return state;
     }

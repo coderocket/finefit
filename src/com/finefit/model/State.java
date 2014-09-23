@@ -61,24 +61,24 @@ public class State {
 
 	public TupleFactory factory() { return instance.universe().factory(); }
 
-	public void read(SutState sutstate) {
-		for(Map.Entry<String, SutState.Table> e : sutstate.state_tables()) {
-			SutState.Table t = e.getValue();
+	public void read(com.finefit.sut.State sutstate) {
+		for(Map.Entry<String, com.finefit.sut.State.Table> e : sutstate.state_tables()) {
+			com.finefit.sut.State.Table t = e.getValue();
 			prepend(t, CURR);
 			add(e.getKey(), e.getValue().numCols()+1, table2tuples(t));
 		}
-		for(Map.Entry<String, SutState.Table> e : sutstate.output_tables()) {
+		for(Map.Entry<String, com.finefit.sut.State.Table> e : sutstate.output_tables()) {
 			addOutput(e.getKey(), e.getValue().numCols(), table2tuples(e.getValue())); 
 		}
 	}
 
-	private void prepend(SutState.Table t, String atom) {
+	private void prepend(com.finefit.sut.State.Table t, String atom) {
 		for(List<String> row : t.rows()) {
 			row.add(0, atom);
 		}
 	}
 
-	private List<Tuple> table2tuples(SutState.Table t) {
+	private List<Tuple> table2tuples(com.finefit.sut.State.Table t) {
 		List<Tuple> tuples = new ArrayList<Tuple>();
 		for(List<String> row : t.rows()) {
 			tuples.add(row2tuple(row));
