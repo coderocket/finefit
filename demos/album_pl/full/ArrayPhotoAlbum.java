@@ -100,16 +100,24 @@ class ArrayPhotoAlbum implements PhotoAlbum {
 		return addPhoto$DOwner(image);
 	}
 
-	public ArrayPhotoAlbum(int maxSize, User owner, Group ownerGroup) {
+	public void setOwner(User owner) {
+		this.owner = owner;
+		users.put(owner.getName(), owner);
+	}
+
+	public void setOwnerGroup(Group ownerGroup) {
+		ownerGroupName = ownerGroup.getName();
+		groups.put(ownerGroupName, ownerGroup);
+	}
+
+	public ArrayPhotoAlbum(int maxSize) {
 		if (maxSize < 1)
 			throw new IllegalArgumentException("IllegalSize");
 		photoAt = new Photo[maxSize];
-		this.owner = owner;
 		users = new HashMap<String,User>();
 		groups = new HashMap<String,Group>();
-		users.put(owner.getName(), owner);
-		ownerGroupName = ownerGroup.getName();
-		groups.put(ownerGroupName, ownerGroup);
+		this.owner = null;
+		ownerGroupName = null;
 	}
 
 	public boolean isOwnerLoggedIn() { return loggedUser == owner; }

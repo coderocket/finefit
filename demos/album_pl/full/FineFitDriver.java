@@ -26,137 +26,17 @@ import java.util.ArrayList;
 
 import com.finefit.sut.SUT;
 import com.finefit.sut.NoSuchOperation;
-import com.finefit.sut.InvalidNumberOfArguments;
 import com.finefit.sut.Operation;
 import com.finefit.sut.State;
-import com.finefit.sut.IdMap;
 import com.finefit.model.TestCase;
 
-public class FineFitDriver implements SUT {
+public abstract class FineFitDriver implements SUT {
 
-		private Map<String, Operation > ops = new HashMap<String, Operation >();
+		protected Map<String, Operation > ops = new HashMap<String, Operation >();
 
-		private Map<String, String> exceptions = new HashMap<String, String>();
+		protected Map<String, String> exceptions = new HashMap<String, String>();
 
-
-		void setup_exception_table() {
-
-      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN$0");
-      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED$0");
-      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS$0");
-      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL$0");
-      exceptions.put("PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH$0");
-			exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO$0");
-      exceptions.put("PhotoAlbum$MissingGroup", "NO_GROUP$0");
-      exceptions.put("PhotoAlbum$RemoveOwnerGroup", "REM_OWNER_GROUP$0");
-      exceptions.put("PhotoAlbum$NotAuthorized", "NOT_AUTH$0");
-      exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS$0");
-		}
-
-    void setup_operation_table() {
-
-			ops.put("login", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					s.login(args.getArg("n"), args.getArg("p")); } });
-
-			ops.put("addPhoto", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					String id = args.getArg("p");
-					Photo p = sut.addPhoto(id); 
-					IdMap.instance().associate(p, id);
-				} });
-
-			ops.put("updateGroup", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					String n = args.getArg("n");
-					String nuser = args.getArg("nu");
-					String new_group_id = args.getArg("g");
-					
-					Set<String> nusers = new HashSet<String>();
-					nusers.add(nuser);
-					Group group = sut.updateGroup(n, nusers);
-
-					if (group != null) // a new group was created
-						IdMap.instance().associate(group, new_group_id);
-				
-				} });
-
-			ops.put("updateUser", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					String n = args.getArg("n");
-					String p = args.getArg("p");
-					String new_user_id = args.getArg("u");
-					
-					User user = sut.updateUser(n,p);
-
-					if (user != null) // a new user was created
-						IdMap.instance().associate(user, new_user_id);
-
-				 } });
-
-			ops.put("removePhoto", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					int i = Integer.parseInt(args.getArg("i"));
-					sut.removePhoto(i);
-				} });
-
-			ops.put("removeGroup", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					sut.removeGroup(args.getArg("n")); 
-				} });
-
-			ops.put("updatePhotoGroup", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					int i = Integer.parseInt(args.getArg("i"));
-					String name = args.getArg("n");
-					
-					sut.updatePhotoGroup(i, name);
-				} });
-
-			ops.put("viewPhotos", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-
-					outputs.add_output("result!", 1);
-
-					Set<Photo> photos = sut.viewPhotos(); 
-					for(Photo p : photos){
-						outputs.get_output("result!").add(IdMap.instance().obj2atom(p));
-					}
-				 } });
-
-		}
-
-		private ArrayPhotoAlbum sut;
-
-    @Override
-    public State initialize(com.finefit.model.State args) {
-
-			String owner_name = args.getArg("OWNER_NAME");
-			String owner_passwd = args.getArg("OWNER_PASSWD");
-			String owner_id = args.getArg("OWNER");
-			String owner_group_id = args.getArg("OWNER_GROUP");
-			String owner_group_name = args.getArg("OWNER_GROUP_NAME");
-
-			User owner = new User(owner_name, owner_passwd);
-			Group owner_group = new Group(owner_group_name, owner);
-			IdMap.instance().associate(owner, owner_id);
-			IdMap.instance().associate(owner_group, owner_group_id);
-
-			sut = new ArrayPhotoAlbum(5, owner, owner_group);
-
-    	setup_operation_table(); 
-    	setup_exception_table(); 
-
-			return sut.retrieve();
-    }
+		protected abstract State retrieve();
 
     @Override
     public State applyOperation(TestCase testCase) throws Exception {
@@ -184,7 +64,7 @@ public class FineFitDriver implements SUT {
 			}
 
 			outputs.add_output("report!", 1).add(report);
-			State state = sut.retrieve();
+			State state = retrieve(); 
 			state.add(outputs);
 
 			return state;

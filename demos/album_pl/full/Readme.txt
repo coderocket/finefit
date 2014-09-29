@@ -9,5 +9,5 @@ javac -cp ..\..\build\jar\FineFit.jar;. *.java
 
 3. Run FineFit, passing it the HTML specification file followed by the driver:
 
-java -jar ..\..\build\jar\FineFit.jar spec.htm FineFitDriver
+java -jar ..\..\build\jar\FineFit.jar spec.htm PhotoAlbumDriver
 
