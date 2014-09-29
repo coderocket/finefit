@@ -374,6 +374,8 @@ span.IntenseQuoteChar
 	mso-style-link:"Intense Quote";
 	color:#4F81BD;
 	font-style:italic;}
+.MsoChpDefault
+	{font-family:"Calibri","sans-serif";}
 .MsoPapDefault
 	{margin-top:10.0pt;
 	margin-right:0in;
@@ -399,7 +401,18 @@ ul
 
 <div class=WordSection1>
 
-<p class=MsoTitle>BASE Photo Album test specification</p>
+<p class=MsoTitle>Photo Album test specification</p>
+
+<p class=MsoNormal style='line-height:normal'>This is a FineFit specification
+of a photo album application. The application consists of a client that shows
+photos in a sequence and a server that stores the photos. We can change the
+content of the photos in the client but then must synchronize them with the
+server. Any new photos must be added to the server, and photos that exist in
+the server but we have asked to delete should be removed from the server. The
+following specification describes how each operation should behave.</p>
+
+<p class=MsoNormal style='line-height:normal'>Each photo is identified by a
+unique photo id. We will use the set PID to represent these identifiers.</p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>
@@ -409,7 +422,7 @@ ul
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Atom</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Scope</p>
@@ -419,18 +432,64 @@ ul
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>Photo</p>
+  normal'>PID</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>5</p>
+  normal'>3</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal>In addition, we define a report enumeration to support error
+codes:</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>Enumeration</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>Result</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>OK</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>ALBUM_FULL</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>ALREADY_IN</p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The state space of the application consists of four relations:</p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>
@@ -440,7 +499,7 @@ ul
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>State variable</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Type</p>
@@ -450,103 +509,126 @@ ul
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>photoAt</p>
+  normal'>album</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>seq Photo</p>
+  normal'>seq PID</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toAdd</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>set PID</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>existing</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>set PID</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>set PID</p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal>&nbsp;</p>
+<p class=MsoNormal>The invariant determines when a system state is valid. For
+this application we demand that: </p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>the album is an injective sequence, that is a photo can appear
+in at most one location in the sequence,</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>the photos we are about to send to the server do not already
+exist in the server,</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>the photos we are about to delete from the server are indeed in
+the server,</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>we do not ask to add a photo and delete it at the same time</p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>
  <tr>
-  <td width=407 valign=top style='width:305.6pt;border:solid windowtext 1.0pt;
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Invariant</p>
   </td>
-  <td width=132 valign=top style='width:99.0pt;border:solid windowtext 1.0pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+ </tr>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>Name</p>
+  normal'>album in Int lone -&gt; lone PID</p>
   </td>
  </tr>
  <tr>
-  <td width=407 valign=top style='width:305.6pt;border:solid windowtext 1.0pt;
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>#photoAt.elems = #photoAt</p>
-  </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>Disjoint</p>
+  normal'>no toAdd &amp; existing</p>
   </td>
  </tr>
  <tr>
-  <td width=407 valign=top style='width:305.6pt;border:solid windowtext 1.0pt;
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>#photoAt &lt;= 3</p>
+  normal'>toDelete in existing</p>
   </td>
-  <td width=132 valign=top style='width:99.0pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
+ </tr>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>Bounded Size</p>
+  normal'>no toAdd &amp; toDelete</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=638 valign=top style='width:6.65in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>#album &lt;= 3</p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal>&nbsp;</p>
-
-<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;border:none'>
- <tr>
-  <td width=539 valign=top style='width:404.6pt;border:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>Enumeration</p>
-  </td>
- </tr>
- <tr>
-  <td width=539 valign=top style='width:404.6pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>Report</p>
-  </td>
- </tr>
- <tr>
-  <td width=539 valign=top style='width:404.6pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>ALBUM_FULL</p>
-  </td>
- </tr>
- <tr>
-  <td width=539 valign=top style='width:404.6pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>PHOTO_EXISTS</p>
-  </td>
- </tr>
- <tr>
-  <td width=539 valign=top style='width:404.6pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>OK</p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal>&nbsp;</p>
+<p class=MsoNormal>When the application begins there are no photos in the album
+and no photos in the server.</p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>
@@ -556,7 +638,7 @@ ul
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Operation</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>&nbsp;</p>
@@ -568,7 +650,7 @@ ul
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>init</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -581,7 +663,7 @@ ul
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>&nbsp;</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -592,23 +674,307 @@ ul
   <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>photoAt</p>
+  normal'>album</p>
   </td>
-  <td width=220 valign=top style='width:165.2pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>none -&gt; none</p>
   </td>
  </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toAdd</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>none</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>none</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>existing</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>none</p>
+  </td>
+ </tr>
 </table>
 
-<p class=MsoNormal>&nbsp;</p>
+<p class=MsoNormal>The operation addPhoto appends a photo to the album;
+provided that the photo is not already in the album and that the album has
+enough space:</p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>
  <tr>
-  <td width=110 valign=top style='width:1.15in;border:solid windowtext 1.0pt;
+  <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>Operation</p>
+  </td>
+  <td width=148 valign=top style='width:111.2pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=180 valign=top style='width:135.0pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>addPhoto</p>
+  </td>
+  <td width=148 valign=top style='width:111.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=91 rowspan=2 valign=top style='width:.95in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>pid:PID, result!:Result</p>
+  </td>
+  <td width=328 colspan=2 valign=top style='width:246.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal'>#album &lt; 3</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>pid in album.elems</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>#album = 3</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=148 valign=top style='width:111.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>pid !in toAdd + existing</p>
+  </td>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>pid in toDelete</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>true</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>true</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>album</p>
+  </td>
+  <td width=148 valign=top style='width:111.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>album.add[pid]</p>
+  </td>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>album.add[pid]</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>=</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>=</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toAdd</p>
+  </td>
+  <td width=148 valign=top style='width:111.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toAdd + pid</p>
+  </td>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toAdd</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toAdd</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toAdd</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+  <td width=148 valign=top style='width:111.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete - pid</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=91 valign=top style='width:.95in;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>result!</p>
+  </td>
+  <td width=148 valign=top style='width:111.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>OK</p>
+  </td>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>OK</p>
+  </td>
+  <td width=120 valign=top style='width:1.25in;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>ALREADY_IN</p>
+  </td>
+  <td width=99 valign=top style='width:74.2pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>ALBUM_FULL</p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal>The operation removePhoto takes an index into the album
+sequence and removes the photo from the album. All other photos shift to the
+right. If the photo is new (and therefore was about to be added to the server)
+we have to remove it from toAdd to ensure it won't be added to the server when
+we save the album:</p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Operation</p>
@@ -618,22 +984,17 @@ ul
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>&nbsp;</p>
   </td>
-  <td width=122 valign=top style='width:91.65pt;border:solid windowtext 1.0pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>&nbsp;</p>
-  </td>
-  <td width=112 valign=top style='width:84.3pt;border:solid windowtext 1.0pt;
+  <td width=274 valign=top style='width:205.5pt;border:solid windowtext 1.0pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>&nbsp;</p>
   </td>
  </tr>
  <tr>
-  <td width=110 valign=top style='width:1.15in;border:solid windowtext 1.0pt;
+  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>addPhoto</p>
+  normal'>removePhoto</p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
@@ -641,13 +1002,7 @@ ul
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>&nbsp;</p>
   </td>
-  <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>&nbsp;</p>
-  </td>
-  <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
+  <td width=274 valign=top style='width:205.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -655,22 +1010,16 @@ ul
   </td>
  </tr>
  <tr>
-  <td width=110 rowspan=2 valign=top style='width:1.15in;border:solid windowtext 1.0pt;
+  <td width=167 rowspan=2 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>p:Photo, report!:Report</p>
+  normal'>i:Int</p>
   </td>
-  <td width=316 colspan=2 valign=top style='width:237.2pt;border-top:none;
+  <td width=468 colspan=2 valign=top style='width:351.05pt;border-top:none;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
-  text-align:center;line-height:normal'>#photoAt &lt; 3</p>
-  </td>
-  <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>#photoAt &gt;= 3</p>
+  text-align:center;line-height:normal'>i in album.PID</p>
   </td>
  </tr>
  <tr>
@@ -678,96 +1027,99 @@ ul
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>p !in ran[photoAt]</p>
+  normal'>album[i] in toAdd</p>
   </td>
-  <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
+  <td width=274 valign=top style='width:205.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>p in ran[photoAt]</p>
-  </td>
-  <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>true</p>
+  normal'>album[i] in existing</p>
   </td>
  </tr>
  <tr>
-  <td width=110 valign=top style='width:1.15in;border:solid windowtext 1.0pt;
+  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>photoAt</p>
+  normal'>album</p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>photoAt.add[p]</p>
+  normal'>album.delete[i]</p>
   </td>
-  <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
+  <td width=274 valign=top style='width:205.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>=</p>
-  </td>
-  <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>=</p>
+  normal'>album.delete[i]</p>
   </td>
  </tr>
  <tr>
-  <td width=110 valign=top style='width:1.15in;border:solid windowtext 1.0pt;
+  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>report!</p>
+  normal'>toAdd</p>
   </td>
   <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>OK</p>
+  normal'>toAdd - album[i]</p>
   </td>
-  <td width=122 valign=top style='width:91.65pt;border-top:none;border-left:
+  <td width=274 valign=top style='width:205.5pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>PHOTO_EXISTS</p>
+  normal'>toAdd</p>
   </td>
-  <td width=112 valign=top style='width:84.3pt;border-top:none;border-left:
+ </tr>
+ <tr>
+  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+  <td width=194 valign=top style='width:145.55pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>ALBUM_FULL</p>
+  normal'>toDelete</p>
+  </td>
+  <td width=274 valign=top style='width:205.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete + album[i]</p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal>&nbsp;</p>
+<p class=MsoNormal>The operation save sends all the newly added photos to the
+server and removes from the server all the old photos that we have asked to
+remove: </p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none'>
  <tr>
-  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>Operation</p>
   </td>
-  <td width=372 valign=top style='width:279.05pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'>&nbsp;</p>
   </td>
  </tr>
  <tr>
-  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>viewPhotos</p>
+  normal'>save</p>
   </td>
-  <td width=372 valign=top style='width:279.05pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -775,12 +1127,12 @@ ul
   </td>
  </tr>
  <tr>
-  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>result!:set Photo</p>
+  normal'>&nbsp;</p>
   </td>
-  <td width=372 valign=top style='width:279.05pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
@@ -788,16 +1140,42 @@ ul
   </td>
  </tr>
  <tr>
-  <td width=167 valign=top style='width:125.55pt;border:solid windowtext 1.0pt;
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>result!</p>
+  normal'>toAdd</p>
   </td>
-  <td width=372 valign=top style='width:279.05pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>photoAt.elems</p>
+  normal'>none</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>toDelete</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>none</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=319 valign=top style='width:239.4pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>existing</p>
+  </td>
+  <td width=319 valign=top style='width:239.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'>existing + toAdd - toDelete</p>
   </td>
  </tr>
 </table>

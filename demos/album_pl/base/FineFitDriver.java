@@ -33,23 +33,25 @@ import com.finefit.model.TestCase;
 
 public class FineFitDriver implements SUT {
 
-    private static Map<String, Operation<PhotoAlbum> > ops = new HashMap<String, Operation<PhotoAlbum> >();
+    private Map<String, Operation > ops = new HashMap<String, Operation >();
 
-		static void setup_operation_table() {
+		void setup_operation_table() {
 
-      ops.put("addPhoto", new Operation<PhotoAlbum>() {
-        public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
+      ops.put("addPhoto", new Operation() {
+				PhotoAlbum s = sut;
+        public void apply(com.finefit.model.State args, State outputs) throws Exception {
           String id = args.getArg("p");
-          Photo p = sut.addPhoto(id);
+          Photo p = s.addPhoto(id);
           IdMap.instance().associate(p, id);
         } });
 
-      ops.put("viewPhotos", new Operation<PhotoAlbum>() {
-        public void apply(PhotoAlbum sut, com.finefit.model.State args, State outputs) throws Exception {
+      ops.put("viewPhotos", new Operation() {
+				PhotoAlbum s = sut;
+        public void apply(com.finefit.model.State args, State outputs) throws Exception {
 
           outputs.add_output("result!", 1);
 
-          Set<Photo> photos = sut.viewPhotos();
+          Set<Photo> photos = s.viewPhotos();
           
           for(Photo p : photos) {
 						outputs.get_output("result!").add(IdMap.instance().obj2atom(p));
@@ -57,19 +59,12 @@ public class FineFitDriver implements SUT {
 				} });
 		}
 
-    static {
-			setup_operation_table();
-		}
-
 		private ArrayPhotoAlbum sut;
 		
-    public FineFitDriver() {
-			sut = new ArrayPhotoAlbum(5);
-    }
-
     @Override
     public State initialize(com.finefit.model.State args) {
 			sut = new ArrayPhotoAlbum(5);
+			setup_operation_table();
       return sut.retrieve();
     }
 
@@ -79,7 +74,7 @@ public class FineFitDriver implements SUT {
       String operationName = testCase.getOperationName();
       com.finefit.model.State args = testCase.getState();
 
-      Operation<PhotoAlbum> op = ops.get(operationName);
+      Operation op = ops.get(operationName);
       if (op == null)
         throw new NoSuchOperation(operationName);
 
@@ -87,7 +82,7 @@ public class FineFitDriver implements SUT {
       State outputs = new State();
 
       try {
-        op.apply(sut, args, outputs);
+        op.apply(args, outputs);
       }
       catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS$0"; }
       catch(PhotoAlbum.AlbumIsFull err) { report = "ALBUM_FULL$0"; }

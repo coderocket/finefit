@@ -19,6 +19,6 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 package com.finefit.sut;
 
-public interface Operation<T> {
-	public void apply(T sut, com.finefit.model.State args, State outputs) throws Exception;
+public interface Operation {
+	public void apply(com.finefit.model.State args, State outputs) throws Exception;
 }
