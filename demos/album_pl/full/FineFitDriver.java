@@ -36,8 +36,24 @@ public class FineFitDriver implements SUT {
 
 		private static Map<String, Operation<PhotoAlbum> > ops = new HashMap<String, Operation<PhotoAlbum> >();
 
+		private static Map<String, String> exceptions = new HashMap<String, String>();
+
 		static {
     	setup_operation_table(); 
+    	setup_exception_table(); 
+		}
+
+		static void setup_exception_table() {
+      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN$0");
+      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED$0");
+      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS$0");
+      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL$0");
+      exceptions.put("PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH$0");
+			exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO$0");
+      exceptions.put("PhotoAlbum$MissingGroup", "NO_GROUP$0");
+      exceptions.put("PhotoAlbum$RemoveOwnerGroup", "REM_OWNER_GROUP$0");
+      exceptions.put("PhotoAlbum$NotAuthorized", "NOT_AUTH$0");
+      exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS$0");
 		}
 
     static void setup_operation_table() {
@@ -111,6 +127,7 @@ public class FineFitDriver implements SUT {
 					}
 				 } });
 		}
+	
 
 		private ArrayPhotoAlbum sut;
 		
@@ -153,6 +170,15 @@ public class FineFitDriver implements SUT {
 			try {
 				op.apply(sut, args, outputs);
 			}
+			catch(Exception err) {
+				System.out.println("err.getClass().getName() = " + err.getClass().getName());
+				String code = exceptions.get(err.getClass().getName());
+				if (code != null)
+					report = code;
+				else
+					throw err;
+			}
+/*
       catch(PhotoAlbum.AlreadyLogged err) { report = "ALREADY_IN$0"; }
       catch(PhotoAlbum.AuthFailed err) { report = "AUTH_FAILED$0"; }
       catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS$0"; }
@@ -163,7 +189,7 @@ public class FineFitDriver implements SUT {
       catch(PhotoAlbum.RemoveOwnerGroup err) { report = "REM_OWNER_GROUP$0"; }
       catch(PhotoAlbum.NotAuthorized err) { report = "NOT_AUTH$0"; }
       catch(PhotoAlbum.MissingUsers err) { report = "MISSING_USERS$0"; }
-
+*/
 			outputs.add_output("report!", 1).add(report);
 			State state = sut.retrieve();
 			state.add(outputs);
