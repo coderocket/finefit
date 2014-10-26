@@ -28,10 +28,11 @@ import com.finefit.sut.SUT;
 import com.finefit.sut.Operation;
 import com.finefit.sut.State;
 import com.finefit.sut.IdMap;
+import com.finefit.sut.FineFitDriver;
 
 public class PhotoAlbumDriver extends FineFitDriver {
 
-		void setup_exception_table() {
+		protected void setup_exception_table() {
 
       exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN$0");
       exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED$0");
@@ -45,7 +46,7 @@ public class PhotoAlbumDriver extends FineFitDriver {
       exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS$0");
 		}
 
-    void setup_operation_table() {
+    protected void setup_operation_table() {
 
 			ops.put("login", new Operation() { 
 				PhotoAlbum s = sut;
@@ -128,19 +129,13 @@ public class PhotoAlbumDriver extends FineFitDriver {
 
 		private ArrayPhotoAlbum sut;
 
-
-		void setup_sut() {
+		@Override protected void setup_sut() {
 			sut = new ArrayPhotoAlbum(5);
-    	setup_operation_table(); 
-    	setup_exception_table(); 
 		}
 
 		@Override public State retrieve() { return sut.retrieve(); }
 
-    @Override
-    public State initialize(com.finefit.model.State args) {
-
-			setup_sut();
+		@Override public void init_sut(com.finefit.model.State args) {
 
 			String owner_name = args.getArg("OWNER_NAME");
 			String owner_passwd = args.getArg("OWNER_PASSWD");
@@ -157,7 +152,6 @@ public class PhotoAlbumDriver extends FineFitDriver {
 
 			sut.setOwnerGroup(owner_group);
 
-			return sut.retrieve();
-    }
+		}
 }
 

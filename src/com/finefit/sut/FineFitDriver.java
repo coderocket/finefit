@@ -17,6 +17,8 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+package com.finefit.sut;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -24,10 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.finefit.sut.SUT;
-import com.finefit.sut.NoSuchOperation;
-import com.finefit.sut.Operation;
-import com.finefit.sut.State;
 import com.finefit.model.TestCase;
 
 public abstract class FineFitDriver implements SUT {
@@ -37,6 +35,10 @@ public abstract class FineFitDriver implements SUT {
 		protected Map<String, String> exceptions = new HashMap<String, String>();
 
 		protected abstract State retrieve();
+    protected abstract void setup_sut(); 
+    protected abstract void setup_operation_table();
+    protected abstract void setup_exception_table();
+		protected abstract void init_sut(com.finefit.model.State args);
 
     @Override
     public State applyOperation(TestCase testCase) throws Exception {
@@ -68,6 +70,15 @@ public abstract class FineFitDriver implements SUT {
 			state.add(outputs);
 
 			return state;
+		}
+
+		@Override
+		public State initialize(com.finefit.model.State args) {
+			setup_sut();
+			setup_operation_table();
+			setup_exception_table();
+			init_sut(args);
+			return retrieve();
 		}
 }
 
