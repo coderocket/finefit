@@ -17,18 +17,8 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-
-import com.finefit.sut.SUT;
-import com.finefit.sut.NoSuchOperation;
-import com.finefit.sut.InvalidNumberOfArguments;
-import com.finefit.sut.Operation;
-import com.finefit.sut.State;
-import com.finefit.sut.IdMap;
+import com.finefit.sut.*;
 import com.finefit.sut.FineFitDriver;
 
 public class PhotoAlbumDriver extends FineFitDriver {
