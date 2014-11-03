@@ -28,14 +28,15 @@ public class PhotoAlbumDriver extends FineFitDriver {
 
 		protected void setup_exception_table() {
 
-      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN");
-      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED");
+      exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO");
       exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
       exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
+
+/*** added by DOwner_FineFit
+*/
+      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED");
+      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN");
       exceptions.put("PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH");
-			exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO");
-      exceptions.put("PhotoAlbum$MissingGroup", "NO_GROUP");
-      exceptions.put("PhotoAlbum$RemoveOwnerGroup", "REM_OWNER_GROUP");
       exceptions.put("PhotoAlbum$NotAuthorized", "NOT_AUTH");
       exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS");
 		}
