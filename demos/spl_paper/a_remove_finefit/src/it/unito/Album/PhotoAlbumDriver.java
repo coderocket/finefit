@@ -31,12 +31,12 @@ public class PhotoAlbumDriver extends FineFitDriver {
 
 		protected void setup_exception_table() {
 
-      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS$0");
-      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL$0");
+      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
+      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
 
 			// DRemoveFineFit
 
-      exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO$0");
+      exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO");
 		}
 
     protected void setup_operation_table() {

@@ -78,16 +78,16 @@ public class FineFitDriver implements SUT {
       if (op == null)
         throw new NoSuchOperation(operationName);
 
-      String report = "OK$0";
+      String report = "OK";
       State outputs = new State();
 
       try {
         op.apply(args, outputs);
       }
-      catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS$0"; }
-      catch(PhotoAlbum.AlbumIsFull err) { report = "ALBUM_FULL$0"; }
+      catch(PhotoAlbum.PhotoExists err) { report = "PHOTO_EXISTS"; }
+      catch(PhotoAlbum.AlbumIsFull err) { report = "ALBUM_FULL"; }
 
-      outputs.add_output("report!", 1).add(report);
+      outputs.add_output("report!", 1).add(report+"$0");
 
 			State state = sut.retrieve();
 			state.add(outputs);

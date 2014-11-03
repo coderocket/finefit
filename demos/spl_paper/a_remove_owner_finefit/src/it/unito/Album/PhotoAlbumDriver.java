@@ -28,22 +28,22 @@ public class PhotoAlbumDriver extends FineFitDriver {
 
 		protected void setup_exception_table() {
 
-      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL$0");
-      exceptions.put("PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH$0");
+      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
+      exceptions.put("PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH");
 
 			// DRemoveFineFit
 
-			exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO$0");
+			exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO");
 
 			// DOwnerFineFit
 
-      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN$0");
-      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED$0");
-      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS$0");
-      exceptions.put("PhotoAlbum$MissingGroup", "NO_GROUP$0");
-      exceptions.put("PhotoAlbum$RemoveOwnerGroup", "REM_OWNER_GROUP$0");
-      exceptions.put("PhotoAlbum$NotAuthorized", "NOT_AUTH$0");
-      exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS$0");
+      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN");
+      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED");
+      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
+      exceptions.put("PhotoAlbum$MissingGroup", "NO_GROUP");
+      exceptions.put("PhotoAlbum$RemoveOwnerGroup", "REM_OWNER_GROUP");
+      exceptions.put("PhotoAlbum$NotAuthorized", "NOT_AUTH");
+      exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS");
 		}
 
     protected void setup_operation_table() {
