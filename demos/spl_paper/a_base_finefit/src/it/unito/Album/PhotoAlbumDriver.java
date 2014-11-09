@@ -22,12 +22,12 @@ public class PhotoAlbumDriver extends FineFitDriver {
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws
 				Exception {
-					String id = args.getArg("p");
+					String id = args.getArg("p?");
 					Photo p = s.addPhoto(id);
 					IdMap.instance().associate(p, id);
 				}
 			});
-		ops.put("viewPhotos", new Operation() {
+		ops.put("viewPhoto", new Operation() {
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws
 				Exception {
@@ -40,7 +40,7 @@ public class PhotoAlbumDriver extends FineFitDriver {
 			});
 	}
 	protected void setup_exception_table() {
-		exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
-		exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
+		exceptions.put("albumsimplecore.a_base_finefit.it.unito.Album.PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
+		exceptions.put("albumsimplecore.a_base_finefit.it.unito.Album.PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
 	}
 }
