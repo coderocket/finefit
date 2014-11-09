@@ -128,7 +128,7 @@ public class State {
 
 	public String getArg(String argName) {
     for (Map.Entry<Relation,TupleSet> e : instance.relationTuples().entrySet()) {
-    	if (e.getKey().name().equals("$" + argName)) {
+    	if (e.getKey().name().equals("$"+ argName.replaceAll("\\?", Constants.INPUT_SUFFIX))) {
 				return tupleSet2Alloy(e.getValue());
     	}
     }
