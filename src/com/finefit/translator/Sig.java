@@ -30,10 +30,14 @@ public class Sig {
 	}
 
 	public void print(PrintStream out) {
-		out.println("sig " + name + " {}");
+		if (!name.equals("Int")) // Int is a predefined signature representing the integers, don't create a sig for Int
+			out.println("sig " + name + " {}");
 	}
 
 	public void printScope(PrintStream out) {
-		out.print("exactly " + scope + " " + name);
+		if (name.equals("Int")) // Alloy refuses 'exactly' for Int
+			out.print(" " + scope + " " + name);
+		else
+			out.print("exactly " + scope + " " + name);
 	}
 }
