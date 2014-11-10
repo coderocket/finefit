@@ -30,12 +30,12 @@ public class Sig {
 	}
 
 	public void print(PrintStream out) {
-		if (!name.equals("Int")) // Int is a predefined signature representing the integers, don't create a sig for Int
+		if (!name.equals("Int") && !name.equals("seq")) // Int, seq are predefined signatures, don't create sigs for them
 			out.println("sig " + name + " {}");
 	}
 
 	public void printScope(PrintStream out) {
-		if (name.equals("Int")) // Alloy refuses 'exactly' for Int
+		if (name.equals("Int") || name.equals("seq")) // Alloy refuses 'exactly' for Int, seq
 			out.print(" " + scope + " " + name);
 		else
 			out.print("exactly " + scope + " " + name);
