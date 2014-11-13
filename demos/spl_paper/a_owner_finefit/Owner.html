@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>generated/Owner</title>
+    <style>td{text-align:center;}</style>
+  </head>
+  <body>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>Constant name</b></td>
+          <td>Value</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>MAX</td>
+          <td>5</td>
+        </tr>
+      </tbody>
+    </table>
+    &nbsp; </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>Atom</b></td>
+          <td>Scope</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>Photo</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>seq</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Password</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Enumeration</br>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Report</b></td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>ALBUM_FULL</td>
+        </tr>
+        <tr>
+          <td>PHOTO_EXISTS</td>
+        </tr>
+        <tr>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td>AUTH_FAILED</td>
+        </tr>
+        <tr>
+          <td>ALREADY_LOGGED</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>State variable</br>
+            </b></td>
+          <td>Type</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>seq Photo</td>
+        </tr>
+        <tr>
+          <td>ownerName</td>
+          <td>Name</td>
+        </tr>
+        <tr>
+          <td>ownerPassword</td>
+          <td>Password</td>
+        </tr>
+        <tr>
+          <td>loggedIn</td>
+          <td>set Name</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0" height="95" width="473">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td>Invariant</td>
+          <td valign="top">Invariant name</br>
+          </td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>#photoAt.elems = #photoAt</td>
+          <td valign="top">Disjoint</br>
+          </td>
+        </tr>
+        <tr>
+          <td>#photoAt &lt;= 3</br>
+          </td>
+          <td valign="top">Bounded size</br>
+          </td>
+        </tr>
+        <tr>
+          <td>lone loggedIn</td>
+          <td valign="top">At most one logged in</br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td><b>init</br>
+            </b></td>
+          <td></br>
+          </td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td valign="top">n?:Name,p?:Password</br>
+          </td>
+          <td valign="top">true</td>
+        </tr>
+        <tr>
+          <td>photoAt</td>
+          <td>none-&gt;none</td>
+        </tr>
+        <tr>
+          <td>ownerName</td>
+          <td>n?</td>
+        </tr>
+        <tr>
+          <td>ownerPassword</td>
+          <td>p?</td>
+        </tr>
+        <tr>
+          <td>loggedIn</td>
+          <td>none</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>addPhoto</b></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">p?:Photo, report!:Report</br>
+          </td>
+          <td colspan="3">ownerName in loggedIn</td>
+          <td>ownerName !in loggedIn</td>
+        </tr>
+        <tr>
+          <td colspan="2">#photoAt &lt; 3</td>
+          <td>#photoAt &gt;= 3</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>p? !in ran[photoAt]</td>
+          <td>p? in ran[photoAt]</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>photoAt.add[p?]</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>PHOTO_EXISTS</td>
+          <td>ALBUM_FULL</td>
+          <td>AUTH_FAILED</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>viewPhoto</b></td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td>result!:set Photo</br>
+          </td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>result!</td>
+          <td>photoAt.elems</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>login</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="2">n?:Name,p?:Password, report!:Report</br>
+          </td>
+          <td colspan="2">no loggedIn</td>
+          <td>some loggedIn</td>
+        </tr>
+        <tr>
+          <td>n? = ownerName and p? = ownerPassword</td>
+          <td>n? != ownerName or p? != ownerPassword</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>loggedIn</td>
+          <td>loggedIn + n?</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>AUTH_FAILED</td>
+          <td>ALREADY_LOGGED</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>logout</b></td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td></br>
+          </td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>loggedIn</td>
+          <td>none</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+  </body>
+</html>
