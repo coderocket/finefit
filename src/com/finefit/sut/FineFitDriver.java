@@ -57,7 +57,6 @@ public abstract class FineFitDriver implements SUT {
 				op.apply(args, outputs);
 			}
 			catch(Exception err) {
-				System.out.println("err.getClass().getName() = " + err.getClass().getName());
 				String code = exceptions.get(err.getClass().getName());
 				if (code != null)
 					report = code + "$0";
