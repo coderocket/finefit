@@ -252,7 +252,7 @@ public class Translator {
 	// For example, if tag is <Table foo=2> and name is foo then getAttr returns 2
 
 	static String getAttr(String tag, String name) {
-		Matcher matcher = Pattern.compile(name + "[\\s]*=[\\s]*(\\w)+").matcher(tag);
+		Matcher matcher = Pattern.compile(name + "[\\s]*=[\\s]*\"?(\\w)+\"?").matcher(tag);
 		if (matcher.find()) {
 			return matcher.group(1);
 		}
