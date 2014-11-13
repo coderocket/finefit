@@ -1,0 +1,17 @@
+To build this demo run
+
+ant compile
+
+To run the tests do the following:
+
+1. First ensure that your FINEFIT_HOME environment variable points to the
+location of FineFit's specification library files, e.g.
+
+export FINEFIT_HOME="C:\cygwin64\home\davidf\src\finefit\src"
+
+(replace the initial part of the path by the location of the finefit intallation)
+
+2. Then run the following from the command line
+
+$ java -cp ..\..\..\build\jar\FineFit.jar;build\classes com.finefit.controller.FineFitController Remove.html albumsimplecore.a_remove_finefit.it.unito.Album.PhotoAlbumDriver
+

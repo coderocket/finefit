@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>generated/Remove</title>
+    <style>td{text-align:center;}</style>
+  </head>
+  <body>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>Constant name</b></td>
+          <td>Value</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>MAX</td>
+          <td>5</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>Atom </br>
+            </b></td>
+          <td>Scope</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>Photo</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>seq</td>
+          <td>5</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Enumeration</br>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Report</b></td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>ALBUM_FULL</td>
+        </tr>
+        <tr>
+          <td>PHOTO_EXISTS</td>
+        </tr>
+        <tr>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td>NO_PHOTO</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>State variable</br>
+            </b></td>
+          <td>Type</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>seq Photo</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td>Invariant</td>
+          <td valign="top"><b>Invariant name</b></td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>#photoAt.elems = #photoAt</td>
+          <td valign="top">Disjoint</td>
+        </tr>
+        <tr>
+          <td>#photoAt = 3</td>
+          <td valign="top">Bounded size</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>init</b></td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td></br>
+          </td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>none-&gt;none</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>addPhoto</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="2">p? : Photo, report!:Report</br>
+          </td>
+          <td colspan="2">#photoAt &lt; 3</td>
+          <td>#photoAt &gt;= 3</td>
+        </tr>
+        <tr>
+          <td>p? !in ran[photoAt]</td>
+          <td>p? in ran[photoAt]</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>photoAt.add[p?]</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>PHOTO_EXISTS</td>
+          <td>ALBUM_FULL</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>viewPhoto</b></td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td>result!:set Photo<b></br>
+            </b></td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>result!</td>
+          <td>photoAt.elems</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>removePhoto</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td>l?:Int,report!:Report</td>
+          <td>l? in dom[photoAt]</td>
+          <td>l? !in dom[photoAt]</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>photoAt.delete[l?]</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>NO_PHOTO</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+  </body>
+</html>

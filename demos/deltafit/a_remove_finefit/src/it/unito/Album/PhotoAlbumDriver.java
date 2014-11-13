@@ -31,8 +31,8 @@ public class PhotoAlbumDriver extends FineFitDriver {
 
 		protected void setup_exception_table() {
 
-      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
-      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
+      exceptions.put("albumsimplecore.a_remove_finefit.it.unito.Album.PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
+      exceptions.put("albumsimplecore.a_remove_finefit.it.unito.Album.PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
 
 			// DRemoveFineFit
 
@@ -44,12 +44,12 @@ public class PhotoAlbumDriver extends FineFitDriver {
 			ops.put("addPhoto", new Operation() { 
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					String id = args.getArg("p");
+					String id = args.getArg("p?");
 					Photo p = sut.addPhoto(id); 
 					IdMap.instance().associate(p, id);
 				} });
 
-			ops.put("viewPhotos", new Operation() { 
+			ops.put("viewPhoto", new Operation() { 
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws Exception {
 
@@ -66,7 +66,7 @@ public class PhotoAlbumDriver extends FineFitDriver {
       ops.put("removePhoto", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          int i = Integer.parseInt(args.getArg("i"));
+          int i = Integer.parseInt(args.getArg("l?"));
           sut.removePhoto(i);
         } });
 
