@@ -13,5 +13,7 @@ export FINEFIT_HOME="C:\cygwin64\home\davidf\src\finefit\src"
 
 2. Then run the following from the command line
 
-$ java -cp ..\..\..\build\jar\FineFit.jar;build\classes com.finefit.controller.FineFitController BaseAlbum.html albumsimplecore.a_base_finefit.it.unito.Album.PhotoAlbumDriver
+$ ant -emacs test
+
+(the -emacs flag disables prefixing each line in the output with the [test] label)
 
