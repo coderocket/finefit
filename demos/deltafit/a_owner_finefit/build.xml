@@ -23,5 +23,12 @@
         <java jar="build/jar/FineFit.jar" fork="true"/>
     </target>
 
+    <target name="test">
+        <java classpath="../../../build/jar/FineFit.jar:build/classes" classname="com.finefit.controller.FineFitController" fork="true">
+					<arg value="Owner.html"/>
+					<arg value="albumsimplecore.a_owner_finefit.it.unito.Album.PhotoAlbumDriver"/>
+				</java>
+    </target>
+
 </project>
 
