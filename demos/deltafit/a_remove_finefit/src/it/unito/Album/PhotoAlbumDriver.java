@@ -17,7 +17,7 @@ along with FineFit. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-package albumsimplecore.a_owner_finefit.it.unito.Album;
+package albumsimplecore.a_remove_finefit.it.unito.Album;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -26,33 +26,30 @@ import com.finefit.sut.FineFitDriver;
 
 public class PhotoAlbumDriver extends FineFitDriver {
 
+		/*** modified by DRemoveFineFit
+		*/
+
 		protected void setup_exception_table() {
 
-      exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO");
-      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
-      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
+      exceptions.put("albumsimplecore.a_remove_finefit.it.unito.Album.PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
+      exceptions.put("albumsimplecore.a_remove_finefit.it.unito.Album.PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
 
-/*** added by DOwner_FineFit
-*/
-      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED");
-      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN");
-      exceptions.put("PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH");
-      exceptions.put("PhotoAlbum$NotAuthorized", "NOT_AUTH");
-      exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS");
+			// DRemoveFineFit
+
+      exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO");
 		}
 
     protected void setup_operation_table() {
 
-
 			ops.put("addPhoto", new Operation() { 
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					String id = args.getArg("p");
+					String id = args.getArg("p?");
 					Photo p = sut.addPhoto(id); 
 					IdMap.instance().associate(p, id);
 				} });
 
-			ops.put("viewPhotos", new Operation() { 
+			ops.put("viewPhoto", new Operation() { 
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws Exception {
 
@@ -64,12 +61,15 @@ public class PhotoAlbumDriver extends FineFitDriver {
 					}
 				 } });
 
-			/*** added by DOwner_FineFit
+			/*** added by DRemoveFineFit
 			*/
-			ops.put("login", new Operation() { 
-				PhotoAlbum s = sut;
-				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					s.login(args.getArg("n"), args.getArg("p")); } });
+      ops.put("removePhoto", new Operation() {
+        PhotoAlbum s = sut;
+        public void apply(com.finefit.model.State args, State outputs) throws Exception {
+          int i = Integer.parseInt(args.getArg("l?"));
+          sut.removePhoto(i);
+        } });
+
 		}
 
 		private ArrayPhotoAlbum sut;
@@ -80,19 +80,7 @@ public class PhotoAlbumDriver extends FineFitDriver {
 
 		@Override public State retrieve() { return sut.retrieve(); }
 
-		/*** modified by DOwner_FineFit
-		*/
-
 		@Override public void init_sut(com.finefit.model.State args) {
-
-			String owner_name = args.getArg("OWNER_NAME");
-			String owner_passwd = args.getArg("OWNER_PASSWD");
-			User owner = new User(owner_name, owner_passwd);
-			String owner_id = args.getArg("OWNER");
-			IdMap.instance().associate(owner, owner_id);
-
-			sut.setOwner(owner);
-
 		}
 }
 
