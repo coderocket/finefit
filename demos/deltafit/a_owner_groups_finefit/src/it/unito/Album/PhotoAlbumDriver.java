@@ -89,7 +89,7 @@ public class PhotoAlbumDriver extends FineFitDriver {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
           String n = args.getArg("n?");
-          String nuser = args.getArg("nu?");
+          String nuser = args.getArg("ns?");
           String new_group_id = args.getArg("g?");
 
           Set<String> nusers = new HashSet<String>();
@@ -104,14 +104,14 @@ public class PhotoAlbumDriver extends FineFitDriver {
       ops.put("removeGroup", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          sut.removeGroup(args.getArg("n"));
+          sut.removeGroup(args.getArg("n?"));
         } });
 
       ops.put("updatePhotoGroup", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          int i = Integer.parseInt(args.getArg("i"));
-          String name = args.getArg("n");
+          int i = Integer.parseInt(args.getArg("l?"));
+          String name = args.getArg("n?");
 
           sut.updatePhotoGroup(i, name);
         } });
@@ -119,9 +119,9 @@ public class PhotoAlbumDriver extends FineFitDriver {
       ops.put("updateUser", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          String n = args.getArg("n");
-          String p = args.getArg("p");
-          String new_user_id = args.getArg("u");
+          String n = args.getArg("n?");
+          String p = args.getArg("p?");
+          String new_user_id = args.getArg("u?");
 
           User user = sut.updateUser(n,p);
 

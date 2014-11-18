@@ -257,6 +257,12 @@ public class ArrayPhotoAlbum implements PhotoAlbum {
       }
     }
 
+        state.add_state("passwords", 2);
+
+        for(User u : users.values()) {
+            state.get_state("passwords").add(IdMap.instance().obj2atom(u), u.getPassword());
+        }
+
     return state;
   }
 

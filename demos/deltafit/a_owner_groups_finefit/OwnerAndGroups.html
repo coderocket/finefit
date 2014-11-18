@@ -1,0 +1,744 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>generated/OwnerAndGroups</title>
+    <style>td{text-align:center;}</style>
+  </head>
+  <body>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>Constant name</b></td>
+          <td>Value</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>MAX</td>
+          <td>5</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>Atom </br>
+            </b></td>
+          <td>Scope</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>Photo</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>seq</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Password</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>User</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Group</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Enumeration</br>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Report</b></td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>ALBUM_FULL</td>
+        </tr>
+        <tr>
+          <td>PHOTO_EXISTS</td>
+        </tr>
+        <tr>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td>NOT_AUTH</td>
+        </tr>
+        <tr>
+          <td>AUTH_FAILED</td>
+        </tr>
+        <tr>
+          <td>ALREADY_LOGGED</td>
+        </tr>
+        <tr>
+          <td>NO_SUCH_USER</td>
+        </tr>
+        <tr>
+          <td>WRONG_PASSWORD</td>
+        </tr>
+        <tr>
+          <td>ALREADY_IN</td>
+        </tr>
+        <tr>
+          <td>MISSING_USERS</td>
+        </tr>
+        <tr>
+          <td>MISSING_USER</td>
+        </tr>
+        <tr>
+          <td>REM_OWNER</td>
+        </tr>
+        <tr>
+          <td>REM_OWNER_GROUP</td>
+        </tr>
+        <tr>
+          <td>NO_GROUP</td>
+        </tr>
+        <tr>
+          <td>NO_PHOTO</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td><b>State variable</br>
+            </b></td>
+          <td>Type</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>seq Photo</td>
+        </tr>
+        <tr>
+          <td>ownerName</td>
+          <td>Name</td>
+        </tr>
+        <tr>
+          <td>loggedIn</td>
+          <td>set Name</td>
+        </tr>
+        <tr>
+          <td>groups</td>
+          <td>Name-&gt;Group</td>
+        </tr>
+        <tr>
+          <td>users</td>
+          <td>Name-&gt;User</td>
+        </tr>
+        <tr>
+          <td>members</td>
+          <td>Group-&gt;User</td>
+        </tr>
+        <tr>
+          <td>passwords</td>
+          <td>User-&gt; Password</td>
+        </tr>
+        <tr>
+          <td>groupPhotos</td>
+          <td>Photo-&gt;Group</td>
+        </tr>
+        <tr>
+          <td>ownerGroupName</td>
+          <td>Name</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td>Invariant</td>
+          <td valign="top"><b>Invariant name</b></td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>#photoAt.elems = #photoAt</td>
+          <td valign="top">Disjoint</td>
+        </tr>
+        <tr>
+          <td>#photoAt = 3</td>
+          <td valign="top">Bounded size</td>
+        </tr>
+        <tr>
+          <td>lone loggedIn</td>
+          <td valign="top">At most one logged in</td>
+        </tr>
+        <tr>
+          <td>members in ran[groups] -&gt;ran[users]</td>
+          <td valign="top">Valid members</td>
+        </tr>
+        <tr>
+          <td>passwords in ran[users] -&gt;one Password</td>
+          <td valign="top">Valid passwords</td>
+        </tr>
+        <tr>
+          <td>groupPhotos in Photo-&gt;ran[groups]</td>
+          <td valign="top">Valid Groups</br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">init</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td>OWNER:User, OWNER_PASSWD:Password, OWNER_NAME:Name,
+            OWNER_GROUP_NAME:Name, OWNER_GROUP:Group</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>none-&gt;none</td>
+        </tr>
+        <tr>
+          <td>ownerName</td>
+          <td>OWNER_NAME</td>
+        </tr>
+        <tr>
+          <td>loggedIn</td>
+          <td>none</td>
+        </tr>
+        <tr>
+          <td>passwords</td>
+          <td>OWNER-&gt; OWNER_PASSWD</td>
+        </tr>
+        <tr>
+          <td>users</td>
+          <td>OWNER_NAME -&gt;OWNER</td>
+        </tr>
+        <tr>
+          <td>groups</td>
+          <td>OWNER_GROUP_NAME-&gt;OWNER_GROUP</td>
+        </tr>
+        <tr>
+          <td>members</td>
+          <td>OWNER_GROUP-&gt;OWNER</td>
+        </tr>
+        <tr>
+          <td>ownerGroupName</td>
+          <td>OWNER_GROUP_NAME</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>addPhoto</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">p?:Photo, OWNER_GROUP:Group, report!:Report<b></br>
+            </b></td>
+          <td colspan="3">ownerName in loggedIn</td>
+          <td>ownerName !in loggedIn</td>
+        </tr>
+        <tr>
+          <td colspan="2">#photoAt &lt; 3</td>
+          <td>#photoAt &gt;= 3</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>p? !in ran[photoAt]</td>
+          <td>p? in ran[photoAt]</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>photoAt</td>
+          <td>photoAt.add[p?]</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>PHOTO_EXISTS</td>
+          <td>ALBUM_FULL</td>
+          <td>AUTH_FAILED</td>
+        </tr>
+        <tr>
+          <td>groupPhotos</td>
+          <td>groupPhotos+p? -&gt;OWNER_GROUP</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>viewPhoto</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td>result!:set Photo, report!:Report<b></br>
+            </b></td>
+          <td>one loggedIn</td>
+          <td>no loggedIn</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>result!</td>
+          <td>photoAt.elems</td>
+          <td>none</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>NOT_AUTH</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>login</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">p?:Password, n?:Name, report!:Report</br>
+          </td>
+          <td colspan="2">no loggedIn</td>
+          <td>some loggedIn</td>
+        </tr>
+        <tr>
+          <td>n? in dom[users] and passwords[users[n?]] = p?</td>
+          <td>n? !in dom[users] or passwords[users[n?]] != p?</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>true</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>loggedIn</td>
+          <td>loggedIn + users[n?]</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>AUTH_FAILED</td>
+          <td>ALREADY_LOGGED</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>logout</b></td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td></br>
+          </td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>loggedIn</td>
+          <td>none</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>updateUser</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">n?:Name,p?:Password,u?:User,report!:Report</td>
+          <td colspan="2">ownerName in loggedIn</td>
+          <td>ownerName !in loggedIn</td>
+        </tr>
+        <tr>
+          <td>n? in dom[users]</td>
+          <td>n? !in dom[users]</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>true</td>
+          <td>u? in User - ran[users]</td>
+          <td>true</br></td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>users</td>
+          <td>=</td>
+          <td>users +n? -&gt;u?</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>passwords</td>
+          <td>passwords ++ (users[n?]-&gt;p?)</td>
+          <td>passwords + (users[n?]-&gt;p?)</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>OK</td>
+          <td>NOT_AUTH</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>updateGroup</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="4" valign="top">n?:Name,ns?:set Name,g?:Group,report!:Report</td>
+          <td colspan="4" rowspan="1" valign="top">g? in Group -
+            ran[groups]</br>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">ownerName in loggedIn</td>
+          <td>ownerName !in loggedIn</td>
+        </tr>
+        <tr>
+          <td colspan="2">ns? in dom[users]</td>
+          <td>ns? !in dom[users]</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>n? in dom[groups]</td>
+          <td>n? !in dom[groups]</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>groups</td>
+          <td>groups</td>
+          <td>groups + (n?->g?)</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>members</td>
+          <td>members + (groups[n?]-&gt; users[ns?])</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>OK</td>
+          <td>MISSING_USERS</td>
+          <td>NOT_AUTH</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>removeUser</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">n?:Name,report!:Report</td>
+          <td colspan="3">ownerName in loggedIn</td>
+          <td>ownerName !in loggedIn</td>
+        </tr>
+        <tr>
+          <td colspan="2">n? in dom[users]</td>
+          <td>n? !in dom[users]</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>n? != ownerName</td>
+          <td>n? = ownerName</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>users</td>
+          <td>(Name-n?) &lt;: users</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>members</td>
+          <td>members :&gt; (User-users[n?])</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>REM_OWNER</td>
+          <td>MISSING_USERS</td>
+          <td>NOT_AUTH</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>removeGroup</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">n?:Name,report!:Report</td>
+          <td colspan="3">ownerName in loggedIn</td>
+          <td>ownerName !in loggedIn</td>
+        </tr>
+        <tr>
+          <td colspan="2">n? != ownerGroupName </td>
+          <td>n? != ownerGroupName </td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>n? in dom[groups]</td>
+          <td>n? !in dom[groups]</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>groupPhotos</td>
+          <td>groupPhotos :&gt; (Group - n?)</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>photoAt</td>
+          <td>squash[photoAt :&gt; groupPhotos.(Group-n?)]</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>NO_GROUP</td>
+          <td>REM_OWNER_GROUP</td>
+          <td>NOT_AUTH</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+    <table border="1" cellspacing="0">
+      <!-- ----- name and conditions cells --------- --> <tbody>
+        <tr>
+          <td valign="top">Operation</br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><b>updatePhotoGroup</b></td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+          <td valign="top"></br>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">l?:Int,n?:Name,report!:Report</br>
+          </td>
+          <td colspan="3">ownerName in loggedIn</td>
+          <td>ownerName !in loggedIn</td>
+        </tr>
+        <tr>
+          <td colspan="2">l? in dom[photoAt]</td>
+          <td>l? !in dom[photoAt]</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>n? in dom[groups]</td>
+          <td>n? !in dom[groups]</td>
+          <td>true</td>
+          <td>true</td>
+        </tr>
+        <!-- ----------- v-cells --------------------- --> <tr>
+          <td>groupPhotos</td>
+          <td>groupPhotos ++ photoAt[l?]-&gt; groups[n?]</td>
+          <td>=</td>
+          <td>=</td>
+          <td>=</td>
+        </tr>
+        <tr>
+          <td>report!</td>
+          <td>OK</td>
+          <td>NO_GROUP</td>
+          <td>NO_PHOTO</td>
+          <td>NOT_AUTH</td>
+        </tr>
+      </tbody>
+    </table>
+    </br>
+  </body>
+</html>
