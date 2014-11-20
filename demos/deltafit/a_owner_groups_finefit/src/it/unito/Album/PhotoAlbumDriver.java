@@ -29,25 +29,25 @@ public class PhotoAlbumDriver extends FineFitDriver {
 		protected void setup_exception_table() {
 
       exceptions.put("java.lang.IllegalArgumentException", "NO_PHOTO");
-      exceptions.put("PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
-      exceptions.put("PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
+      exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$PhotoExists", "PHOTO_EXISTS");
+      exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$AlbumIsFull", "ALBUM_FULL");
 
 /*** added by DOwner_FineFit
 */
-      exceptions.put("PhotoAlbum$AuthFailed", "AUTH_FAILED");
-      exceptions.put("PhotoAlbum$AlreadyLogged", "ALREADY_IN");
-      exceptions.put("PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH");
-      exceptions.put("PhotoAlbum$NotAuthorized", "NOT_AUTH");
-      exceptions.put("PhotoAlbum$MissingUsers", "MISSING_USERS");
+      exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$AuthFailed", "AUTH_FAILED");
+      exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$AlreadyLogged", "ALREADY_IN");
+      exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$OwnerNotLoggedIn", "NOT_AUTH");
+      exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$NotAuthorized", "NOT_AUTH");
+      exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$MissingUsers", "MISSING_USERS");
 
 /*** added by DGroups_FineFit
 */
 
 
-  exceptions.put("PhotoAlbum$MissingUser", "MISSING_USER");
-  exceptions.put("PhotoAlbum$MissingGroup", "MISSING_GROUP");
-  exceptions.put("PhotoAlbum$RemoveOwnerGroup", "REM_OWNER_GROUP");
-  exceptions.put("PhotoAlbum$RemoveOwner", "REM_OWNER");
+  exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$MissingUser", "MISSING_USER");
+  exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$MissingGroup", "MISSING_GROUP");
+  exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$RemoveOwnerGroup", "REM_OWNER_GROUP");
+  exceptions.put("albumsimplecore.a_owner_groups_finefit.it.unito.Album.PhotoAlbum$RemoveOwner", "REM_OWNER");
 
 		}
 
@@ -57,7 +57,7 @@ public class PhotoAlbumDriver extends FineFitDriver {
 			ops.put("addPhoto", new Operation() { 
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					String id = args.getArg("p");
+					String id = args.getArg("p?");
 					Photo p = sut.addPhoto(id); 
 					IdMap.instance().associate(p, id);
 				} });
@@ -79,7 +79,7 @@ public class PhotoAlbumDriver extends FineFitDriver {
 			ops.put("login", new Operation() { 
 				PhotoAlbum s = sut;
 				public void apply(com.finefit.model.State args, State outputs) throws Exception {
-					s.login(args.getArg("n"), args.getArg("p")); } });
+					s.login(args.getArg("n?"), args.getArg("p?")); } });
 
 
 			/*** added by DGroups_FineFit
@@ -88,9 +88,9 @@ public class PhotoAlbumDriver extends FineFitDriver {
       ops.put("updateGroup", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          String n = args.getArg("n");
-          String nuser = args.getArg("nu");
-          String new_group_id = args.getArg("g");
+          String n = args.getArg("n?");
+          String nuser = args.getArg("ns?");
+          String new_group_id = args.getArg("g?");
 
           Set<String> nusers = new HashSet<String>();
           nusers.add(nuser);
@@ -104,14 +104,14 @@ public class PhotoAlbumDriver extends FineFitDriver {
       ops.put("removeGroup", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          sut.removeGroup(args.getArg("n"));
+          sut.removeGroup(args.getArg("n?"));
         } });
 
       ops.put("updatePhotoGroup", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          int i = Integer.parseInt(args.getArg("i"));
-          String name = args.getArg("n");
+          int i = Integer.parseInt(args.getArg("l?"));
+          String name = args.getArg("n?");
 
           sut.updatePhotoGroup(i, name);
         } });
@@ -119,9 +119,9 @@ public class PhotoAlbumDriver extends FineFitDriver {
       ops.put("updateUser", new Operation() {
         PhotoAlbum s = sut;
         public void apply(com.finefit.model.State args, State outputs) throws Exception {
-          String n = args.getArg("n");
-          String p = args.getArg("p");
-          String new_user_id = args.getArg("u");
+          String n = args.getArg("n?");
+          String p = args.getArg("p?");
+          String new_user_id = args.getArg("u?");
 
           User user = sut.updateUser(n,p);
 
