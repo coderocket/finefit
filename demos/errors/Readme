@@ -1,0 +1,4 @@
+
+This directory demonstrates how FineFit reports various syntax and semantics errors. It
+consists of the same example as in the album directory but the specification contains all
+sorts of syntax and semantics errors.

@@ -36,6 +36,16 @@ public class Operation {
 	 	this.body = body;
 	}
 
+	public String check_syntax(State state) {
+		String err_msgs = "";
+		for(int i=0; i < body.length; i++) {
+			String err_msg = body[i].check_syntax(frame, state);
+			if (!err_msg.equals(""))
+				err_msgs = err_msgs + "Syntax error while parsing column no. " + i + " of operation " + name + ":\n" + err_msg + "\n";
+			}
+		return err_msgs;
+	}
+
 	public void print(State state, PrintStream out) {
 		out.print("pred " + name + "[" + Constants.CURR_VAR + "," + Constants.NEXT_VAR + ":" + Constants.STATE_SIG);
 		printParams(out);

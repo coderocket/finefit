@@ -67,6 +67,13 @@ public class Translator {
 		if (state == null)
 			throw new RuntimeException("Invalid specification: No State table");
 
+		String syntax_err_report = "";
+		for(Operation p : operations) {
+			syntax_err_report = syntax_err_report + p.check_syntax(state);
+		}
+
+		if (!syntax_err_report.equals("")) throw new ParseException("\n"+syntax_err_report, 0);
+
 		Spec spec = new Spec(state, invariant, sigs, operations.toArray(new Operation[0]), enumerations.toArray(new Enumeration[0]));
 		
 		PrintStream out = new PrintStream(alloyFileName);

@@ -1,0 +1,34 @@
+<project>
+
+	<property name="lib.dir"	value="../../build/jar"/>
+
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes" classpathref="classpath" debug="on">
+					<compilerarg value="-Xlint"/>
+					<compilerarg line="-source 1.5"/>
+					<compilerarg line="-target 1.5"/>
+				</javac>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/FineFit.jar" fork="true"/>
+    </target>
+
+    <target name="test">
+        <java classpath="../../build/jar/FineFit.jar:build/classes" classname="com.finefit.controller.FineFitController" fork="true">
+					<arg value="spec.htm"/>
+					<arg value="FineFitDriver"/>
+				</java>
+    </target>
+
+</project>
+
