@@ -131,11 +131,7 @@ public class ArrayPhotoAlbum implements PhotoAlbum {
     }
 
     state.add_state("ownerName", 1).add(owner.getName());
-
-    state.add_state("users", 2);
-    for(Map.Entry<String, User> e : users.entrySet()) {
-      state.get_state("users").add(e.getKey(), IdMap.instance().obj2atom(e.getValue()));
-    }
+    state.add_state("ownerPassword", 1).add(owner.getPassword());
 
     state.add_state("loggedIn", 1);
 

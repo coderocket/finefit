@@ -1,0 +1,304 @@
+<html>
+<head>  <title>generated/RemoveAndOwner</title>
+  <style>td{text-align:center;}</style>
+<head>
+<body>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+ <tr>
+  <td><b>Constant name</b></td> 
+  <td>Value</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>3</td>  <td>5</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+ <tr>
+  <td><b>Atom</b></td> 
+  <td>Scope</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>Photo</td>  <td>5</td>
+ </tr>
+ <tr>
+  <td>seq</td>  <td>5</td>
+ </tr>
+ <tr>
+  <td>Name</td>  <td>4</td>
+ </tr>
+ <tr>
+  <td>Password</td>  <td>4</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+ <tr>
+  <td><b>Enumeration</b></td> 
+ </tr>
+ <tr>
+  <td><b>Report</b></td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>ALBUM_FULL</td>
+ </tr>
+ <tr>
+  <td>PHOTO_EXISTS</td>
+ </tr>
+ <tr>
+  <td>OK</td>
+ </tr>
+ <tr>
+  <td>NO_PHOTO</td>
+ </tr>
+ <tr>
+  <td>AUTH_FAILED</td>
+ </tr>
+ <tr>
+  <td>ALREADY_LOGGED</td>
+ </tr>
+ <tr>
+  <td>NO_SUCH_USER</td>
+ </tr>
+<tr>
+<td>NOT_AUTH</td>
+</tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+ <tr>
+  <td><b>State variable</b></td> 
+  <td>Type</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>photoAt</td>  <td>seq Photo</td>
+ </tr>
+ <tr>
+  <td>ownerName</td>  <td>Name</td>
+ </tr>
+ <tr>
+  <td>ownerPassword</td>  <td>Password</td>
+ </tr>
+ <tr>
+  <td>loggedIn</td>  <td>set Name</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+ <tr>
+  <td>Invariant</td> 
+  <td><b>Invariant name</b></td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+<td>#photoAt.elems = #photoAt</td>
+  <td>Disjoint</td>  
+ </tr>
+ <tr>
+<td>#photoAt = 3</td>
+  <td>BoundedSize</td>  
+ </tr>
+ <tr>
+<td>lone loggedIn</td>
+  <td>AtMostOneLoggedIn</td>  
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+<tr>
+<td><b>Operation</b></td>
+<td></td>
+</tr>
+<tr>
+<td><b>init</b></td>
+<td></td>
+</tr>
+ <tr>
+  <td>n?:Name, p?:Password</td> 
+  <td>true</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>photoAt</td>  <td>none->none</td>
+ </tr>
+ <tr>
+  <td>ownerName</td>  <td>n?</td>
+ </tr>
+ <tr>
+  <td>ownerPassword</td>  <td>p?</td>
+ </tr>
+ <tr>
+  <td>loggedIn</td>  <td>none</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+<tr>
+<td><b>Operation</b></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><b>addPhoto</b></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+ <tr>
+  <td rowspan="3">p?:Photo, report!:Report</td> 
+  <td colspan="3">ownerName in loggedIn</td> 
+  <td>ownerName !in loggedIn</td> 
+ </tr>
+ <tr>
+  <td colspan="2">#photoAt &lt; 3</td> 
+  <td>#photoAt &gt;= 3</td> 
+  <td>true</td> 
+ </tr>
+ <tr>
+  <td>p? !in ran[photoAt]</td> 
+  <td>p? in ran[photoAt]</td> 
+  <td>true</td> 
+  <td>true</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>photoAt</td>  <td>photoAt.add[p?]</td>  <td>=</td>  <td>=</td>  <td>=</td>
+ </tr>
+ <tr>
+  <td>report!</td>  <td>OK</td>  <td>PHOTO_EXISTS</td>  <td>ALBUM_FULL</td>  <td>AUTH_FAILED</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+<tr>
+<td><b>Operation</b></td>
+<td></td>
+</tr>
+<tr>
+<td><b>viewPhoto</b></td>
+<td></td>
+</tr>
+ <tr>
+  <td>result!:set Photo</td> 
+  <td>true</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>result!</td>  <td>photoAt.elems</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+<tr>
+<td><b>Operation</b></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><b>removePhoto</b></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+ <tr>
+  <td rowspan="2">l?:Int,report!:Report</td> 
+  <td colspan="2"> ownerName in loggedIn</td> 
+  <td> ownerName !in loggedIn</td> 
+ </tr>
+ <tr>
+  <td>l? in dom[photoAt]</td> 
+  <td>l? !in dom[photoAt]</td> 
+  <td>true</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>photoAt</td>  <td>photoAt.delete[l?]</td>  <td>=</td>  <td>=</td>
+ </tr>
+ <tr>
+  <td>report!</td>  <td>OK</td>  <td>NO_PHOTO</td>  <td>NOT_AUTH</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+<tr>
+<td><b>Operation</b></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><b>login</b></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+ <tr>
+  <td rowspan="2">n?:Name, p?:Password, report!:Report</td> 
+  <td colspan="2">no loggedIn</td> 
+  <td>some loggedIn</td> 
+ </tr>
+ <tr>
+  <td>n? = ownerName and p? = ownerPassword</td> 
+  <td>n? != ownerName or p? != ownerPassword</td> 
+  <td>true</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>loggedIn</td>  <td>loggedIn + n?</td>  <td>=</td>  <td>=</td>
+ </tr>
+ <tr>
+  <td>report!</td>  <td>OK</td>  <td>AUTH_FAILED</td>  <td>ALREADY_LOGGED</td>
+ </tr>
+</table> 
+<br>
+
+<table border="1" cellspacing="0">
+ <!-- ----- name and conditions cells --------- -->
+<tr>
+<td><b>Operation</b></td>
+<td></td>
+</tr>
+<tr>
+<td><b>logout</b></td>
+<td></td>
+</tr>
+ <tr>
+  <td></td> 
+  <td>true</td> 
+ </tr>
+ <!-- ----------- v-cells --------------------- -->
+ <tr>
+  <td>loggedIn</td>  <td>none</td>
+ </tr>
+</table> 
+<br>
+</body>
+</html>

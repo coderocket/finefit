@@ -25,8 +25,8 @@
 
     <target name="test">
         <java classpath="../../../build/jar/FineFit.jar:build/classes" classname="com.finefit.controller.FineFitController" fork="true"> 
-					<arg value="BaseAlbum.html"/>
-					<arg value="albumsimplecore.a_base_finefit.it.unito.Album.PhotoAlbumDriver"/>
+					<arg value="RemoveAndOwner.html"/>
+					<arg value="albumsimplecore.a_remove_owner_finefit.it.unito.Album.PhotoAlbumDriver"/>
 				</java>
     </target>
 

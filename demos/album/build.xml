@@ -1,6 +1,6 @@
 <project>
 
-	<property name="lib.dir"	value="../../../build/jar"/>
+	<property name="lib.dir"	value="../../build/jar"/>
 
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
@@ -24,10 +24,10 @@
     </target>
 
     <target name="test">
-        <java classpath="../../../build/jar/FineFit.jar:build/classes" classname="com.finefit.controller.FineFitController" fork="true">
-          <arg value="Remove.html"/>
-          <arg value="albumsimplecore.a_remove_finefit.it.unito.Album.PhotoAlbumDriver"/>
-        </java>
+        <java classpath="../../build/jar/FineFit.jar:build/classes" classname="com.finefit.controller.FineFitController" fork="true">
+					<arg value="spec.htm"/>
+					<arg value="FineFitDriver"/>
+				</java>
     </target>
 
 </project>
