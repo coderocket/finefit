@@ -81,6 +81,14 @@ public class PhotoAlbumDriver extends FineFitDriver {
 				public void apply(com.finefit.model.State args, State outputs) throws Exception {
 					s.login(args.getArg("n?"), args.getArg("p?")); } });
 
+      /*** added by DRemoveFineFit
+      */
+      ops.put("removePhoto", new Operation() {
+        PhotoAlbum s = sut;
+        public void apply(com.finefit.model.State args, State outputs) throws Exception {
+          int i = Integer.parseInt(args.getArg("l?"));
+          sut.removePhoto(i);
+        } });
 
 			/*** added by DGroups_FineFit
 			*/
