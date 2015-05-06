@@ -27,8 +27,10 @@ public class Spec {
 	Sig[] sigs;
 	Operation[] operations; 
 	Enumeration[] enumerations;
+	ConstantTable consts;
 
-	public Spec(State state, Invariant invariant, Sig[] sigs, Operation[] operations, Enumeration[] enumerations) {
+	public Spec(ConstantTable consts, State state, Invariant invariant, Sig[] sigs, Operation[] operations, Enumeration[] enumerations) {
+		this.consts = consts;
 		this.state = state;
 		this.invariant = invariant;
 		this.sigs = sigs;
@@ -38,6 +40,8 @@ public class Spec {
 
 	public void print(PrintStream out) {
 
+		if (consts != null)
+			consts.print(out);
 		for (Sig s : sigs) 
 			s.print(out);
 		for (Enumeration e : enumerations)

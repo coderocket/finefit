@@ -43,6 +43,7 @@ public class Translator {
 		Invariant invariant = null;
 		List<Operation> operations = new ArrayList<Operation>();
 		List<Enumeration> enumerations = new ArrayList<Enumeration>();
+		ConstantTable consts = null;
 	
     Parse parse = new Parse(readFile(htmlFileName, Charset.defaultCharset()));
 
@@ -60,6 +61,8 @@ public class Translator {
 				state = parseState(parse.at(0,1));
 			else if (name.text().equals("Enumeration"))
 				enumerations.add(parseEnumeration(parse.at(0,1)));
+			else if (name.text().equals("Constant name"))
+				consts = parseConstants(parse.at(0,1));
       
       parse = parse.more;
     }
@@ -74,7 +77,7 @@ public class Translator {
 
 		if (!syntax_err_report.equals("")) throw new ParseException("\n"+syntax_err_report, 0);
 
-		Spec spec = new Spec(state, invariant, sigs, operations.toArray(new Operation[0]), enumerations.toArray(new Enumeration[0]));
+		Spec spec = new Spec(consts, state, invariant, sigs, operations.toArray(new Operation[0]), enumerations.toArray(new Enumeration[0]));
 		
 		PrintStream out = new PrintStream(alloyFileName);
 		print_header(out);
@@ -246,6 +249,17 @@ public class Translator {
 			p = p.more;
 		}
 		return new Enumeration(sigName, instances.toArray(new String[0]));
+	}
+
+	private static ConstantTable parseConstants(Parse p) {
+		Map<String, String> consts = new HashMap<String,String>();
+		while (p != null) {
+			String name = p.at(0,0).text();
+			String value = p.at(0,1).text();
+			consts.put(name,value);
+			p = p.more;	
+		}		
+		return new ConstantTable(consts);
 	}
 
 	static String readFile(String path, Charset encoding) 

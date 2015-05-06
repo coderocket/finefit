@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.mit.csail.sdg.alloy4compiler.ast.Func;
 import edu.mit.csail.sdg.alloy4compiler.ast.ExprVar;
+import edu.mit.csail.sdg.alloy4compiler.ast.Expr;
 import edu.mit.csail.sdg.alloy4compiler.parser.CompModule;
 import edu.mit.csail.sdg.alloy4compiler.parser.CompUtil;
 import edu.mit.csail.sdg.alloy4compiler.translator.A4Options;
@@ -31,12 +32,15 @@ import edu.mit.csail.sdg.alloy4compiler.translator.A4Solution;
 import edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod;
 import edu.mit.csail.sdg.alloy4.A4Reporter;
 import edu.mit.csail.sdg.alloy4.Err;
+import edu.mit.csail.sdg.alloy4.Pair;
+import kodkod.ast.Formula;
 
 
 public class Model {
 
 	CompModule world;
 	A4Solution context;
+	Formula facts;
 
 	public Model(String modelFileName) throws Err {
 		world =  CompUtil.parseEverything_fromFile(new A4Reporter(), null, modelFileName);
@@ -44,6 +48,11 @@ public class Model {
  		for(ExprVar a:context.getAllAtoms()) { world.addGlobal(a.label, a); }
 		for(ExprVar a:context.getAllSkolems()) { world.addGlobal(a.label, a); } 
 
+		facts = Formula.TRUE;
+
+		for(Pair<String,Expr> p : world.getAllFacts()) {
+			facts = facts.and((Formula)TranslateAlloyToKodkod.alloy2kodkod(context, p.b));
+		}
 	}
 
 	public A4Solution context() {
@@ -51,6 +60,10 @@ public class Model {
 	}
 
 	public CompModule module() { return world; }
+
+	public Formula facts() { 
+		return facts;
+	}
 
 	public Operation getInit() {
 
