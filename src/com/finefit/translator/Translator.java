@@ -52,7 +52,7 @@ public class Translator {
 
       if (name.text().equals("Operation"))
         operations.add(parseOperation(parse.at(0,1)));
-			else if (name.text().equals("Invariant"))
+			else if (name.text().equals("Invariant name"))
         invariant = parseInvariant(parse.at(0,1));
 			else if (name.text().equals("Atom"))
 				sigs = parseSigs(parse.at(0,1));
@@ -231,7 +231,7 @@ public class Translator {
 	private static Invariant parseInvariant(Parse p) {
 		List<String> preds = new ArrayList<String>();
 		while (p != null) {
-			preds.add(p.at(0,0).text());
+			preds.add(p.at(0,1).text());
 			p = p.more;	
 		}		
 		return new Invariant(preds);

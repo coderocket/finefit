@@ -1,744 +1,2035 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
 
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-    <title>generated/OwnerAndGroups</title>
-    <style>td{text-align:center;}</style>
-  </head>
-  <body>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td><b>Constant name</b></td>
-          <td>Value</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>MAX</td>
-          <td>5</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td><b>Atom </br>
-            </b></td>
-          <td>Scope</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>Photo</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>seq</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>Name</td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>Password</td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>User</td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>Group</td>
-          <td>4</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Enumeration</br>
-          </td>
-        </tr>
-        <tr>
-          <td><b>Report</b></td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>ALBUM_FULL</td>
-        </tr>
-        <tr>
-          <td>PHOTO_EXISTS</td>
-        </tr>
-        <tr>
-          <td>OK</td>
-        </tr>
-        <tr>
-          <td>NOT_AUTH</td>
-        </tr>
-        <tr>
-          <td>AUTH_FAILED</td>
-        </tr>
-        <tr>
-          <td>ALREADY_LOGGED</td>
-        </tr>
-        <tr>
-          <td>NO_SUCH_USER</td>
-        </tr>
-        <tr>
-          <td>WRONG_PASSWORD</td>
-        </tr>
-        <tr>
-          <td>ALREADY_IN</td>
-        </tr>
-        <tr>
-          <td>MISSING_USERS</td>
-        </tr>
-        <tr>
-          <td>MISSING_USER</td>
-        </tr>
-        <tr>
-          <td>REM_OWNER</td>
-        </tr>
-        <tr>
-          <td>REM_OWNER_GROUP</td>
-        </tr>
-        <tr>
-          <td>NO_GROUP</td>
-        </tr>
-        <tr>
-          <td>NO_PHOTO</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td><b>State variable</br>
-            </b></td>
-          <td>Type</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>photoAt</td>
-          <td>seq Photo</td>
-        </tr>
-        <tr>
-          <td>ownerName</td>
-          <td>Name</td>
-        </tr>
-        <tr>
-          <td>loggedIn</td>
-          <td>set Name</td>
-        </tr>
-        <tr>
-          <td>groups</td>
-          <td>Name-&gt;Group</td>
-        </tr>
-        <tr>
-          <td>users</td>
-          <td>Name-&gt;User</td>
-        </tr>
-        <tr>
-          <td>members</td>
-          <td>Group-&gt;User</td>
-        </tr>
-        <tr>
-          <td>passwords</td>
-          <td>User-&gt; Password</td>
-        </tr>
-        <tr>
-          <td>groupPhotos</td>
-          <td>Photo-&gt;Group</td>
-        </tr>
-        <tr>
-          <td>ownerGroupName</td>
-          <td>Name</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td>Invariant</td>
-          <td valign="top"><b>Invariant name</b></td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>#photoAt.elems = #photoAt</td>
-          <td valign="top">Disjoint</td>
-        </tr>
-        <tr>
-          <td>#photoAt = 3</td>
-          <td valign="top">Bounded size</td>
-        </tr>
-        <tr>
-          <td>lone loggedIn</td>
-          <td valign="top">At most one logged in</td>
-        </tr>
-        <tr>
-          <td>members in ran[groups] -&gt;ran[users]</td>
-          <td valign="top">Valid members</td>
-        </tr>
-        <tr>
-          <td>passwords in ran[users] -&gt;one Password</td>
-          <td valign="top">Valid passwords</td>
-        </tr>
-        <tr>
-          <td>groupPhotos in Photo-&gt;ran[groups]</td>
-          <td valign="top">Valid Groups</br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">init</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td>OWNER:User, OWNER_PASSWD:Password, OWNER_NAME:Name,
-            OWNER_GROUP_NAME:Name, OWNER_GROUP:Group</td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>photoAt</td>
-          <td>none-&gt;none</td>
-        </tr>
-        <tr>
-          <td>ownerName</td>
-          <td>OWNER_NAME</td>
-        </tr>
-        <tr>
-          <td>loggedIn</td>
-          <td>none</td>
-        </tr>
-        <tr>
-          <td>passwords</td>
-          <td>OWNER-&gt; OWNER_PASSWD</td>
-        </tr>
-        <tr>
-          <td>users</td>
-          <td>OWNER_NAME -&gt;OWNER</td>
-        </tr>
-        <tr>
-          <td>groups</td>
-          <td>OWNER_GROUP_NAME-&gt;OWNER_GROUP</td>
-        </tr>
-        <tr>
-          <td>members</td>
-          <td>OWNER_GROUP-&gt;OWNER</td>
-        </tr>
-        <tr>
-          <td>ownerGroupName</td>
-          <td>OWNER_GROUP_NAME</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>addPhoto</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="3">p?:Photo, OWNER_GROUP:Group, report!:Report<b></br>
-            </b></td>
-          <td colspan="3">ownerName in loggedIn</td>
-          <td>ownerName !in loggedIn</td>
-        </tr>
-        <tr>
-          <td colspan="2">#photoAt &lt; 3</td>
-          <td>#photoAt &gt;= 3</td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>p? !in ran[photoAt]</td>
-          <td>p? in ran[photoAt]</td>
-          <td>true</td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>photoAt</td>
-          <td>photoAt.add[p?]</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>PHOTO_EXISTS</td>
-          <td>ALBUM_FULL</td>
-          <td>AUTH_FAILED</td>
-        </tr>
-        <tr>
-          <td>groupPhotos</td>
-          <td>groupPhotos+p? -&gt;OWNER_GROUP</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>viewPhoto</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td>result!:set Photo, report!:Report<b></br>
-            </b></td>
-          <td>one loggedIn</td>
-          <td>no loggedIn</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>result!</td>
-          <td>photoAt.elems</td>
-          <td>none</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>NOT_AUTH</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>login</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="3">p?:Password, n?:Name, report!:Report</br>
-          </td>
-          <td colspan="2">no loggedIn</td>
-          <td>some loggedIn</td>
-        </tr>
-        <tr>
-          <td>n? in dom[users] and passwords[users[n?]] = p?</td>
-          <td>n? !in dom[users] or passwords[users[n?]] != p?</td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>true</td>
-          <td>true</td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>loggedIn</td>
-          <td>loggedIn + users[n?]</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>AUTH_FAILED</td>
-          <td>ALREADY_LOGGED</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>logout</b></td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td></br>
-          </td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>loggedIn</td>
-          <td>none</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>updateUser</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="3">n?:Name,p?:Password,u?:User,report!:Report</td>
-          <td colspan="2">ownerName in loggedIn</td>
-          <td>ownerName !in loggedIn</td>
-        </tr>
-        <tr>
-          <td>n? in dom[users]</td>
-          <td>n? !in dom[users]</td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>true</td>
-          <td>u? in User - ran[users]</td>
-          <td>true</br></td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>users</td>
-          <td>=</td>
-          <td>users +n? -&gt;u?</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>passwords</td>
-          <td>passwords ++ (users[n?]-&gt;p?)</td>
-          <td>passwords + (users[n?]-&gt;p?)</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>OK</td>
-          <td>NOT_AUTH</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>updateGroup</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="4" valign="top">n?:Name,ns?:set Name,g?:Group,report!:Report</td>
-          <td colspan="4" rowspan="1" valign="top">g? in Group -
-            ran[groups]</br>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">ownerName in loggedIn</td>
-          <td>ownerName !in loggedIn</td>
-        </tr>
-        <tr>
-          <td colspan="2">ns? in dom[users]</td>
-          <td>ns? !in dom[users]</td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>n? in dom[groups]</td>
-          <td>n? !in dom[groups]</td>
-          <td>true</td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>groups</td>
-          <td>groups</td>
-          <td>groups + (n?->g?)</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>members</td>
-          <td>members + (groups[n?]-&gt; users[ns?])</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>OK</td>
-          <td>MISSING_USERS</td>
-          <td>NOT_AUTH</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>removeUser</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="3">n?:Name,report!:Report</td>
-          <td colspan="3">ownerName in loggedIn</td>
-          <td>ownerName !in loggedIn</td>
-        </tr>
-        <tr>
-          <td colspan="2">n? in dom[users]</td>
-          <td>n? !in dom[users]</td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>n? != ownerName</td>
-          <td>n? = ownerName</td>
-          <td>true</td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>users</td>
-          <td>(Name-n?) &lt;: users</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>members</td>
-          <td>members :&gt; (User-users[n?])</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>REM_OWNER</td>
-          <td>MISSING_USERS</td>
-          <td>NOT_AUTH</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>removeGroup</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="3">n?:Name,report!:Report</td>
-          <td colspan="3">ownerName in loggedIn</td>
-          <td>ownerName !in loggedIn</td>
-        </tr>
-        <tr>
-          <td colspan="2">n? != ownerGroupName </td>
-          <td>n? != ownerGroupName </td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>n? in dom[groups]</td>
-          <td>n? !in dom[groups]</td>
-          <td>true</td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>groupPhotos</td>
-          <td>groupPhotos :&gt; (Group - n?)</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>photoAt</td>
-          <td>squash[photoAt :&gt; groupPhotos.(Group-n?)]</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>NO_GROUP</td>
-          <td>REM_OWNER_GROUP</td>
-          <td>NOT_AUTH</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-    <table border="1" cellspacing="0">
-      <!-- ----- name and conditions cells --------- --> <tbody>
-        <tr>
-          <td valign="top">Operation</br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><b>updatePhotoGroup</b></td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-          <td valign="top"></br>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="3">l?:Int,n?:Name,report!:Report</br>
-          </td>
-          <td colspan="3">ownerName in loggedIn</td>
-          <td>ownerName !in loggedIn</td>
-        </tr>
-        <tr>
-          <td colspan="2">l? in dom[photoAt]</td>
-          <td>l? !in dom[photoAt]</td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>n? in dom[groups]</td>
-          <td>n? !in dom[groups]</td>
-          <td>true</td>
-          <td>true</td>
-        </tr>
-        <!-- ----------- v-cells --------------------- --> <tr>
-          <td>groupPhotos</td>
-          <td>groupPhotos ++ photoAt[l?]-&gt; groups[n?]</td>
-          <td>=</td>
-          <td>=</td>
-          <td>=</td>
-        </tr>
-        <tr>
-          <td>report!</td>
-          <td>OK</td>
-          <td>NO_GROUP</td>
-          <td>NO_PHOTO</td>
-          <td>NOT_AUTH</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-  </body>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 14">
+<meta name=Originator content="Microsoft Word 14">
+<link rel=File-List href="OwnerAndGroups_files/filelist.xml">
+<link rel=Preview href="OwnerAndGroups_files/preview.wmf">
+<title>generated/OwnerAndGroups</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>&#1491;&#1493;&#1491; &#1508;&#1497;&#1497;&#1496;&#1500;&#1505;&#1493;&#1503;</o:Author>
+  <o:LastAuthor>&#1491;&#1493;&#1491; &#1508;&#1497;&#1497;&#1496;&#1500;&#1505;&#1493;&#1503;</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>0</o:TotalTime>
+  <o:Created>2015-05-06T08:03:00Z</o:Created>
+  <o:LastSaved>2015-05-06T08:03:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>536</o:Words>
+  <o:Characters>3060</o:Characters>
+  <o:Lines>25</o:Lines>
+  <o:Paragraphs>7</o:Paragraphs>
+  <o:CharactersWithSpaces>3589</o:CharactersWithSpaces>
+  <o:Version>14.00</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+<link rel=themeData href="OwnerAndGroups_files/themedata.thmx">
+<link rel=colorSchemeMapping href="OwnerAndGroups_files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SplitPgBreakAndParaMark/>
+  </w:Compatibility>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+  DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="267">
+  <w:LsdException Locked="false" Priority="0" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" Name="toc 9"/>
+  <w:LsdException Locked="false" Priority="35" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" Priority="10" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" Priority="11" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" Priority="22" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="59" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Table Grid"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+   UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" SemiHidden="false"
+   UnhideWhenUsed="false" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:1;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:0 0 0 0 0 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1026"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US style='tab-interval:.5in'>
+
+<div class=WordSection1>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>Constant name</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Value<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>MAX<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>5<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>Atom </span></br></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Scope<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:1'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Photo<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>5<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>seq<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>3<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Name<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>4<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Password<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>4<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>User<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>4<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Group<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>4<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Enumeration</br> <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>Report</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ALBUM_FULL<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>PHOTO_EXISTS<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NOT_AUTH<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>AUTH_FAILED<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ALREADY_LOGGED<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NO_SUCH_USER<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>WRONG_PASSWORD<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ALREADY_IN<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>MISSING_USERS<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>MISSING_USER<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>REM_OWNER<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>REM_OWNER_GROUP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NO_GROUP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NO_PHOTO<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>State variable</br> </span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Type<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:1'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>photoAt<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>seq Photo<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Name<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>set Name<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groups<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Name-&gt;Group<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>users<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Name-&gt;User<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>members<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Group-&gt;User<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>passwords<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>User-&gt; Password<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Photo-&gt;Group<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerGroupName<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Name<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>Invariant name</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+<!-- ----------- v-cells --------------------- -->
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Invariant<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Disjoint<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>#photoAt.elems = #photoAt<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Bounded size<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>#photoAt = 3<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>At most one logged in<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>lone loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Valid members<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>members in ran[groups]
+  -&gt;ran[users]<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Valid passwords<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>passwords in ran[users]
+  -&gt;one Password<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Valid Groups</br> <o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos in
+  Photo-&gt;ran[groups]<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>init</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OWNER:User,
+  OWNER_PASSWD:Password, OWNER_NAME:Name, OWNER_GROUP_NAME:Name,
+  OWNER_GROUP:Group<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>photoAt<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>none-&gt;none<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OWNER_NAME<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>none<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>passwords<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OWNER-&gt; OWNER_PASSWD<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>users<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OWNER_NAME -&gt;OWNER<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groups<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OWNER_GROUP_NAME-&gt;OWNER_GROUP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>members<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OWNER_GROUP-&gt;OWNER<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerGroupName<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OWNER_GROUP_NAME<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>addPhoto</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td rowspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>p?:Photo,
+  OWNER_GROUP:Group, report!:Report<b></br> </b><o:p></o:p></span></p>
+  </td>
+  <td colspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName in loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName !in loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td colspan=2 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>#photoAt &lt; 3<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>#photoAt &gt;= 3<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>p? !in ran[photoAt]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>p</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in ran[photoAt]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>photoAt<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>photoAt.add[</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>p?]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>PHOTO_EXISTS<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ALBUM_FULL<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>AUTH_FAILED<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos+</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>p? -&gt;OWNER_GROUP<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>viewPhoto</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>result!:set Photo,
+  report!:Report<b></br> </b><o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>one loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>no loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>result</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>photoAt.elems<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>none<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NOT_AUTH<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>login</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td rowspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>p?:Password, n?:Name,
+  report!:Report</br> <o:p></o:p></span></p>
+  </td>
+  <td colspan=2 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>no loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>some loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? <span class=GramE>in</span>
+  dom[users] and passwords[users[n?]] = p?<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? !in dom[users] or
+  passwords[users[n?]] != p?<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>loggedIn</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> + users[n?]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>AUTH_FAILED<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ALREADY_LOGGED<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>logout</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>none<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>updateUser</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td rowspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n?:Name,p?:Password,u?:User,report!:Report<o:p></o:p></span></p>
+  </td>
+  <td colspan=2 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName in loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName !in loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in dom[users]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? !in dom[users]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>u</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in User - ran[users]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </br></td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>users<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>users</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> +n? -&gt;u?<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>passwords<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>passwords</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> ++ (users[n?]-&gt;p?)<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>passwords</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> + (users[n?]-&gt;p?)<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NOT_AUTH<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>updateGroup</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td rowspan=4 valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n?:Name,ns?:set
+  Name,g?:Group,report!:Report<o:p></o:p></span></p>
+  </td>
+  <td colspan=4 valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>g</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in Group - ran[groups]</br>
+  <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td colspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName in loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName !in loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td colspan=2 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>ns</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in dom[users]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ns? !in dom[users]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in dom[groups]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? !in dom[groups]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groups<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groups<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>groups</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> + (n?-&gt;g?)<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>members<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>members</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> + (groups[n?]-&gt; <span
+  class=GramE>users[</span>ns?])<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>MISSING_USERS<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NOT_AUTH<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>removeUser</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td rowspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n?:Name,report!:Report<o:p></o:p></span></p>
+  </td>
+  <td colspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName in loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName !in loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td colspan=2 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in dom[users]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? !in dom[users]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? != ownerName<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? = ownerName<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>users<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>(Name-n?) &lt;: users<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>members<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>members</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> :&gt; (User-<span
+  class=GramE>users[</span>n?])<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>REM_OWNER<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>MISSING_USERS<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NOT_AUTH<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>removeGroup</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td rowspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n?:Name,report!:Report<o:p></o:p></span></p>
+  </td>
+  <td colspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName in loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName !in loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td colspan=2 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? != ownerGroupName <o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? != ownerGroupName <o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in dom[groups]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? !in dom[groups]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> :&gt; (Group - n?)<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>photoAt<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>squash[</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>photoAt :&gt;
+  groupPhotos.(Group-n?)]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NO_GROUP<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>REM_OWNER_GROUP<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NOT_AUTH<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
+display:none;mso-hide:all'><o:p>&nbsp;</o:p></span></p>
+
+</br>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='mso-cellspacing:0in;mso-yfti-tbllook:1184'>
+<!-- ----- name and conditions cells --------- -->
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>Operation</br> <o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='mso-fareast-font-family:"Times New Roman"'>updatePhotoGroup</span></b><span
+  style='mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+  <td valign=top style='padding:.75pt .75pt .75pt .75pt'></br></td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td rowspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>l</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>?:Int,n?:Name,report!:Report</br>
+  <o:p></o:p></span></p>
+  </td>
+  <td colspan=3 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName in loggedIn<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>ownerName !in loggedIn<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td colspan=2 style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>l</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in dom[photoAt]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>l? !in dom[photoAt]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>n</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>? in dom[groups]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>n? !in dom[groups]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>true<o:p></o:p></span></p>
+  </td>
+ </tr>
+<!-- ----------- v-cells --------------------- -->
+ <tr style='mso-yfti-irow:5'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>groupPhotos</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'> ++ photoAt[l?]-&gt; <span
+  class=GramE>groups[</span>n?]<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>=<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=GramE><span
+  style='mso-fareast-font-family:"Times New Roman"'>report</span></span><span
+  style='mso-fareast-font-family:"Times New Roman"'>!<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>OK<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NO_GROUP<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NO_PHOTO<o:p></o:p></span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-fareast-font-family:"Times New Roman"'>NOT_AUTH<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+</br></div>
+
+</body>
+
 </html>
